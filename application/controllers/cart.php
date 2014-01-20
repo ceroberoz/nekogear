@@ -8,6 +8,10 @@ class Cart extends CI_Controller{
 		//$this->load->library('cart');
 	}
 
+	function index(){
+		$this->load->view('produk/cart');
+	}
+
 	function add(){
 		$id 	  = $this->input->post('item_id');	// added via form hidden
 		$SKU 	  = $this->input->post('SKU'); 		// added via form hidden
@@ -30,7 +34,25 @@ class Cart extends CI_Controller{
 			);
 
 		$this->cart->insert($data);
-		echo "<pre>";
-		die(print_r($data, TRUE));
+		redirect('cart');
+		//echo "<pre>";
+		//die(print_r($data, TRUE));
+	}
+
+	function update($rowid){
+		$data = $this->cart->update(
+			array(
+               'rowid' => $rowid,
+               'qty'   => $this->input->post('qty')
+            )
+        );
+
+		$this->cart->update($data); 
+		redirect('cart');
+	}
+
+	function clear(){
+		$this->cart->destroy();
+		redirect('cart');
 	}
 }
