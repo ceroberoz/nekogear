@@ -28,36 +28,35 @@
 		    	</div>
 
 		        <div class="span6">
+		        	<div class="span6">
+		        		<!-- reserved for notices !-->
+		        	</div>
 		        <?php foreach($details as $row): ?>
 		        	<h1><?php echo $row->SKU;?></h1>
 		        	<small>
-		        		<?php echo $row->anime_origin;?> <i>feat</i>
-		        		<?php echo $row->character_name;?>
+		        		<?php echo $row->character_name;?> tees <i>from</i>
+		        		<?php echo $row->anime_origin;?> 
 		        	</small>
 		        	<hr />
 		        	<img src="<?php echo base_url().$row->image;?>" class="polaroid">
 		        	<blockquote>
 		        		<p><?php echo $row->notes;?></p>
 		        	</blockquote>
-		        	<div class="span6">
-		        		
-		        		<ul style="text-align:left">
-
-		        	</div>
-		        <?php endforeach;?>
+		        <?php endforeach;?>		        
 		        	<div class="span6">
 						<!-- reserved for comments !-->
 		        	</div>
 		        </div>
 		        <div class="span3">
-		        <button class="image-button primary">
+		        <div class="text-right">
+		        <button class="button primary">
 				    Login
-				    <i class="icon-user bg-cobalt"></i>
 				</button>
-				<button class="image-button warning">
+				<button class="button warning">
 				    Register
-				    <i class="icon-lines bg-amber"></i>
 				</button>
+			</div>
+				<div>
 				<div class="spacer"><p><br /></p></div>
 				<button class="command-button bg-white">
 				    <i class="icon-cart-2 on-left"></i>
@@ -119,6 +118,8 @@
 		        </div>
 		    </div>
 		</div>
-		
+	</div>
+		<div class="text-center" id="footer"><small>&copy; 2013 Nekogear Works - All Rights With The World</small></footer>
     </body>
+
 </html>

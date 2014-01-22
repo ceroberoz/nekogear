@@ -9,7 +9,11 @@ class Cart extends CI_Controller{
 	}
 
 	function index(){
-		$this->load->view('produk/cart');
+		if($this->cart->total_items() > 0){
+			$this->load->view('produk/cart');
+		}else{
+			redirect('');
+		}
 	}
 
 	function add(){
@@ -40,19 +44,32 @@ class Cart extends CI_Controller{
 	}
 
 	function update($rowid){
-		$data = $this->cart->update(
-			array(
+		$data = array(
                'rowid' => $rowid,
                'qty'   => $this->input->post('qty')
-            )
         );
 
 		$this->cart->update($data); 
-		redirect('cart');
+		//redirect('cart');
+		echo "<pre>";
+		die(print_r($data, TRUE));
 	}
 
 	function clear(){
 		$this->cart->destroy();
 		redirect('cart');
+	}
+
+	function delete($rowid) { 
+	    $data = array(
+	        'rowid'   => $rowid,
+	        'qty'     => 0
+	    );
+
+	    $this->cart->update($data);
+
+	    redirect('cart');
+	    //echo "<pre>";
+		//die(print_r($data, TRUE));
 	}
 }
