@@ -44,15 +44,28 @@ class Cart extends CI_Controller{
 	}
 
 	function update($rowid){
-		$data = array(
-               'rowid' => $rowid,
-               'qty'   => $this->input->post('qty')
-        );
-
-		$this->cart->update($data); 
+		if($_POST){
+			$data = $_POST;
+		}
+		$this->cart->update($data);
+		redirect('cart');
+		//$data = array(
+	    //        'rowid' => $rowid,
+	    //        'qty'   => $qty
+	    //);
+		
+		//$this->cart->update($data); 
+		
 		//redirect('cart');
-		echo "<pre>";
-		die(print_r($data, TRUE));
+		//echo "<pre>";
+		//die(print_r($data, TRUE));
+	}
+
+	function updatecart(){
+		$this->nekogear->validate_cart();
+		redirect('cart');
+		//echo "<pre>";
+		//die(print_r($data, TRUE));
 	}
 
 	function clear(){

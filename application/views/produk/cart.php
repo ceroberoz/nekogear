@@ -33,9 +33,9 @@
 		        		Silahkan periksa kembali tees yang akan kamu beli.
 		        	</small>
 		        	<!-- contents !-->
-		        	<?php $i = 1;?>
-						<?php foreach($this->cart->contents() as $items): ?>
-		        	<form method="post" action="cart/update/<?php echo $items['rowid'];?>">
+		        	
+		        	<!-- <form method="post" action="cart/update"> -->
+		        	<?php echo form_open('cart/update');?>
 					<table class="table">
 						<thead>
 						<tr>
@@ -48,7 +48,8 @@
 							<th></th>
 						</tr>
 						</thead>
-						
+						<?php $i = 1;?>
+						<?php foreach($this->cart->contents() as $items): ?>
 							<?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
 							<tbody>
 							<tr>
@@ -60,12 +61,11 @@
 									</ul></small>
 								</td>
 								<td><?php echo $items['category'];?></td>
-								<td><?php echo form_input(array('name' =>'[qty]', 'value' => $items['qty'], 'maxlength' => '2', 'size' => '3')); ?></th>
+								<td><?php echo form_input(array('name' =>$i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></th>
 								<td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-								<td style="text-align:right">IDR <?php echo $this->cart->format_number($items['subtotal']); ?></td>
-								<td>
+								<td style="text-align:right">IDR <?php echo $this->cart->format_number($items['subtotal']); ?></td>								<td>
 									<a href="cart/delete/<?php echo $items['rowid'];?>"><i class="icon-cancel"></i></a>
-								</th>
+								</td>
 							</tr>
 							</tbody>
 						<?php $i++;?>
@@ -79,9 +79,16 @@
 						<tr/>
 						</tfoot>
 					</table>
-					<input type="submit" name="submit" value="Perbarui Keranjang" />
+					
+					<!-- <input type="submit" name="submit" value="Perbarui Keranjang" /> !-->
+					<?php echo form_submit('','Perbarui Keranjang');
+						  //echo form_submit('cart/clear','Hapus Keranjang','class="danger"');
+						  //echo form_submit('cart/checkout','Checkout','class="default"');
+					?>
+					<?php //echo form_close();?>
 				</form>
 				<div id="command" class="text-right">
+					<!-- <a href=""><button class="warning">Update</button></a> -->
 					<a href="cart/clear"><button class="danger">Hapus Keranjang</button></a>
 					<a href="cart/checkout"><button class="default">Checkout</button></a>
 				</div>

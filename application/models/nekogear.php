@@ -46,4 +46,19 @@ class Nekogear extends CI_Model{
 			return array();
 		}
 	}
+
+	function validate_cart(){
+		$total 	= $this->cart->total_items();
+		
+		$item 	= $this->input->post('rowid');
+		$qty	= $this->input->post('qty');
+
+		for ($i=0;$i < $total;$i++){
+			$data = array(
+				'rowid' => $item[$i],
+				'qty' 	=> $qty[$i]);
+
+			$this->cart->update($data);
+		}
+	}
 }

@@ -1,5 +1,6 @@
 beli -> form validasi jika kategori = preorder
 beli -> redirect / js produk ditambah -> ke halaman asal
-cart -> modal view window
-cart -> update cart
+cart -> modal view window = skipped, ganti ke halaman baru
+cart -> remove cart = done
+cart -> update cart = skipped, lanjut ke checkout [TODAY] [DONE]
 cart -> checkout -> cek user login ->
