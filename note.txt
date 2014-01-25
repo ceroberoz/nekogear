@@ -4,3 +4,8 @@ cart -> modal view window = skipped, ganti ke halaman baru
 cart -> remove cart = done
 cart -> update cart = skipped, lanjut ke checkout [TODAY] [DONE]
 cart -> checkout -> cek user login ->
+====
+[JUMAT]
+> HMVC Ion Auth
+- login
+- page checkout

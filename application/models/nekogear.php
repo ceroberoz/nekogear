@@ -47,18 +47,57 @@ class Nekogear extends CI_Model{
 		}
 	}
 
-	function validate_cart(){
-		$total 	= $this->cart->total_items();
-		
-		$item 	= $this->input->post('rowid');
-		$qty	= $this->input->post('qty');
+	function cart_validate(){
+		$cart = $this->cart->contents();
+		foreach ($cart as $items):
+			$SKU	  = $items['name'];
+			$size 	  = $items['size'];
+			$color 	  = $items['colour'];
+			$quantity = $items['qty'];
 
-		for ($i=0;$i < $total;$i++){
-			$data = array(
-				'rowid' => $item[$i],
-				'qty' 	=> $qty[$i]);
+			$this->db->select('*')
+					 ->from('item')
+					 ->join('items','items.item_id = item.item_id')
+					 ->join('item_stock','item_stock.stock_id = items.stock_id')
+					 ->where('item.SKU',$SKU)
+					 ->where('item_stock.colour', $color)
+					 ->where('item_stock.size', $size)
+					 ->where('item_stock.stock_quantity <',$quantity);
 
-			$this->cart->update($data);
+			$query = $this->db->get();
+		endforeach;
+
+		if($query->num_rows() > 0){
+			return $query->result();
 		}
+		else{
+			return array();
+		}	
+	}
+
+	function info_checkout(){
+		$ionauth =	$this->ion_auth->user()->row();
+		$key = uniqid(); // ganti ke caps
+		$resi = strtoupper($key);
+		$cart = $this->cart->contents();
+		foreach($cart as $cartitem):
+			$this->order_id 	= $resi;
+			$this->order_date	= date('Y-m-d H:i:s');//date('D d-m-Y H:i:s A');
+			//$nama_d				= "$ionauth->first_name()"; // display
+			//$nama_b				= "$ionauth->last_name()";  // display
+			//$this->username		= "$ionauth->username()";
+			$this->status 		= "PENDING";
+
+			$this->SKU 			= $cartitem['name'];
+			$this->category		= $cartitem['category'];
+			$this->weight		= $cartitem['weight']*$cartitem['qty'];
+			$this->color		= $cartitem['colour'];
+			$this->size			= $cartitem['size'];
+			$this->price		= $cartitem['subtotal'];
+			$this->quantity		= $cartitem['qty'];
+
+			$this->db->insert('order', $this);
+			//$this->db->insert('order_details', $that);
+		endforeach;
 	}
 }

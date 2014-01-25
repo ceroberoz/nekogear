@@ -39,8 +39,6 @@ class Cart extends CI_Controller{
 
 		$this->cart->insert($data);
 		redirect('cart');
-		//echo "<pre>";
-		//die(print_r($data, TRUE));
 	}
 
 	function update($rowid){
@@ -49,24 +47,8 @@ class Cart extends CI_Controller{
 		}
 		$this->cart->update($data);
 		redirect('cart');
-		//$data = array(
-	    //        'rowid' => $rowid,
-	    //        'qty'   => $qty
-	    //);
-		
-		//$this->cart->update($data); 
-		
-		//redirect('cart');
-		//echo "<pre>";
-		//die(print_r($data, TRUE));
 	}
 
-	function updatecart(){
-		$this->nekogear->validate_cart();
-		redirect('cart');
-		//echo "<pre>";
-		//die(print_r($data, TRUE));
-	}
 
 	function clear(){
 		$this->cart->destroy();
@@ -85,4 +67,22 @@ class Cart extends CI_Controller{
 	    //echo "<pre>";
 		//die(print_r($data, TRUE));
 	}
+
+	function checkout(){ 
+	//	if (!$this->ion_auth->logged_in()){
+	//	
+	//		redirect('auth/login');
+	//	}
+	//	else{
+			if($this->nekogear->cart_validate()){
+				echo "Oops!";
+			}
+			else{
+				$data = $this->nekogear->info_checkout();
+				$this->cart->destroy();
+				redirect('produk/checkout');
+			}
+	//	}
+	}
+
 }
