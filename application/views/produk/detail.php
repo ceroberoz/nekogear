@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/metro-bootstrap.css">
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css">
-        <script src="<?php echo base_url();?>assets/js/jquery/jquery-2.0.3.js"></script>
-        <script src="<?php echo base_url();?>assets/js/jquery/jquery.ui.widget.min.js"></script>
-        <script src="<?php echo base_url();?>assets/min/metro.min.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery.ui.widget.min.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/min/metro.min.js"></script>
     </head>
     <body class="metro">
         <div class="grid">
@@ -44,6 +44,16 @@
 		        	</blockquote>
 		        <?php endforeach;?>		        
 		        	<div class="span6">
+		        		<h3>Jumlah Tersedia</h3>		        		
+						<table class="table">
+			        	<?php foreach($stocks as $row):?>
+			        	<tr>
+			        		<td><?php echo $row->colour;?></td>
+			        		<td><?php echo $row->size;?></td>
+			        		<td><?php echo $row->stock_quantity;?></td>
+			        	</tr>
+			        	<?php endforeach;?>
+			        	</table>
 						<!-- reserved for comments !-->
 		        	</div>
 		        </div>
@@ -72,8 +82,7 @@
 	        			<li>Tees Material : <?php echo $row->tees_material;?></li>
 	        			<li>Jenis Sablon : <?php echo $row->printing_material;?></li>
 	        			<li>Ukuran Sablon : <?php echo $row->printing_size;?></li>
-	        			<li>Berat : <?php echo $row->weight;?> Kg</li>
-	        			
+	        			<li>Berat : <?php echo $row->weight;?> Kg</li>	
 	        		</ul>
 	        		<small>Kategori <cite title="kategori"><?php echo $row->category;?></cite></small>
 					<?php endforeach;?></p>
@@ -88,7 +97,7 @@
 							</select>
 						</div>
 
-						<div class="input-control select">
+						<div id="ukuran" class="input-control select">
 							<label>Ukuran :</label>
 							<select class="size" name="d_size">
 							<?php foreach ($sizes as $row): ?>
@@ -96,12 +105,12 @@
 							<?php endforeach;?>
 							</select>
 						</div>
-
 							<?php foreach ($details as $row): ?>
-							<div class="input-control text">
+							<div id="jumlah" class="input-control text">
 								<label>Jumlah :</label>
 								<input type="text" name="quantity" size="3" />
 							</div>
+							
 							<?php $key = date('mdYhis', time());?>
 								<input type="hidden" name="item_id" value="<?php echo $key;?><?php echo $row->item_id;?>" />
 							<?php $key++;?>	

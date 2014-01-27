@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/metro-bootstrap.css">
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css">
-        <script src="<?php echo base_url();?>assets/js/jquery/jquery-2.0.3.js"></script>
-        <script src="<?php echo base_url();?>assets/js/jquery/jquery.ui.widget.min.js"></script>
-        <script src="<?php echo base_url();?>assets/min/metro.min.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery.ui.widget.min.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/min/metro.min.js"></script>
     </head>
     <body class="metro">
         <div class="grid">
@@ -28,10 +28,13 @@
 		    	</div>
 
 		        <div class="span9">
-		        	<h1>Keranjang Belanja</h1>
+		        	<h1>Keranjang Belanja</h1><hr />
 		        	<small>
-		        		Silahkan periksa kembali tees yang akan kamu beli.
-		        	</small>
+		        		<strong>PENTING!</strong><br />
+		        		Silahkan periksa kembali tees yang akan kamu beli, pastikan tidak ada kesalahan warna, ukuran dan jumlah.<br />
+		        		Kesalahan pesanan adalah kesalahan pembeli.<br />
+		        		Apabila setelah tujuh hari pesanan yang dibuat belum dibayar lunas maka pesanan di anggap batal.
+		        	</small><hr />
 		        	<!-- contents !-->
 		        	
 		        	<!-- <form method="post" action="cart/update"> -->
@@ -71,10 +74,17 @@
 						<?php $i++;?>
 						<?php endforeach;?>
 						<tfoot>
+						<?php $ongkir = $items['weight']*$this->cart->total_items()*10000;?>
+						<tr>
+							<td colspan="4" ></td>
+							<td class="right" style="text-align:right"><strong>Ongkos Kirim</strong></td>
+							<td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($ongkir); ?></td>
+							<td></td>
+						<tr/>
 						<tr>
 							<td colspan="4"></td>
 							<td class="right" style="text-align:right"><strong>Total</strong></td>
-							<td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($this->cart->total()); ?></td>
+							<td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($this->cart->total()+$ongkir); ?></td>
 							<td></td>
 						<tr/>
 						</tfoot>

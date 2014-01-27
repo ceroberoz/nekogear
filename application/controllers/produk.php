@@ -14,6 +14,9 @@ class Produk extends CI_Controller{
 		$data['colors']  = $this->nekogear->info_colors($id);
 		$data['sizes']	 = $this->nekogear->info_sizes();
 
+		$data['stocks'] = $this->nekogear->detail_stock($id);
+
 		$this->load->view('produk/detail',$data);
 	}
+
 }

@@ -16,29 +16,40 @@ class Cart extends CI_Controller{
 		}
 	}
 
+	function redirects(){
+		redirect($this->session->userdata('refered_from'));
+	}
+
 	function add(){
-		$id 	  = $this->input->post('item_id');	// added via form hidden
-		$SKU 	  = $this->input->post('SKU'); 		// added via form hidden
-		$category = $this->input->post('category');	// added via form hidden
-		$weight	  = $this->input->post('weight'); 	// added via form hidden
-		$price	  = $this->input->post('price'); 	// added via form hidden
-		$colour	  = $this->input->post('d_color'); 
-		$size	  = $this->input->post('d_size');
-		$quantity = $this->input->post('quantity');
+		if($this->nekogear->add_validate()){
+			$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
+			echo "<script language='javascript'>alert('Stok tidak mencukupi, silahkan cek kembali tabel stok kami.');
+			window.location='http://localhost/nekogear/index.php/cart/redirects'</script>";
+		}
+		else{
+			$id 	  = $this->input->post('item_id');	// added via form hidden
+			$SKU 	  = $this->input->post('SKU'); 		// added via form hidden
+			$category = $this->input->post('category');	// added via form hidden
+			$weight	  = $this->input->post('weight'); 	// added via form hidden
+			$price	  = $this->input->post('price'); 	// added via form hidden
+			$colour	  = $this->input->post('d_color'); 
+			$size	  = $this->input->post('d_size');
+			$quantity = $this->input->post('quantity');
 
-		$data = array(
-			'id' => $id,			 // default
-			'name' => $SKU, 		 // default
-			'category' => $category,
-			'weight' => $weight,
-			'price'	=> $price, 		 // default
-			'colour' => $colour,
-			'size'	=> $size,
-			'qty'	=> $quantity 	 // default
-			);
-
-		$this->cart->insert($data);
+			$data = array(
+				'id' => $id,			 // default
+				'name' => $SKU, 		 // default
+				'category' => $category,
+				'weight' => $weight,
+				'price'	=> $price, 		 // default
+				'colour' => $colour,
+				'size'	=> $size,
+				'qty'	=> $quantity 	 // default
+				);
+			$this->cart->insert($data);
 		redirect('cart');
+		}
+		
 	}
 
 	function update($rowid){
@@ -69,20 +80,22 @@ class Cart extends CI_Controller{
 	}
 
 	function checkout(){ 
-	//	if (!$this->ion_auth->logged_in()){
-	//	
-	//		redirect('auth/login');
-	//	}
-	//	else{
+		if (!$this->ion_auth->logged_in()){
+		
+			redirect('auth/login');
+		}
+		else{
 			if($this->nekogear->cart_validate()){
-				echo "Oops!";
+				$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
+				echo "<script language='javascript'>alert('Stok tidak mencukupi, silahkan cek kembali tabel stok kami.');
+				window.location='cart'</script>";
 			}
 			else{
 				$data = $this->nekogear->info_checkout();
 				$this->cart->destroy();
 				redirect('produk/checkout');
 			}
-	//	}
+		}
 	}
 
 }

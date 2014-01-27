@@ -47,6 +47,34 @@ class Nekogear extends CI_Model{
 		}
 	}
 
+	function add_validate(){
+		//$cart = $this->cart->contents();
+		//foreach ($cart as $items):
+		$idp = $this->input->post('SKU');
+		$idc = $this->input->post('d_color');
+		$ids = $this->input->post('d_size');
+		$idq = $this->input->post('quantity');
+
+		$this->db->select('item_stock.stock_quantity')
+				 ->from('items')
+				 ->join('item','item.item_id = items.item_id')
+				 ->join('item_stock','item_stock.stock_id = items.stock_id')
+				 ->where('item.SKU', $idp)
+				 ->where('item_stock.colour', $idc)
+				 ->where('item_stock.size', $ids)
+				 ->where('item_stock.stock_quantity <',$idq);
+
+		$query = $this->db->get();
+		//endforeach;
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
 	function cart_validate(){
 		$cart = $this->cart->contents();
 		foreach ($cart as $items):
@@ -55,7 +83,7 @@ class Nekogear extends CI_Model{
 			$color 	  = $items['colour'];
 			$quantity = $items['qty'];
 
-			$this->db->select('*')
+			$this->db->select('item_stock.stock_quantity')//select('*')
 					 ->from('item')
 					 ->join('items','items.item_id = item.item_id')
 					 ->join('item_stock','item_stock.stock_id = items.stock_id')
@@ -93,11 +121,54 @@ class Nekogear extends CI_Model{
 			$this->weight		= $cartitem['weight']*$cartitem['qty'];
 			$this->color		= $cartitem['colour'];
 			$this->size			= $cartitem['size'];
-			$this->price		= $cartitem['subtotal'];
+			$this->price		= $cartitem['subtotal']+$cartitem['weight']*$cartitem['qty']*10000;
 			$this->quantity		= $cartitem['qty'];
 
 			$this->db->insert('order', $this);
 			//$this->db->insert('order_details', $that);
 		endforeach;
+	}
+
+
+	function detail_stock($id){
+		$this->db->select('item_stock.colour,item_stock.size,item_stock.stock_quantity')
+				 ->from('items')
+				 ->join('item','item.item_id = items.item_id')
+				 ->join('item_stock','item_stock.stock_id = items.stock_id')
+				 ->where('item.item_id',$id);
+				 //->group_by('item_stock.colour');
+
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+
+
+		$something = $query->result();
+
+		foreach($something as $colors):
+			$ids	= $this->uri->segment(3);
+			$warna 	= $colors->colour;
+
+			$this->db->select('item_stock.colour,item_stock.size,item_stock.stock_quantity')
+					 ->from('items')
+					 ->join('item','item.item_id = items.item_id')
+					 ->join('item_stock','item_stock.stock_id = items.stock_id')
+					 ->where('item.item_id',$ids)
+					 ->where('item_stock.colour',$warna);
+
+			$query = $this->db->get();
+		endforeach;
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
 	}
 }

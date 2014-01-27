@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/metro-bootstrap.css">
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/custom.css">
-        <script src="<?php echo base_url();?>assets/js/jquery/jquery-2.0.3.js"></script>
-        <script src="<?php echo base_url();?>assets/js/jquery/jquery.ui.widget.min.js"></script>
-        <script src="<?php echo base_url();?>assets/min/metro.min.js"></script>
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery.ui.widget.min.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/min/metro.min.js"></script>
     </head>
     <body class="metro">
         <div class="grid">
