@@ -10,9 +10,12 @@ class Cart extends CI_Controller{
 
 	function index(){
 		if($this->cart->total_items() > 0){
+			$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
 			$this->load->view('produk/cart');
 		}else{
-			redirect('');
+			$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
+			echo "<script language='javascript'>alert('Anda belum memesan apa-apa.');
+			window.location='http://localhost/nekogear/index.php/cart/redirects'</script>";
 		}
 	}
 
@@ -47,7 +50,10 @@ class Cart extends CI_Controller{
 				'qty'	=> $quantity 	 // default
 				);
 			$this->cart->insert($data);
-		redirect('cart');
+		//redirect('cart');
+			$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
+			echo "<script language='javascript'>alert('$quantity buah tees $SKU telah ditambahkan ke cart');
+			window.location='http://localhost/nekogear/index.php/cart/redirects'</script>";
 		}
 		
 	}
@@ -63,20 +69,22 @@ class Cart extends CI_Controller{
 
 	function clear(){
 		$this->cart->destroy();
-		redirect('cart');
+		//redirect('cart');
+		echo "<script language='javascript'>alert('Pesanan dibatalkan.');
+			window.location='http://localhost/nekogear/index.php'</script>";
 	}
 
-	function delete($rowid) { 
-	    $data = array(
-	        'rowid'   => $rowid,
-	        'qty'     => 0
-	    );
+	function delete($rowid) {
+		    $data = array(
+		        'rowid'   => $rowid,
+		        'qty'     => 0
+		    );
 
-	    $this->cart->update($data);
+		    $this->cart->update($data);
 
-	    redirect('cart');
-	    //echo "<pre>";
-		//die(print_r($data, TRUE));
+		    redirect('cart');
+		    //echo "<pre>";
+			//die(print_r($data, TRUE));
 	}
 
 	function checkout(){ 

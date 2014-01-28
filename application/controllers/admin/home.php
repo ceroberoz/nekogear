@@ -9,13 +9,13 @@ class Home extends Admin_Controller{
 		$this->load->library('grocery_CRUD');
 	}
 
-	function index(){
-		// lorem ipsum dot amet..
-		$this->load->view('admin/home');
+	function index()
+	{
+		$this->adminpanel((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
 
 	function adminpanel($output=NULL){
-		$this->load->view('example.php',$output);
+		$this->load->view('cpanel/admin',$output);
 	}
 
 	// Manage Users
@@ -49,7 +49,7 @@ class Home extends Admin_Controller{
 			$crud = new grocery_CRUD();
 			$crud->set_theme('flexigrid');
 			$crud->set_table('users');
-			$crud->set_relation_n_n('group','users_groups','groups','user_id','group_id','name');
+			$crud->set_relation_n_n('groups','users_groups','groups','user_id','group_id','name');
 
 			if($operation == 'edit'){
 				$crud->fields('username','first_name','last_name','password','email','groupname','created_on','last_login','company','active');
@@ -78,7 +78,7 @@ class Home extends Admin_Controller{
 			$crud->set_rules('email','Email','required|valid_email');
 			$crud->columns('username','first_name','last_name','email','groupname','created_on','last_login','active');
 			$crud->callback_column('created_on',array($this,'datetime'));
-			$crud->callbacl_column('last_login',array($this,'datetime'));
+			$crud->callback_column('last_login',array($this,'datetime'));
 			$crud->change_field_type('last_login','readonly');
 			$crud->change_field_type('password','password');
 			$crud->change_field_type('ip_address','readonly');
@@ -89,7 +89,7 @@ class Home extends Admin_Controller{
 			$crud->callback_edit_field('created_on',array($this,'datetime'));
 			$crud->callback_edit_field('last_login',array($this,'datetime'));
 
-			$data['output'] = $crud->render();
+			$output = $crud->render();
 			//$this->gc_title = 'Pengelolaan Member';
 
 			//$this->layout->view($this->admin_dir).'gc_data/v_listdata',$data);

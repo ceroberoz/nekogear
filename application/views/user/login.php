@@ -12,7 +12,7 @@
         <div class="grid">
 		    <div class="row">
                 <h1 class="text-center">Login</h1><hr />
-                <p><?php echo $message;?></p>
+                </p><?php echo $this->session->flashdata('error');?></p>
                 <div class="span3">
                    <!-- empty !-->
                    <h1><a href="<?php echo base_url();?>"><i class="icon-arrow-left-3" style="color:black"></i></a></h1>
@@ -21,27 +21,17 @@
                     <img src="<?php echo base_url();?>assets/images/misc/login.png" class="shadow" style="margin:10px 0px 0px 0px">
                 </div>
 		    	<div class="span4">
-                    <?php echo form_open("auth/login");?>
+                    <?php echo form_open("public/auth/login");?>
                     <div class="input-control text">
                         <label>Email</label>
-                        <input type="text" id="identity" name="identity" placeholder="username@mail.com" />
+                        <input type="text" id="identity" value="" name="identity" placeholder="username@mail.com" />
                     </div>
                     <div class="spacer"><br /></div>
                     <div class="input-control text">
                         <label>Password</label>
-                        <input type="password" id="password" name="password" placeholder="password" />
+                        <input type="password" id="password" value="" name="password" placeholder="password" />
                     </div>
-                    <div class="spacer"><br /></div>
-                    <div class="input-control checkbox" id="remember" name="remember">
-                        <label>
-                        <input type="checkbox" />
-                        <span class="check"></span>
-                        Ingat saya?
-                        </label>
-                    </div>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="spacer"><br /></div>
                             <button class="primary">Masuk</button>                
                     <?php echo form_close();?>
 

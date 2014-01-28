@@ -3,39 +3,19 @@
 class Auth extends CI_Controller{
 	function __construct(){
 		parent::__construct();
-		$this->load->library('ion_auth');
-		//$this->load->library('form_validation');
 		$this->load->helper('url');
-
-		// Load MongoDB library instead of native db driver if required
-		$this->config->item('use_mongodb', 'ion_auth') ?
-		$this->load->library('mongo_db') :
-
-		$this->load->database();
-
-		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
-		$this->lang->load('auth');
-		$this->load->helper('language');
 	}
 
 	function index(){
-		if (!$this->ion_auth->logged_in()){
-			redirect('auth/login', 'refresh');
+		if(!$this->ion_auth->logged_in()){
+			$this->load->view('user/login');
 		}
 		else{
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['users'] = $this->ion_auth->users()->result();
-
-			foreach ($this->data['users'] as $k => $user){
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
-
-			$this->_render_page('auth/index', $this->data);
-		}
+			redirect('produk');
+		}	
 	}
 
-	function login(){
+	function login2(){
 		if($_POST){
 			$identity = $this->input->post('identity',true);
 			$password = $this->input->post('password',true);
@@ -43,18 +23,69 @@ class Auth extends CI_Controller{
 			if($this->ion_auth->login($identity,$password)){
 				//$user = $this->ion_auth->user()->row();
 				//redirect($user->group.'/home');
-				$user_group=$this->ion_auth->get_users_groups()->row();
+				$user_group = $this->ion_auth->get_users_groups()->row();
 				redirect($user_group->name.'/home');
 			}
 			else{
-				$this->session->set_flashdata('error', 'Login Gagal!');
+				$this->session->set_flashdata('error', 'Login gagal. Mungkin email atau passwordnya salah, apalah.');
 			}
 		}
-		redirect('/');
+		redirect('produk');
 	}
+
+	function login(){
+	//$this->data['title'] = "Login";
+
+	//validate form input
+	$this->form_validation->set_rules('identity', 'Identity', 'required');
+	$this->form_validation->set_rules('password', 'Password', 'required');
+
+	if ($this->form_validation->run() == true)
+	{
+		//check to see if the user is logging in
+		//check for "remember me"
+		$remember = (bool) $this->input->post('remember');
+
+		if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
+		{
+			//if the login is successful
+			//redirect them back to the home page
+			$user_group = $this->ion_auth->get_users_groups()->row();
+			redirect($user_group->name.'/home');
+			//$this->session->set_flashdata('message', $this->ion_auth->messages());
+			//redirect('/', 'refresh');
+		}
+		else
+		{
+			//if the login was un-successful
+			//redirect them back to the login page
+			$this->session->set_flashdata('message', $this->ion_auth->errors());
+			//$this->session->set_flasdata('message','Login gagal. Mungkin email atau passwordnya salah, apalah.');
+			redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+		}
+	}
+	else
+	{
+		//the user is not logging in so display the login page
+		//set the flash data error message if there is one
+		$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+		$this->data['identity'] = array('name' => 'identity',
+			'id' => 'identity',
+			'type' => 'text',
+			'value' => $this->form_validation->set_value('identity'),
+		);
+		$this->data['password'] = array('name' => 'password',
+			'id' => 'password',
+			'type' => 'password',
+		);
+
+		$this->_render_page('auth/login', $this->data);
+	}
+}
 
 	function logout(){
 		$this->ion_auth->logout();
-		redirect('/');
+		redirect('produk');
 	}
 }

@@ -9,6 +9,9 @@ class Admin_Controller extends CI_Controller{
 		if ($this->ion_auth->is_admin()){
 			$this->the_user = $this->ion_auth->user()->row();
 
+			$data = new stdClass();
+			$data->success = false;
+
 			$data->the_user = $this->the_user;
 			$this->load->vars($data);
 		}
@@ -18,7 +21,7 @@ class Admin_Controller extends CI_Controller{
 	}
 }
 
-class User_Controller extends CI_Controller{
+class Members_Controller extends CI_Controller{
 	protected $the_user;
 
 	public function __construct(){
@@ -26,6 +29,9 @@ class User_Controller extends CI_Controller{
 
 		if ($this->ion_auth->in_group('members')){
 			$this->the_user = $this->ion_auth->user()->row();
+
+			$data = new stdClass();
+			$data->success = false;
 
 			$data->the_user = $this->the_user;
 			$this->load->vars($data);

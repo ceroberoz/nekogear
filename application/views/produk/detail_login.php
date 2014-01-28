@@ -35,7 +35,7 @@
 							</ul>
 					    </item>
 					    <item class="element">tentang</item>
-					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth">login</a></item>
+					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></item>
 					    <script type="text/javascript">
 					    </script>
 					    <item class="element place-right">daftar</item>

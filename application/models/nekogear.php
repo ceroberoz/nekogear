@@ -1,9 +1,56 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Nekogear extends CI_Model{
+
+	function all_product(){
+		//$this->db->select('*')
+		//		 ->from('item');
+				 //->join('category','category.category = item.category')
+				 //->where('item.item_id',$id);
+		$query = $this->db->get('item');
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
+	function pre_product(){
+		$this->db->select('*')
+				 ->from('item')
+				 //->join('category','category.category = item.category')
+				 ->where('item.category','Pre Order');
+		$query = $this->db->get('');
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
+	function ready_product(){
+		$this->db->select('*')
+				 ->from('item')
+				 //->join('category','category.category = item.category')
+				 ->where('item.category','Ready Stock');
+		$query = $this->db->get('');
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
 	function info_item($id){
 		$this->db->select('*')
 				 ->from('item')
+				 ->join('category','category.category = item.category')
 				 ->where('item.item_id',$id);
 		$query = $this->db->get();
 
@@ -113,7 +160,7 @@ class Nekogear extends CI_Model{
 			$this->order_date	= date('Y-m-d H:i:s');//date('D d-m-Y H:i:s A');
 			//$nama_d				= "$ionauth->first_name()"; // display
 			//$nama_b				= "$ionauth->last_name()";  // display
-			//$this->username		= "$ionauth->username()";
+			//$this->username		= "$ionauth->username";
 			$this->status 		= "PENDING";
 
 			$this->SKU 			= $cartitem['name'];
@@ -160,6 +207,7 @@ class Nekogear extends CI_Model{
 					 ->join('item_stock','item_stock.stock_id = items.stock_id')
 					 ->where('item.item_id',$ids)
 					 ->where('item_stock.colour',$warna);
+					 //->order_by('item_stock.colour','random');
 
 			$query = $this->db->get();
 		endforeach;
