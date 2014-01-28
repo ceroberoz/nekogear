@@ -15,7 +15,7 @@
 		    <div class="row">
 		    	<nav class="navigation-bar dark">
 				    <nav class="navigation-bar-content">
-					    <item class="element">Nekogear Works
+					    <item class="element"><i class="icon-github-4"></i>&nbsp;Nekogear Works
 					    </item>
 					    <item class="element-divider"></item>
 					    <item class="element"><a href="<?php echo base_url();?>">beranda</a></item>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <TITLE>Distro Nekogear Works | Keranjang Belanja</TITLE>
         <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
         <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
@@ -78,14 +79,15 @@
                                         </table>
                                         
                                         <!-- <input type="submit" name="submit" value="Perbarui Keranjang" /> !-->
-                                        <?php echo form_submit('','Perbarui Keranjang');
+                                        <?php //echo form_submit('','Perbarui Keranjang');
                                                  //echo form_submit('cart/clear','Hapus Keranjang','class="danger"');
                                                  //echo form_submit('cart/checkout','Checkout','class="default"');
                                         ?>
-                                        <?php //echo form_close();?>
-                                </form>
+                                        <?php echo form_close();?>
+      
                                 <div id="command" class="text-right">
                                         <!-- <a href=""><button class="warning">Update</button></a> -->
+                                        <a href="cart/redirects"><button class="primary">Kembali Belanja</button></a>
                                         <a href="cart/clear"><button class="danger">Hapus Keranjang</button></a>
                                         <a href="cart/checkout"><button class="default">Checkout</button></a>
                                 </div>

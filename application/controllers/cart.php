@@ -60,12 +60,11 @@ class Cart extends CI_Controller{
 
 	function update($rowid){
 		if($_POST){
-			$data = $_POST;
-		}
-		$this->cart->update($data);
-		redirect('cart');
-	}
-
+            $data = $_POST;
+        }
+        $this->cart->update($data);
+        redirect('cart');
+    }
 
 	function clear(){
 		$this->cart->destroy();
@@ -96,11 +95,11 @@ class Cart extends CI_Controller{
 			if($this->nekogear->cart_validate()){
 				$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
 				echo "<script language='javascript'>alert('Stok tidak mencukupi, silahkan cek kembali tabel stok kami.');
-				window.location='cart'</script>";
+				window.location='http://localhost/nekogear/index.php/cart/redirects'</script>";
 			}
 			else{
 				$data = $this->nekogear->info_checkout();
-				$this->cart->destroy();
+				$this->cart->destroy(); // destroy?
 				redirect('produk/checkout');
 			}
 		}

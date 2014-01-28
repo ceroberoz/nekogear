@@ -160,7 +160,7 @@ class Nekogear extends CI_Model{
 			$this->order_date	= date('Y-m-d H:i:s');//date('D d-m-Y H:i:s A');
 			//$nama_d				= "$ionauth->first_name()"; // display
 			//$nama_b				= "$ionauth->last_name()";  // display
-			//$this->username		= "$ionauth->username";
+			$this->username		= "$ionauth->username";
 			$this->status 		= "PENDING";
 
 			$this->SKU 			= $cartitem['name'];
@@ -175,7 +175,6 @@ class Nekogear extends CI_Model{
 			//$this->db->insert('order_details', $that);
 		endforeach;
 	}
-
 
 	function detail_stock($id){
 		$this->db->select('item_stock.colour,item_stock.size,item_stock.stock_quantity')
