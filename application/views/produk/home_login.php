@@ -33,10 +33,15 @@
 							</ul>
 					    </item>
 					    <item class="element">tentang</item>
-					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></item>
-					    <script type="text/javascript">
-					    </script>
-					    <item class="element place-right">daftar</item>
+					    <item class="element place-right">
+					    	<a class="dropdown-toggle" href="#"><?php $user = $this->ion_auth->user()->row();?><?php echo $user->first_name;?>&nbsp;<?php echo $user->last_name;?></a>
+							<ul class="dropdown-menu" data-role="dropdown">
+								<li><a href="#">Profil</a></li>
+								<li><a href="#">Daftar Pesanan</a></li>
+								<li><a href="#">Pembayaran</a></li>
+								<li><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></li>
+							</ul>
+					    </item>
 				    </nav>
 			    </nav>
 			    <div class="spacer"><p><br /></p></div>

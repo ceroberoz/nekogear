@@ -12,6 +12,7 @@ class Produk extends CI_Controller{
 			$data['details'] = $this->nekogear->all_product();
 			$this->load->view('produk/home',$data);
 		}else{
+			$data['user'] = $this->ion_auth->get_users_groups()->row();
 			$data['details'] = $this->nekogear->all_product();
 			$this->load->view('produk/home_login',$data);
 		}
@@ -32,7 +33,7 @@ class Produk extends CI_Controller{
 			$data['details'] = $this->nekogear->ready_product();
 			$this->load->view('produk/home_ready',$data);
 		}else{
-			$data['details'] = $this->nekogear->readt_product();
+			$data['details'] = $this->nekogear->ready_product();
 			$this->load->view('produk/home_ready_login',$data);
 		}
 	}
