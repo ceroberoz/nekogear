@@ -100,7 +100,7 @@ class Cart extends CI_Controller{
 			else{
 				$data = $this->nekogear->info_checkout();
 				$this->cart->destroy(); // destroy?
-				redirect('produk/checkout');
+				$this->load->view('produk/checkout',$data);
 			}
 		}
 	}

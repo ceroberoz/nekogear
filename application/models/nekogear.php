@@ -2,6 +2,20 @@
 
 class Nekogear extends CI_Model{
 
+	function get_cities(){
+		$this->db->select('name')
+				 ->from('default_cities');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+
+	}
+
 	function all_product(){
 		//$this->db->select('*')
 		//		 ->from('item');
@@ -160,7 +174,7 @@ class Nekogear extends CI_Model{
 			$this->order_date	= date('Y-m-d H:i:s');//date('D d-m-Y H:i:s A');
 			//$nama_d				= "$ionauth->first_name()"; // display
 			//$nama_b				= "$ionauth->last_name()";  // display
-			$this->username		= "$ionauth->username";
+			$this->email		= "$ionauth->email";
 			$this->status 		= "PENDING";
 
 			$this->SKU 			= $cartitem['name'];

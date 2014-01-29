@@ -1,46 +1,110 @@
-<h1><?php echo lang('create_user_heading');?></h1>
-<p><?php echo lang('create_user_subheading');?></p>
+<!DOCTYPE html>
+<html>
+    <head>
+      <TITLE>Distro Nekogear Works | Registrasi Member</TITLE>
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery.ui.widget.min.js"></script>
+        <script src="<?php echo base_url();?>assets/metroui/min/metro.min.js"></script>
+    </head>
+    <body class="metro">
+        <div class="grid">
+                <div class="row">
+                <h1><a href="<?php echo base_url();?>"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Registrasi Member</h1>
+                <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    silahkan mengisi form pendaftaran berikut untuk registrasi akun di Distro Nekogear Works.</small>
+                <hr />
+                <p><?php echo $message;?></p>
 
-<div id="infoMessage"><?php echo $message;?></div>
+                <div class="span3">
+                   <!-- empty !-->
+                    <?php echo form_open("auth/create_user");?>
+                    <div class="input-control text">
+                        <label>Email
+                        <input type="text" id="email" name="email" placeholder="username@mail.com" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Password
+                        <input type="password" id="password" name="password" placeholder="password" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Konfirmasi Password
+                        <input type="password" id="password_confirm" name="password_confirm" placeholder="password" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                </div>
+                  <div class="span3">
+                    <div class="input-control text">
+                        <label>Nama Depan
+                        <input type="text" id="first_name" name="first_name" placeholder="Marco" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Nama Belakang
+                        <input type="text" id="last_name" name="last_name" placeholder="Polo" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Alamat
+                        <input type="text" id="address" name="address" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control select">
+                        <label>Kota
+                        <!-- <input type="text" id="city" name="city" /> -->
+                        <?php $query = $this->db->query("select name from default_cities;");?>
+                        <select class="city" name="city">
+                            <?php foreach($query->result_array() as $city):?>
+                                <option value="<?php echo $city['name'];?>"><?php echo $city['name'];?></option>
+                            <?php endforeach;?>
+                        </select>
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Kode POS
+                        <input type="text" id="postal_code" name="postal_code" placeholder="16XXX" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>No. Handphone
+                        <input type="text" id="phone" name="phone" placeholder="085780909XXX" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br />
+                         
+                    </div>
+                    
 
-<?php echo form_open("auth/create_user");?>
+                </div>
+                <div class="span1">
+                    <!-- empty !-->
+                </div>
+                <div class="span4">
+                    <div class="notice bg-amber fg-white">
+                        <h3>Penting!</h3><hr />
+                        <p>Data yang anda berikan akan didaftarkan pada sistem Distro Nekogear Works, lanjutkan?</p>
+                        <button class="primary">Ya, buat akun saya</button> 
+                            <?php echo form_close();?>
+                            <a href="http://localhost/nekogear"><button class="danger">Tidak, batalkan</button></a>
+       
 
-      <p>
-            <?php echo lang('create_user_fname_label', 'first_name');?> <br />
-            <?php echo form_input($first_name);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_lname_label', 'last_name');?> <br />
-            <?php echo form_input($last_name);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_company_label', 'company');?> <br />
-            <?php echo form_input($company);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_email_label', 'email');?> <br />
-            <?php echo form_input($email);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_phone_label', 'phone');?> <br />
-            <?php echo form_input($phone);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_password_label', 'password');?> <br />
-            <?php echo form_input($password);?>
-      </p>
-
-      <p>
-            <?php echo lang('create_user_password_confirm_label', 'password_confirm');?> <br />
-            <?php echo form_input($password_confirm);?>
-      </p>
-
-
-      <p><?php echo form_submit('submit', lang('create_user_submit_btn'));?></p>
-
-<?php echo form_close();?>
+                    </div>
+                </div>
+                  </div>
+            <div class="text-center" id="footer">
+                  <small>&copy; 2013 Nekogear Works - All Rights With The World</small>
+            </div>
+    </body>
+</html>
