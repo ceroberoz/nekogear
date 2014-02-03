@@ -445,14 +445,17 @@ class Auth extends CI_Controller {
 			//check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
-			//echo "<script language='javascript'>alert('Akun telah dibuat, silahkan login menggunakan email & password anda.');
-			//window.location='http://localhost/nekogear/index.php'</script>";
+			//redirect("auth", 'refresh');
+			echo "<script language='javascript'>alert('Akun telah dibuat, silahkan login menggunakan email & password anda.');
+			window.location='http://localhost/nekogear/index.php/auth/login'</script>";
 		}
 		else
 		{
 			//display the create user form
 			//set the flash data error message if there is one
+			$this->load->model('nekogear');
+			$this->data['kota'] = $this->nekogear->get_cities();
+
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
 			$this->data['first_name'] = array(

@@ -36,7 +36,7 @@
 					    </item>
 					    <item class="element">tentang</item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth">login</a></item>
-					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/create_user">daftar</item>
+					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/create_user">daftar</a></item>
 				    </nav>
 			    </nav>
 		        <div class="span6">
@@ -130,6 +130,13 @@
 								<input type="hidden" name="price" value="<?php echo $row->price;?>" />
 							<?php endforeach;?>
 							<div class="spacer"><p><br /></p></div>
+
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
 						<div class="input-control button default">
 							<button class="default" id="addtocart">Beli</button>											
 						</div>

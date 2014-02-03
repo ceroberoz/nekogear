@@ -100,7 +100,9 @@ class Cart extends CI_Controller{
 			else{
 				$data = $this->nekogear->info_checkout();
 				$this->cart->destroy(); // destroy?
-				$this->load->view('produk/checkout',$data);
+				//$this->load->view('produk/checkout',$data);
+				echo "<script language='javascript'>alert('Pesanan telah kami terima, silahkan cek menu Transaksi pada sub-menu user.');
+				window.location='http://localhost/nekogear'</script>";
 			}
 		}
 	}

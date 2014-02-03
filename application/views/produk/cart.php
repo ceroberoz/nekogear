@@ -30,13 +30,13 @@
                                         <table class="table">
                                                 <thead>
                                                 <tr>
-                                                        <th>SKU</th>
-                                                        <th>Info Tees</th>
-                                                        <th>Kategori</th>
-                                                        <th>QTY</th>
-                                                        <th style="text-align:right">Harga</th>
-                                                        <th style="text-align:right">Sub-Total</th>
-                                                        <th></th>
+                                                    <th>SKU</th>
+                                                    <th>Info Tees</th>
+                                                    <th>Kategori</th>
+                                                    <th>QTY</th>
+                                                    <th style="text-align:right">Harga</th>
+                                                    <th style="text-align:right">Sub-Total</th>
+                                                    <th></th>
                                                 </tr>
                                                 </thead>
                                                 <?php $i = 1;?>
@@ -44,19 +44,22 @@
                                                         <?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
                                                         <tbody>
                                                         <tr>
-                                                                <td><?php echo $items['name'];?></td>
-                                                                <td style="text-align:left"><small>
-                                                                        <ul><li>Warna: <?php echo $items['colour'];?></li>
-                                                                                <li>Ukuran: <?php echo $items['size'];?></li>
-                                                                                <li>Berat: <?php echo $items['weight'];?> Kg</li>
-                                                                        </ul></small>
-                                                                </td>
-                                                                <td><?php echo $items['category'];?></td>
-                                                                <td><?php echo form_input(array('name' =>$i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></th>
-                                                                <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-                                                                <td style="text-align:right">IDR <?php echo $this->cart->format_number($items['subtotal']); ?></td>                                                                <td>
-                                                                        <a href="cart/delete/<?php echo $items['rowid'];?>" style="color:red"><i class="icon-cancel"></i></a>
-                                                                </td>
+                                                            <td><?php echo $items['name'];?></td>
+                                                            <td style="text-align:left">
+                                                                <small>
+                                                                    <ul>
+                                                                        <li>Warna: <?php echo $items['colour'];?></li>
+                                                                        <li>Ukuran: <?php echo $items['size'];?></li>
+                                                                        <li>Berat: <?php echo $items['weight'];?> Kg</li>
+                                                                    </ul>
+                                                                </small>
+                                                            </td>
+                                                            <td><?php echo $items['category'];?></td>
+                                                            <td><?php echo form_input(array('name' =>$i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></th>
+                                                            <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
+                                                            <td style="text-align:right">IDR <?php echo $this->cart->format_number($items['subtotal']); ?></td>                                                                <td>
+                                                                    <a href="cart/delete/<?php echo $items['rowid'];?>" style="color:red"><i class="icon-cancel"></i></a>
+                                                            </td>
                                                         </tr>
                                                         </tbody>
                                                 <?php $i++;?>
@@ -64,16 +67,17 @@
                                                 <tfoot>
                                                 <?php $ongkir = $items['weight']*$this->cart->total_items()*10000;?>
                                                 <tr>
-                                                        <td colspan="4" ></td>
-                                                        <td class="right" style="text-align:right"><strong>Ongkos Kirim</strong></td>
-                                                        <td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($ongkir); ?></td>
-                                                        <td></td>
+                                                    <td colspan="4" ></td>
+                                                    <td class="right" style="text-align:right"><strong>Ongkos Kirim</strong></td>
+                                                    <td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($ongkir); ?></td>                                                                                      
+                                                    <td></td>
                                                 <tr/>
                                                 <tr>
-                                                        <td colspan="4"></td>
-                                                        <td class="right" style="text-align:right"><strong>Total</strong></td>
-                                                        <td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($this->cart->total()+$ongkir); ?></td>
-                                                        <td></td>
+                                                    <td colspan="4"></td>
+                                                    <td class="right" style="text-align:right"><strong>Total</strong></td>
+                                                    <?php $totals = $this->cart->total()+$ongkir;?>
+                                                    <td class="right" style="text-align:right">IDR <?php echo $this->cart->format_number($totals); ?></td>                                                     
+                                                    <td></td>
                                                 <tr/>
                                                 </tfoot>
                                         </table>
@@ -89,7 +93,7 @@
                                         <!-- <a href=""><button class="warning">Update</button></a> -->
                                         <a href="cart/redirects"><button class="primary">Kembali Belanja</button></a>
                                         <a href="cart/clear"><button class="danger">Hapus Keranjang</button></a>
-                                        <a href="cart/checkout"><button class="default">Checkout</button></a>
+                                        <a href="cart/checkout"><button class="default">Checkout</button></a>                 
                                 </div>
                                 
 

@@ -11,7 +11,11 @@
     <body class="metro">
         <div class="grid">
 		    <div class="row">
-                <h1><a href="<?php echo base_url();?>"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Login</h1><hr />
+                <h1><a href="<?php echo base_url();?>"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Login</h1>
+                <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    silahkan login terlebih dahulu untuk bertransaksi di Distro Nekogear Works.</small>
+                <hr />
                 <p><?php echo $message;?></p>
                 <div class="span3">
                    <!-- empty !-->

@@ -62,9 +62,8 @@
                     <div class="input-control select">
                         <label>Kota
                         <!-- <input type="text" id="city" name="city" /> -->
-                        <?php $query = $this->db->query("select name from default_cities;");?>
                         <select class="city" name="city">
-                            <?php foreach($query->result_array() as $city):?>
+                            <?php foreach($kota as $city):?>
                                 <option value="<?php echo $city['name'];?>"><?php echo $city['name'];?></option>
                             <?php endforeach;?>
                         </select>
