@@ -379,79 +379,53 @@ class Nekogear extends CI_Model{
 		$this->db->where('order_id',$oid);
 		$this->db->update('order',$order);
 
+		// update tabel stok
 		// ambil input
 		$color 	= $this->input->post('color');
 		$size	= $this->input->post('size');
-		$new_qty = $this->input->post('i_qty');
+		$new_qty = $this->input->post('qty_i');
 		$SKU 	 = $this->input->post('SKU');
 		$data['new_qty'] = $new_qty;
 		// ambil stock asli
 		if($new_qty !=0 || $new_qty !=' '){
-			$stok = $this->db->select('item.SKU, item_stock.stock_quantity')
-							 ->from('item')
-							 ->join('items','items.item_id = item.item_id')
-							 ->join('item_stock','item_stock.stock_id = items.stock_id')
-							 ->where('item.SKU',$SKU)
-							 ->where('item_stock.colour', $color)
-							 ->where('item_stock.size', $size)->get()->row();
-
-					// update tabel stock
-					if($new_qty > $stok->stock_quantity){
-						echo 'Stok tidak mencukupi';
-					}else{
-						$datas['stock_quantity'] = $stok->stock_quantity - $new_qty;
-						$this->db->join('item','item.item_id = items.item_id')
-							 	 ->join('items','items.item_id = item.item_id')
-								 ->join('item_stock','item_stock.stock_id = items.stock_id')
-								 ->join('order_detail','order_detail.SKU = item.SKU')
-								 ->where('order_detail.order_id',$oid)
-							 	 ->where('item.SKU',$SKU)
-								 ->where('item_stock.colour', $color)
-								 ->where('item_stock.size', $size);
-						$this->db->update('item_stock',$datas);
-					}
+		$stok = $this->db->select('item.SKU, item_stock.stock_quantity, item.category')
+						 ->from('item')
+						 ->join('items','items.item_id = item.item_id')
+						 ->join('item_stock','item_stock.stock_id = items.stock_id')
+						 ->where('item.SKU',$SKU)
+						 ->where('item_stock.colour', $color)
+						 ->where('item_stock.size', $size)
+						 ->get()
+						 ->row();
+			//foreach($stok as $stock):
+			if($stok->category == "Pre Order"){
+				$melon = $stok->stock_quantity + $new_qty;
+				$query = $this->db->query("UPDATE item_stock
+											LEFT JOIN items ON items.stock_id = item_stock.stock_id
+											LEFT JOIN item ON item.item_id = items.item_id
+											LEFT JOIN order_detail ON order_detail.SKU = item.SKU
+											SET item_stock.stock_quantity = $melon
+											WHERE order_detail.order_id = '$oid'
+											AND item.SKU = '$SKU'
+											AND item_stock.colour = '$color'
+											AND item_stock.size ='$size'");
+			}
+			elseif($new_qty > $stok->stock_quantity){
+					echo 'Stok tidak mencukupi';
+			}else{
+				$melon = $stok->stock_quantity - $new_qty;
+				$query = $this->db->query("UPDATE item_stock
+											LEFT JOIN items ON items.stock_id = item_stock.stock_id
+											LEFT JOIN item ON item.item_id = items.item_id
+											LEFT JOIN order_detail ON order_detail.SKU = item.SKU
+											SET item_stock.stock_quantity = $melon
+											WHERE order_detail.order_id = '$oid'
+											AND item.SKU = '$SKU'
+											AND item_stock.colour = '$color'
+											AND item_stock.size ='$size'");
+			}
+			//endforeach;
 		}
-
-		// update tabel stock
-
-		// ambil SKU
-		//$this->db->select('SKU')
-		//		 ->from('order_detail')
-		//		 ->where('order_id',$oid);
-		//$query = $this->db->get();
-
-		//if($query->num_rows() > 0){
-		//	return $query->result();
-		//}
-		//else{
-		//	return array();
-		//}
-
-		//$pocky = $query->result();
-		//foreach($pocky as $row):
-		//$SKU     = $this->input->post('SKU');
-		//$color 	 = $this->input->post('color');
-		//$size  	 = $this->input->post('size');
-		//$new_qty = $this->input->post('qty_i');
-
-		//$this->db->join('order_detail','order_detail.SKU = item.SKU')
-		//	 	 ->join('items','items.item_id = item.item_id')
-		//	 	 ->join('item_stock','item_stock.stock_id = items.stock_id')
-		//	 	 ->where('item.SKU',$SKU)
-		//	 	 ->where('item_stock.colour',$color)
-		//	 	 ->where('item_stock.size',$size)
-		//	 	 ->set('stock_quantity','stock_quantity - $new_qty',FALSE);
-
-		//$this->db->join('order_detail','order_detail.SKU = item.SKU','LEFT')
-		//		 ->join('item','item.item_id = items.item_id','LEFT')
-		//		 ->join('items','items.stock_id = item_stock.stock.id','LEFT')
-		//		 ->set('item_stock.stock_quantity','item_stock.stock_quantity - $new_qty',FALSE)
-		//		 ->where('item.SKU',$SKU)
-		//		 ->where('item_stock.colour',$color)
-		//		 ->where('item_stock.size',$size);
-
-		//$this->db->update('item_stock');
-		//endforeach;
 	}
 
 	function confirm_delete(){
