@@ -33,13 +33,14 @@
 							</ul>
 					    </item>
 					    <item class="element">tentang</item>
+					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/cart"><i class="icon-cart-2"></i>&nbsp;<?php echo $this->cart->total_items();?> tees</a></item>
 					    <item class="element place-right">
 					    	<a class="dropdown-toggle" href="#"><?php $user = $this->ion_auth->user()->row();?><?php echo $user->first_name;?>&nbsp;<?php echo $user->last_name;?></a>
 							<ul class="dropdown-menu" data-role="dropdown">
 								<li><a href="#">Profil</a></li>
-								<li><a href="#">Daftar Pesanan</a></li>
-								<li><a href="#">Pembayaran</a></li>
-								<li><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></li>
+								<li><a href="<?php echo base_url();?>index.php/order">Transaksi</a></li>
+								<!-- <li><a href="#">Pembayaran</a></li> -->
+								<li><a href="<?php echo base_url();?>index.php/auth/logout">Logout</a></li>
 							</ul>
 					    </item>
 				    </nav>

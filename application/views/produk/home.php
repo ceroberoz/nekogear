@@ -33,6 +33,7 @@
 							</ul>
 					    </item>
 					    <item class="element">tentang</item>
+					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/cart"><i class="icon-cart-2"></i>&nbsp;<?php echo $this->cart->total_items();?> tees</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth">login</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/create_user">daftar</a></item>
 				    </nav>

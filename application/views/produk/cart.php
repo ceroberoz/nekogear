@@ -47,11 +47,9 @@
                                                             <td><?php echo $items['name'];?></td>
                                                             <td style="text-align:left">
                                                                 <small>
-                                                                    <ul>
-                                                                        <li>Warna: <?php echo $items['colour'];?></li>
-                                                                        <li>Ukuran: <?php echo $items['size'];?></li>
-                                                                        <li>Berat: <?php echo $items['weight'];?> Kg</li>
-                                                                    </ul>
+                                                                   Warna: <?php echo $items['colour'];?></br>
+                                                                   Ukuran: <?php echo $items['size'];?></br>
+                                                                   Berat: <?php echo $items['weight'];?> Kg
                                                                 </small>
                                                             </td>
                                                             <td><?php echo $items['category'];?></td>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2014 at 06:53 PM
+-- Generation Time: Feb 05, 2014 at 04:35 PM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -62,7 +62,13 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('b506a885014adcfff0e46c776d6777ec', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0', 1391449384, 'a:6:{s:12:"refered_from";s:51:"http://localhost/nekogear/index.php/produk/detail/1";s:8:"identity";s:19:"ceroberoz@gmail.com";s:8:"username";s:12:"perdana hadi";s:5:"email";s:19:"ceroberoz@gmail.com";s:7:"user_id";s:1:"2";s:14:"old_last_login";s:10:"1391415484";}');
+('1175789add0d781955497d1457177785', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1391579561, ''),
+('28c068f8e230070c7b2f075aa237bd75', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1391579564, ''),
+('5f4a6c59fefcb373ef17009ae215c4e4', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1391579562, ''),
+('8c82c2e3ac00c1ccec3f22c437bbc3b8', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1391612987, 'a:6:{s:9:"user_data";s:0:"";s:8:"identity";s:19:"ceroberoz@gmail.com";s:8:"username";s:12:"perdana hadi";s:5:"email";s:19:"ceroberoz@gmail.com";s:7:"user_id";s:1:"2";s:14:"old_last_login";s:10:"1391593357";}'),
+('b128cfcb2529debbfd4e2fb0554f03de', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1391579564, ''),
+('c5ef1c84214f0383d8a57c8712685c7d', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1391599780, 'a:7:{s:9:"user_data";s:0:"";s:8:"identity";s:19:"ceroberoz@gmail.com";s:8:"username";s:12:"perdana hadi";s:5:"email";s:19:"ceroberoz@gmail.com";s:7:"user_id";s:1:"2";s:14:"old_last_login";s:10:"1391574531";s:12:"refered_from";s:51:"http://localhost/nekogear/index.php/produk/detail/1";}'),
+('edfffffedb483031e758141d083db9c6', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:26.0) Gecko/20100101 Firefox/26.0', 1391575611, 'a:7:{s:9:"user_data";s:0:"";s:12:"refered_from";s:51:"http://localhost/nekogear/index.php/produk/detail/1";s:8:"identity";s:19:"ceroberoz@gmail.com";s:8:"username";s:12:"perdana hadi";s:5:"email";s:19:"ceroberoz@gmail.com";s:7:"user_id";s:1:"2";s:14:"old_last_login";s:10:"1391530099";}');
 
 -- --------------------------------------------------------
 
@@ -1029,7 +1035,8 @@ CREATE TABLE IF NOT EXISTS `order` (
   `total_bill` double NOT NULL,
   `order_date` datetime NOT NULL,
   `process_date` datetime NOT NULL,
-  `status` enum('PENDING','LUNAS','TERKIRIM','BATAL') NOT NULL
+  `status` enum('PENDING','PROSES','TERKIRIM','BATAL') NOT NULL,
+  UNIQUE KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1037,88 +1044,12 @@ CREATE TABLE IF NOT EXISTS `order` (
 --
 
 INSERT INTO `order` (`order_id`, `email`, `total_bill`, `order_date`, `process_date`, `status`) VALUES
-('52e2dca252f', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'PENDING'),
-('52e2dce57ac', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'PENDING'),
-('52e2dce57ac', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'PENDING'),
-('52E3326CB44', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'PENDING'),
-('52E332FB6BA', '', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'PENDING'),
-('52E33395DE9', '', 0, '2014-01-25 04:46:29', '0000-00-00 00:00:00', 'PENDING'),
-('52E333E8D47', '', 0, '2014-01-25 04:47:52', '0000-00-00 00:00:00', 'PENDING'),
-('52E3FF7230E', '', 0, '2014-01-25 19:16:18', '0000-00-00 00:00:00', 'PENDING'),
-('52E40465C8F', '', 0, '2014-01-25 19:37:25', '0000-00-00 00:00:00', 'PENDING'),
-('52E404A3887', '', 0, '2014-01-25 19:38:27', '0000-00-00 00:00:00', 'PENDING'),
-('52E4072C149', '', 0, '2014-01-25 19:49:16', '0000-00-00 00:00:00', 'PENDING'),
-('52E408085A1', '', 0, '2014-01-25 19:52:56', '0000-00-00 00:00:00', 'PENDING'),
-('52E40AD16B9', '', 0, '2014-01-25 20:04:49', '0000-00-00 00:00:00', 'PENDING'),
-('52E40B5DAEA', '', 0, '2014-01-25 20:07:09', '0000-00-00 00:00:00', 'PENDING'),
-('52E40B778CC', '', 0, '2014-01-25 20:07:35', '0000-00-00 00:00:00', 'PENDING'),
-('52E40C9B1FB', '', 0, '2014-01-25 20:12:27', '0000-00-00 00:00:00', 'PENDING'),
-('52E40CEE51E', '', 0, '2014-01-25 20:13:50', '0000-00-00 00:00:00', 'PENDING'),
-('52E40D34092', '', 0, '2014-01-25 20:15:00', '0000-00-00 00:00:00', 'PENDING'),
-('52E40E1AB1A', '', 0, '2014-01-25 20:18:50', '0000-00-00 00:00:00', 'PENDING'),
-('52E40E5BE87', '', 0, '2014-01-25 20:19:55', '0000-00-00 00:00:00', 'PENDING'),
-('52E4118DE0A', '', 0, '2014-01-25 20:33:33', '0000-00-00 00:00:00', 'PENDING'),
-('52E411C4482', '', 0, '2014-01-25 20:34:28', '0000-00-00 00:00:00', 'PENDING'),
-('52E413723C2', '', 0, '2014-01-25 20:41:38', '0000-00-00 00:00:00', 'PENDING'),
-('52E414F7594', '', 0, '2014-01-25 20:48:07', '0000-00-00 00:00:00', 'PENDING'),
-('52E417AEA8D', '', 0, '2014-01-25 20:59:42', '0000-00-00 00:00:00', 'PENDING'),
-('52E41C626BA', '', 0, '2014-01-25 21:19:46', '0000-00-00 00:00:00', 'PENDING'),
-('52E48ADC5A0', '', 0, '2014-01-26 05:11:08', '0000-00-00 00:00:00', 'PENDING'),
-('52E491B37C7', '', 0, '2014-01-26 05:40:19', '0000-00-00 00:00:00', 'PENDING'),
-('52E491B37C7', '', 0, '2014-01-26 05:40:19', '0000-00-00 00:00:00', 'PENDING'),
-('52E4A8C8619', '', 0, '2014-01-26 07:18:48', '0000-00-00 00:00:00', 'PENDING'),
-('52E4A8C8619', '', 0, '2014-01-26 07:18:48', '0000-00-00 00:00:00', 'PENDING'),
-('52E4AB30694', '', 0, '2014-01-26 07:29:04', '0000-00-00 00:00:00', 'PENDING'),
-('52E4AB30694', '', 0, '2014-01-26 07:29:04', '0000-00-00 00:00:00', 'PENDING'),
-('52E4AB30694', '', 0, '2014-01-26 07:29:04', '0000-00-00 00:00:00', 'PENDING'),
-('52E60E21AFA', '', 0, '2014-01-27 08:43:29', '0000-00-00 00:00:00', 'PENDING'),
-('52E62CAE0DE', 'perdana hadi()', 0, '2014-01-27 10:53:50', '0000-00-00 00:00:00', 'PENDING'),
-('52E62DA0A4F', 'perdana hadi', 0, '2014-01-27 10:57:52', '0000-00-00 00:00:00', 'PENDING'),
-('52E7655A6E8', 'perdana hadi', 0, '2014-01-28 09:07:54', '0000-00-00 00:00:00', 'PENDING'),
-('52E7655A6E8', 'perdana hadi', 0, '2014-01-28 09:07:54', '0000-00-00 00:00:00', 'PENDING'),
-('52E7655A6E8', 'perdana hadi', 0, '2014-01-28 09:07:54', '0000-00-00 00:00:00', 'PENDING'),
-('52E7655A6E8', 'perdana hadi', 0, '2014-01-28 09:07:54', '0000-00-00 00:00:00', 'PENDING'),
-('52E7655A6E8', 'perdana hadi', 0, '2014-01-28 09:07:54', '0000-00-00 00:00:00', 'PENDING'),
-('52E7679FC89', 'andre christian', 0, '2014-01-28 09:17:35', '0000-00-00 00:00:00', 'PENDING'),
-('52E7679FC89', 'andre christian', 0, '2014-01-28 09:17:35', '0000-00-00 00:00:00', 'PENDING'),
-('52E76D916F1', 'perdana hadi', 0, '2014-01-28 09:42:57', '0000-00-00 00:00:00', 'PENDING'),
-('52E76D916F1', 'perdana hadi', 0, '2014-01-28 09:42:57', '0000-00-00 00:00:00', 'PENDING'),
-('52E76D916F1', 'perdana hadi', 0, '2014-01-28 09:42:57', '0000-00-00 00:00:00', 'PENDING'),
-('52E953C0D49', 'ceroberoz@yahoo.com', 0, '2014-01-29 20:17:20', '0000-00-00 00:00:00', 'PENDING'),
-('52EA09E11D2', 'ceroberoz@gmail.com', 0, '2014-01-30 09:14:25', '0000-00-00 00:00:00', 'PENDING'),
-('52EA09E11D2', 'ceroberoz@gmail.com', 0, '2014-01-30 09:14:25', '0000-00-00 00:00:00', 'PENDING'),
-('52EA126B7FF', 'ceroberoz@gmail.com', 0, '2014-01-30 09:50:51', '0000-00-00 00:00:00', 'PENDING'),
-('52EA126B7FF', 'ceroberoz@gmail.com', 0, '2014-01-30 09:50:51', '0000-00-00 00:00:00', 'PENDING'),
-('52EF55B9716', 'ceroberoz@gmail.com', 0, '2014-02-03 09:39:21', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5665E7A', 'ceroberoz@gmail.com', 0, '2014-02-03 09:42:13', '0000-00-00 00:00:00', 'PENDING'),
-('52EF567F680', 'ceroberoz@gmail.com', 0, '2014-02-03 09:42:39', '0000-00-00 00:00:00', 'PENDING'),
-('52EF569D797', 'ceroberoz@gmail.com', 0, '2014-02-03 09:43:09', '0000-00-00 00:00:00', 'PENDING'),
-('52EF56E9654', 'ceroberoz@gmail.com', 0, '2014-02-03 09:44:25', '0000-00-00 00:00:00', 'PENDING'),
-('52EF578A90A', 'ceroberoz@gmail.com', 0, '2014-02-03 09:47:06', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5835D23', 'ceroberoz@gmail.com', 0, '2014-02-03 09:49:57', '0000-00-00 00:00:00', 'PENDING'),
-('52EF58BE403', 'ceroberoz@gmail.com', 0, '2014-02-03 09:52:14', '0000-00-00 00:00:00', 'PENDING'),
-('52EF596528E', 'ceroberoz@gmail.com', 0, '2014-02-03 09:55:01', '0000-00-00 00:00:00', 'PENDING'),
-('52EF59CF1FF', 'ceroberoz@gmail.com', 0, '2014-02-03 09:56:47', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5A1F5E4', 'ceroberoz@gmail.com', 0, '2014-02-03 09:58:07', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5ACF7F8', 'ceroberoz@gmail.com', 0, '2014-02-03 10:01:03', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5AEEDD0', 'ceroberoz@gmail.com', 0, '2014-02-03 10:01:34', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5B6D8E1', 'ceroberoz@gmail.com', 0, '2014-02-03 10:03:41', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5CADEBC', 'ceroberoz@gmail.com', 0, '2014-02-03 10:09:01', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5CC7D4B', 'ceroberoz@gmail.com', 0, '2014-02-03 10:09:27', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5D97399', 'ceroberoz@gmail.com', 0, '2014-02-03 10:12:55', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5D97399', 'ceroberoz@gmail.com', 0, '2014-02-03 10:12:55', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5DCE8EA', 'ceroberoz@gmail.com', 0, '2014-02-03 10:13:50', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5DCE8EA', 'ceroberoz@gmail.com', 0, '2014-02-03 10:13:50', '0000-00-00 00:00:00', 'PENDING'),
-('52EF5E490A1', 'ceroberoz@gmail.com', 0, '2014-02-03 10:15:53', '0000-00-00 00:00:00', 'PENDING'),
-('52EFA56B7BD', 'ceroberoz@gmail.com', 0, '2014-02-03 15:19:23', '0000-00-00 00:00:00', 'PENDING'),
-('52EFBADF85A', 'ceroberoz@gmail.com', 0, '2014-02-03 16:50:55', '0000-00-00 00:00:00', 'PENDING'),
-('52EFBD5F92A', 'ceroberoz@gmail.com', 0, '2014-02-03 17:01:35', '0000-00-00 00:00:00', 'PENDING'),
-('52EFBD803BB', 'ceroberoz@gmail.com', 0, '2014-02-03 17:02:08', '0000-00-00 00:00:00', 'PENDING'),
-('52EFC0DD6A5', 'ceroberoz@gmail.com', 0, '2014-02-03 17:16:29', '0000-00-00 00:00:00', 'PENDING'),
-('52EFC3F47F8', 'ceroberoz@gmail.com', 0, '2014-02-03 17:29:40', '0000-00-00 00:00:00', 'PENDING'),
-('52EFC7974CA', 'ceroberoz@gmail.com', 0, '2014-02-03 17:45:11', '0000-00-00 00:00:00', 'PENDING'),
-('52EFC7B6DB5', 'ceroberoz@gmail.com', 0, '2014-02-03 17:45:42', '0000-00-00 00:00:00', 'PENDING'),
-('52EFCB68A7A', 'ceroberoz@gmail.com', 95000, '2014-02-03 18:01:28', '0000-00-00 00:00:00', 'PENDING');
+('52F14400A82', 'ceroberoz@gmail.com', 570000, '2014-02-04 20:48:16', '2014-02-04 21:23:39', 'PROSES'),
+('52F14CA6E5F', 'ceroberoz@gmail.com', 190000, '2014-02-04 21:25:10', '2014-02-04 21:25:43', 'PROSES'),
+('52F1BE084EC', 'ceroberoz@gmail.com', 95000, '2014-02-05 05:28:56', '2014-02-05 05:29:20', 'PROSES'),
+('52F1C2517E1', 'ceroberoz@gmail.com', 95000, '2014-02-05 05:47:13', '2014-02-05 05:47:38', 'PROSES'),
+('52F207C0C32', 'ceroberoz@gmail.com', 95000, '2014-02-05 10:43:28', '2014-02-05 15:55:01', 'PROSES'),
+('52F220B325F', 'ceroberoz@gmail.com', 95000, '2014-02-05 12:29:55', '2014-02-05 16:11:19', 'PROSES');
 
 -- --------------------------------------------------------
 
@@ -1134,47 +1065,22 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   `size` varchar(3) NOT NULL,
   `color` varchar(55) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `price` double NOT NULL
+  `order_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_detail`
 --
 
-INSERT INTO `order_detail` (`order_id`, `SKU`, `category`, `weight`, `size`, `color`, `quantity`, `price`) VALUES
-('', 'Nisekoi-02', 'Ready Stock', 1, 'XS', 'Merah', 2, 190000),
-('52EF56E9654', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 2, 190000),
-('52EF578A90A', 'Nisekoi-01', 'Ready Stock', 1, 'XS', 'Biru', 1, 95000),
-('52EF5835D23', 'Nisekoi-02', 'Ready Stock', 1, 'XS', 'Merah', 1, 95000),
-('52EF58BE403', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 95000),
-('52EF596528E', 'Nisekoi-02', 'Ready Stock', 1, 'XS', 'Merah', 1, 95000),
-('52EF5A1F5E4', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 95000),
-('52EF5ACF7F8', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 95000),
-('52EF5AEEDD0', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 95000),
-('52EF5B6D8E1', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 2, 190000),
-('52EF5CADEBC', 'Nisekoi-01', 'Ready Stock', 1, 'XS', 'Biru', 1, 95000),
-('52EF5CC7D4B', 'Nisekoi-01', 'Ready Stock', 1, 'XS', 'Biru', 1, 95000),
-('52EF5D97399', 'Nisekoi-01', 'Ready Stock', 1, 'XS', 'Biru', 1, 90000),
-('52EF5D97399', 'Nisekoi-01', 'Ready Stock', 1, 'L', 'Putih', 1, 90000),
-('52EF5D97399', 'Nisekoi-01', 'Ready Stock', 1, 'XS', 'Biru', 1, 90000),
-('52EF5D97399', 'Nisekoi-01', 'Ready Stock', 1, 'L', 'Putih', 1, 90000),
-('52EF5DCE8EA', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 90000),
-('52EF5DCE8EA', 'Wooser-01', 'Pre Order', 1, 'M', 'Kuning', 1, 90000),
-('52EF5DCE8EA', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 90000),
-('52EF5DCE8EA', 'Wooser-01', 'Pre Order', 1, 'M', 'Kuning', 1, 90000),
-('52EF5E490A1', 'Nisekoi-02', 'Ready Stock', 1, 'XS', 'Merah', 1, 90000),
-('52EF5E490A1', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 1, 90000),
-('52EFA56B7BD', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000),
-('52EFBADF85A', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
-('52EFBADF85A', 'Wooser-01', 'Pre Order', 0.5, 'XS', 'Kuning', 1, 90000),
-('52EFBD5F92A', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000),
-('52EFBD803BB', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
-('52EFC0DD6A5', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000),
-('52EFC3F47F8', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000),
-('52EFC3F47F8', 'Wooser-01', 'Pre Order', 0.5, 'XS', 'Kuning', 1, 90000),
-('52EFC7974CA', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
-('52EFC7B6DB5', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
-('52EFCB68A7A', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000);
+INSERT INTO `order_detail` (`order_id`, `SKU`, `category`, `weight`, `size`, `color`, `quantity`, `order_price`) VALUES
+('52F14400A82', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 2, 180000),
+('52F14400A82', 'Nisekoi-02', 'Ready Stock', 1, 'XL', 'Merah', 2, 180000),
+('52F14400A82', 'Nisekoi-01', 'Ready Stock', 1, 'L', 'Biru', 2, 180000),
+('52F14CA6E5F', 'Nisekoi-01', 'Ready Stock', 1, 'S', 'Putih', 2, 180000),
+('52F1BE084EC', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
+('52F1C2517E1', 'Nisekoi-01', 'Ready Stock', 0.5, 'S', 'Biru', 1, 90000),
+('52F207C0C32', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
+('52F220B325F', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000);
 
 -- --------------------------------------------------------
 
@@ -1196,9 +1102,9 @@ CREATE TABLE IF NOT EXISTS `our_bank_account` (
 --
 
 INSERT INTO `our_bank_account` (`our_bank_id`, `bank_name`, `bank_account`, `owner`, `bank_logo`) VALUES
-(1, 'BCA', '456789876556', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-bca.png'),
+(1, '-', '', '', 'assets/images/bank/logo-null.png'),
 (2, 'Mandiri', '34567887654567', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-mandiri.png'),
-(3, '-', '', '', 'assets/images/bank/logo-null.png');
+(3, 'BCA', '456789876556', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-bca.png');
 
 -- --------------------------------------------------------
 
@@ -1219,33 +1125,19 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `payment_date` datetime NOT NULL,
   `status` enum('PENDING','LUNAS') NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `payment`
 --
 
 INSERT INTO `payment` (`payment_id`, `order_id`, `payment_method`, `account_holder`, `bank_account`, `bank_origin`, `bank_destination`, `paid_value`, `image_verification`, `payment_date`, `status`) VALUES
-(1, '52EF5835D23', 'Cash', '', '', '', 'BCA', 0, '', '0000-00-00 00:00:00', ''),
-(2, '52EF58BE403', 'Cash', '', '', '', 'BCA', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(3, '52EF596528E', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(4, '52EF5AEEDD0', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(5, '52EF5B6D8E1', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(6, '52EF5CADEBC', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(7, '52EF5CC7D4B', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(8, '52EF5D97399', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(9, '52EF5D97399', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(10, '52EF5DCE8EA', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(11, '52EF5DCE8EA', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(12, '52EF5E490A1', 'Transfer', 'Perdana Hadi Sanjaya', '5677656789', 'Mandiri', 'Mandiri', 90000, '', '0000-00-00 00:00:00', 'LUNAS'),
-(13, '52EFA56B7BD', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(14, '52EFBADF85A', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(15, '52EFBD5F92A', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(16, '52EFBD803BB', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(17, '52EFC0DD6A5', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(18, '52EFC3F47F8', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(19, '52EFC7B6DB5', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
-(20, '52EFCB68A7A', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING');
+(2, '52F14400A82', 'Transfer', 'Perdana Hadi Sanjaya', '8587587789', 'Mandiri', 'Mandiri', 90000000, '', '2014-02-04 21:23:39', 'LUNAS'),
+(3, '52F14CA6E5F', 'Transfer', 'Perdana Hadi Sanjaya', '567887678', 'Mandiri', 'Mandiri', 1900000, '', '2014-02-04 21:25:43', 'LUNAS'),
+(4, '52F1BE084EC', 'Transfer', 'Perdana Hadi Sanjaya', '6789765678', 'Mandiri', 'Mandiri', 900000, '', '2014-02-05 05:29:20', 'LUNAS'),
+(5, '52F1C2517E1', 'Transfer', 'Perdana Hadi Sanjaya', '456789876', 'Mandiri', 'BCA', 900000, '', '2014-02-05 05:47:38', 'LUNAS'),
+(6, '52F207C0C32', 'Transfer', 'Perdana Hadi Sanjaya', '8998778987', 'Mandiri', 'Mandiri', 9000000, '', '2014-02-05 15:55:01', 'LUNAS'),
+(7, '52F220B325F', 'Transfer', 'Perdana Hadi Sanjaya', '8587587789', 'Mandiri', 'Mandiri', 9000000, '', '2014-02-05 16:11:19', 'LUNAS');
 
 -- --------------------------------------------------------
 
@@ -1267,27 +1159,12 @@ CREATE TABLE IF NOT EXISTS `shipping` (
 --
 
 INSERT INTO `shipping` (`co_note`, `shipping_date`, `expedition`, `order_id`, `fees`, `status`) VALUES
-('', '0000-00-00 00:00:00', 'TIKI', '52EF578A90A', 0, 'TERKIRIM'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5835D23', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF58BE403', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF596528E', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5AEEDD0', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5B6D8E1', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5CADEBC', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5CC7D4B', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5D97399', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5D97399', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5DCE8EA', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5DCE8EA', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EF5E490A1', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFA56B7BD', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFBADF85A', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFBD5F92A', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFBD803BB', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFC0DD6A5', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFC3F47F8', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFC7B6DB5', 0, 'PENDING'),
-('', '0000-00-00 00:00:00', 'JNE', '52EFCB68A7A', 5000, 'PENDING');
+('', '0000-00-00 00:00:00', 'JNE', '52F14400A82', 30000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '52F14CA6E5F', 10000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '52F1BE084EC', 5000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '52F1C2517E1', 5000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '52F207C0C32', 5000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '52F220B325F', 5000, 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -1324,7 +1201,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `address`, `city`, `postal_code`, `phone`) VALUES
 (1, '\0\0', 'administrator', '59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4', '9462e8eee0', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1390896831, 1, 'Admin', 'istrator', '', '', '', '0'),
-(2, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'perdana hadi', 'f4634e9898054d040fae92299bc97dfb927e5e83', NULL, 'ceroberoz@gmail.com', NULL, NULL, NULL, NULL, 1390808090, 1391437154, 1, 'Perdana', 'Hadi', 'Bukit Waringin C17/3', 'Bogor', '16321', '085780909147'),
+(2, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'perdana hadi', 'f4634e9898054d040fae92299bc97dfb927e5e83', NULL, 'ceroberoz@gmail.com', NULL, NULL, NULL, NULL, 1390808090, 1391611765, 1, 'Perdana', 'Hadi', 'Bukit Waringin C17/3', 'Bogor', '16321', '085780909147'),
 (3, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'andre christian', '6033a1048a09a7a48e4a42b1f6768d4e76cf54eb', NULL, 'andre@gmail.com', NULL, NULL, NULL, NULL, 1390896927, 1390896956, 1, 'Andre', 'Christian', '', '', '', '0817171717'),
 (4, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'niwa daisuke', '671e6141c60f66b891d9cf80de59c5e9f800b730', NULL, 'ceropyon@yahoo.com', NULL, NULL, NULL, NULL, 1391020634, 1391020634, 1, 'Niwa', 'Daisuke', 'Jalan Apalah 9', 'Bandung', '16322', '085780909111'),
 (5, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'perdana hadi1', 'fc9d39cab528c557aaf9f1268b617e319ce0a3f8', NULL, 'ceroberoz@yahoo.com', NULL, NULL, NULL, NULL, 1391022858, 1391022877, 1, 'Perdana', 'Hadi', 'Dimana aja boleh', 'Bogor', '16321', '085780909147'),

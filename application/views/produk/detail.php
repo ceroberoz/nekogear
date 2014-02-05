@@ -35,6 +35,7 @@
 							</ul>
 					    </item>
 					    <item class="element">tentang</item>
+					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/cart"><i class="icon-cart-2"></i>&nbsp;<?php echo $this->cart->total_items();?> tees</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth">login</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/create_user">daftar</a></item>
 				    </nav>
@@ -85,18 +86,13 @@
 						<!-- reserved for comments !-->
 		        	</div>
 		        <div class="span3">
-				<a href="<?php echo base_url();?>index.php/cart">
+				<!-- <a href="<?php echo base_url();?>index.php/cart">
 				<button class="command-button bg-white">
 				    <i class="icon-cart-2 on-left"></i>
 				    Keranjang Belanja
 				    <small><?php echo $this->cart->total_items();?> tees</small>
 				</button>
-				</a>
-
-				<div class="spacer"><p><br /></p></div>
-		        <blockquote>
-				    
-				</blockquote>
+				</a> -->
 		        	<form method="post" action="<?php echo site_url("cart/add");?>">
 						<div class="input-control select">
 							<label>Warna :</label>

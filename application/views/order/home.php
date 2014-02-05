@@ -42,33 +42,32 @@
                   <td><?php echo $order->order_id;?></td>
                   <td><?php echo $order->order_date;?></td>
                   <td>
-                    <?php if($order->status = "PENDING"):;?>
+                    <?php if($order->status == 'PENDING'):;?>
                     <h2>BELUM BAYAR</h2>
-                      <button class="warning">bayar</button>
+                      <a href="<?php base_url();?>order/payment/<?php echo $order->order_id;?>"><button class="warning">bayar</button></a>
                     <?php else: ;?>
-                    <img src="<?php// echo $order->bank_logo;?>"><br />
-                    <b>Dibayar pada:</b> <?php //echo $order->paid_date;?>
+                      <h2>LUNAS</h2>
                   <?php endif;?>
                   </td>
                   <td>
                     <h2><?php echo $order->status;?></h2>
-                    <button class="primary">detail pesanan</button>
+                    <a href="<?php base_url();?>order/detail/<?php echo $order->order_id;?>"><button class="primary">detail pesanan</button></a>
                   </td>
                 </tr>
-                <?php// foreach($pengiriman as $kirim):?>
-                <tr>
+                <?php //foreach($pengiriman as $kirim):?>
+                <!-- <tr>
                   <th>CO-NOTE / RESI</th>
                   <th>Tanggal Pengiriman</th>
                   <th>Jasa Pengiriman</th>
                   <th>Status Pengiriman</th>
                 </tr>
                 <tr>
-                  <td>5678908467</td>
-                  <td>2013-12-12</td>
-                  <td>JNE</td>
-                  <td>TERKIRIM</td>
-                </tr>
-                <?php// endforeach;?>
+                  <td><?php echo $kirim->co_note;?></td>
+                  <td><?php echo $kirim->shipping_date;?></td>
+                  <td><?php echo $kirim->expedition;?></td>
+                  <td><?php echo $kirim->status;?></td>
+                </tr> -->
+                <?php //endforeach;?>
               </tbody>
               
             </table>

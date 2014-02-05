@@ -11,7 +11,7 @@
     <body class="metro">
         <div class="grid">
 		    <div class="row">          
-          <h1><a href="<?php echo base_url();?>"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Detail Pesanan</h1>
+          <h1><a href="<?php echo base_url();?>index.php/order"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Detail Pesanan</h1>
           
           <?php foreach($details as $row):?>
           <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -91,16 +91,26 @@
                     Ukuran: <?php echo $row->size;?>
                   </td>
                   <td class="text-center"><?php echo $row->weight;?> Kg</td>
-                  <td class="text-right">IDR <?php echo $this->cart->format_number($row->price);?></td>
-                  <td class="text-right">IDR <?php echo $this->cart->format_number($row->price * $row->quantity);?></td>
+                  <td class="text-right">
+                    IDR <?php echo $this->cart->format_number($row->price);?>
+                  </td>
+                  <td class="text-right">IDR <?php echo $this->cart->format_number($row->order_price);?><?php //echo $this->cart->format_number($row->price * $row->quantity);?></td>
                 </tr>
                 <?php endforeach;?>
               </tbody>
               <tfoot>
-                <?php foreach($details as $row):?>
+                
                 <tr class="text-right">
                   <td colspan="3"></td>
-                  <td><strong>Ongkos Kirim</strong></td>
+                  <td>
+                    <strong>Ongkos Kirim</strong><br />
+                    <small>Jakarta -
+                      <?php foreach($users as $row):?>
+                        <?php echo $row->city;?>
+                      <?php endforeach;?>
+                    </small>
+                  </td>
+                  <?php foreach($details as $row):?>
                   <td>IDR <?php echo $this->cart->format_number($row->fees);?></td>
                   <td></td>
                 </tr>
