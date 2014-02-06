@@ -74,6 +74,7 @@ class Cart extends CI_Controller{
 	}
 
 	function delete($rowid) {
+		if($this->cart->total_items() > 1){
 		    $data = array(
 		        'rowid'   => $rowid,
 		        'qty'     => 0
@@ -82,6 +83,9 @@ class Cart extends CI_Controller{
 		    $this->cart->update($data);
 
 		    redirect('cart');
+		   	}else{
+		   		redirect('cart/clear');
+		   	}
 		    //echo "<pre>";
 			//die(print_r($data, TRUE));
 	}
