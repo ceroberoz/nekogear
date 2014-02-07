@@ -2,6 +2,38 @@
 
 class Nekogear extends CI_Model{
 
+	function dummy_system(){
+	    $this->db->select('SKU, size, color')
+	             ->from('order_detail')
+	             ->where('order_id',"52F4CC00C32");
+
+	    $query = $this->db->get();
+
+	    // 2nd query
+	    foreach($query->result() as $row):
+	        $SKU = $row->SKU;
+	        $size = $row->size;
+	        $color = $row->color;
+
+	        $this->db->select('stock_quantity')
+	                 ->from('item_stock')
+	                 ->join('items','items.stock_id = item_stock.stock_id')
+	                 ->join('item','item.item_id = items.item_id')
+	                 ->where('item.SKU',$SKU)
+	                 ->where('item_stock.size',$size)
+	                 ->where('item_stock.colour',$color);
+
+	        $query = $this->db->get();
+	    endforeach;
+
+	    if($query->num_rows() > 0){
+	    return $query->result();
+	    }
+	    else{
+	        return array();
+	    }
+	}
+
 	function order_info($email){
 		$this->db->select('*')
 				 ->from('order')
@@ -323,7 +355,7 @@ class Nekogear extends CI_Model{
 
 	function confirm_payment(){
 		$oid = $this->input->post('order_id');
-		// update tabel payment
+		// set vars
 		$account_holder	  = $this->input->post('account_holder');
 		$bank_account 	  = $this->input->post('bank_account');
 		$bank_origin	  = $this->input->post('bank_origin');
@@ -341,7 +373,7 @@ class Nekogear extends CI_Model{
 		$this->payment_date 	= $payment_date;
 		$this->status 			= $status;
 		$this->bank_origin		= $bank_origin;
-
+		// update tabel pembayaran
 		$this->db->where('order_id',$oid);
 		$this->db->update('payment',$this);
 
@@ -357,25 +389,35 @@ class Nekogear extends CI_Model{
 
 		// update tabel stok
 
+		// start foreach (selector order_id, sku, color, size dari input)
+		$this->db->select('SKU')
+				 ->from('order_detail')
+				 ->where('order_id',$oid);
+
+		$query = $this->db->get();
+
+		foreach($query->result() as $luls):	
 		// ambil input
 		$color 	= $this->input->post('color');
 		$size	= $this->input->post('size');
 		$new_qty = $this->input->post('qty_i');
-		$SKU 	 = $this->input->post('SKU');
+		$SKU 	 = $luls->SKU;//$this->input->post('SKU');
 		$data['new_qty'] = $new_qty;
 
-		// start foreach (ambil order_id)
 		// ambil stock asli
 		if($new_qty !=0 || $new_qty !=' '){
-			$stok =$this->db->select('item.SKU, item_stock.stock_quantity, item.category')
-							 ->from('item')
-							 ->join('items','items.item_id = item.item_id')
-							 ->join('item_stock','item_stock.stock_id = items.stock_id')
-							 ->where('item.SKU',$SKU)
-							 ->where('item_stock.colour', $color)
-							 ->where('item_stock.size', $size)
-							 ->get()
-							 ->row();
+			//$stok = 
+			$this->db->select('item.SKU, item_stock.stock_quantity, item.category')
+						 ->from('item')
+						 ->join('items','items.item_id = item.item_id')
+						 ->join('item_stock','item_stock.stock_id = items.stock_id')
+						 ->where('item.SKU',$SKU)
+						 ->where('item_stock.colour', $color)
+						 ->where('item_stock.size', $size);
+						 //->get()
+						 //->row();
+			$query = $this->db->get();
+			$stok = $query->row();
 
 			if($stok->category == "Pre Order"){
 				$melon = $stok->stock_quantity + $new_qty;
@@ -403,7 +445,9 @@ class Nekogear extends CI_Model{
 											AND item_stock.colour = '$color'
 											AND item_stock.size ='$size'");
 			}
+			//endforeach;
 		}
+		endforeach;
 	}
 
 	function confirm_delete(){

@@ -70,6 +70,9 @@
 	<h1>Welcome to CodeIgniter!</h1>
 
 	<div id="body">
+	<?php foreach($dummy as $row): ?>
+		<?php echo $row->SKU;?>
+	<?php endforeach;?>
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 
 		<p>If you would like to edit this page you'll find it located at:</p>

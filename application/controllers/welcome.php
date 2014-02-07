@@ -17,9 +17,21 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	function __construct(){
+		parent::__construct();
+		$this->load->helper(array('url','form'));
+		$this->load->model('nekogear');
+	}
+	
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		//$this->load->view('welcome_message');
+		//$this->load->model('nekogear');
+		$data['dummy'] = $this->nekogear->dummy_system();
+
+		echo "<pre>";
+		die(print_r($data, TRUE));
 	}
 }
 
