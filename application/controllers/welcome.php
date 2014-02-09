@@ -33,6 +33,22 @@ class Welcome extends CI_Controller {
 		echo "<pre>";
 		die(print_r($data, TRUE));
 	}
+
+	function update(){
+		$oid = $this->uri->segment(3);
+		$data['update'] = $this->nekogear->update_test($oid);
+
+		echo "<pre>";
+		die(print_r($data, TRUE));
+	}
+
+	function dummy(){
+		$data['dummy'] = $this->nekogear->dummy();
+
+		echo "<pre>";
+		die(print_r($data, TRUE));
+
+	}
 }
 
 /* End of file welcome.php */
