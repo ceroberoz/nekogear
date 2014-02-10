@@ -26,28 +26,12 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           - <strong><?php echo $row->bank_name;?></strong>: <?php echo $row->bank_account;?> a/n <strong><?php echo $row->owner;?></strong><br />
           <?php endforeach;?>
-          
         </small>  
           <hr />  
           <div class="span7">
-            <div class="notice bg-red fg-white">
-              <small><i class="icon-warning"></i>&nbsp;
-          Total tagihan anda adalah IDR
-          <?php foreach($details as $row):?>
-          <?php echo $this->cart->format_number($row->total_bill);?>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <b><a class="text-right" href="<?php base_url();?>order/detail/<?php echo $row->order_id;?>">detail</a></b>
-          </small>
-          </div>
-          <div id="spacer"><br /></div>
              <!-- empty !-->
              <?php echo form_open('order/confirm');?>
-             <?php //foreach($details as $row):?>
-             <input type="hidden" name="total_bill" value="<?php echo $row->total_bill;?>" />
+             <?php foreach($details as $row):?>
              <table class="table">
               <tr>
                 <td><strong>Order ID</strong></td>

@@ -49,6 +49,13 @@ class Welcome extends CI_Controller {
 		die(print_r($data, TRUE));
 
 	}
+
+	function cek_bill(){
+		$data['bill'] = $this->nekogear->payment_validate();
+
+		echo "<pre>";
+		die(print_r($data, TRUE));
+	}
 }
 
 /* End of file welcome.php */

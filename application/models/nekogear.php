@@ -533,18 +533,18 @@ class Nekogear extends CI_Model{
 		$paid = $this->input->post('paid_value');
 
 		$this->db->select('*')
-				 ->from('order')
-				 ->join('payment','payment.order_id = order.order_id')
-				 ->where('order.order_id',$oid)
-				 ->where('order.total_bill >', $paid);
+		->from('order')
+		//->join('payment','payment.order_id = order.order_id')
+		->where('order.order_id',$oid)
+		->where('order.total_bill >', $paid);
 
 		$query = $this->db->get();
 
 		if($query->num_rows() > 0){
-			return $query->result();
+			return $this->db->last_query();//$query->result();
 		}
 		else{
 			return array();
-		}	
+		}
 	}
 }

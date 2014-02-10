@@ -59,19 +59,23 @@ class Order extends CI_Controller {
 	}
 
 	function confirm(){ // submit form payment
-		if (!$this->ion_auth->logged_in()){		
-			redirect('auth/login');
+		if (!$this->ion_auth->logged_in()){	
+		redirect('auth/login');
 		}else{
-			if($this->nekogear->payment_validate()){ // set error message
-				$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);  	
+			$total = $this->input->post('total_bill');
+			$paid = $this->input->post('paid_value');
+            if($paid < $total){
+				$this->session->set_userdata('refered_from', $_SERVER['HTTP_REFERER']);
 				echo "<script language='javascript'>alert('Biaya yang akan anda transfer kurang, silahkan cek kembali detail pesanan anda.');
-				window.location='http://localhost/nekogear/index.php/cart/redirects'</script>";				
+				window.location='http://localhost/nekogear/index.php/cart/redirects'</script>";	
+     			
+				
 			}else{
-				//$oid = $this->uri->segment(3);
 				$data = $this->nekogear->confirm_payment();
+
 				echo "<script language='javascript'>alert('Pembayaran telah kami terima, silahkan cek menu Transaksi pada sub-menu user.');
 				window.location='http://localhost/nekogear'</script>";
-			} 
+			}
 		}
 	}
 
