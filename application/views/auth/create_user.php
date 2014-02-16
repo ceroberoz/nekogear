@@ -64,7 +64,7 @@
                         <!-- <input type="text" id="city" name="city" /> -->
                         <select class="city" name="city">
                             <?php foreach($kota as $city):?>
-                                <option value="<?php echo $city['name'];?>"><?php echo $city['name'];?></option>
+                                <option value="<?php echo $city['id'];?>"><?php echo $city['name'];?></option>
                             <?php endforeach;?>
                         </select>
                         </label>

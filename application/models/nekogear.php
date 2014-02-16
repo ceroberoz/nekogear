@@ -2,113 +2,6 @@
 
 class Nekogear extends CI_Model{
 
-	function dummy(){
-		$this->db->select('SKU, size, color')
-	             ->from('order_detail')
-	             ->where('order_id',"52F4CC00C32");
-
-	    $query = $this->db->get();
-	    if($query->num_rows() > 0){
-			return $query->result();
-		}
-		else{
-			return array();
-		}
-
-	}
-
-	function dummy_system(){
-	    $this->db->select('SKU, size, color')
-	             ->from('order_detail')
-	             ->where('order_id',"52F4CC00C32");
-
-	    $query = $this->db->get();
-
-	    $skus = array();
-		foreach($query->result() as $row):
-		    $skus[$row->SKU] = array('sku' => $row->SKU, 'size' => $row->size, 'color' => $row->color);
-		endforeach;
-
-	    // 2nd query
-	    //foreach($query->result() as $row):
-		$return = array();
-
-		foreach($skus as $sku => $data):
-		    $SKU = $data['sku'];
-		    $size = $data['size'];
-		    $color = $data['color'];
-
-	        $this->db->select('stock_quantity')
-	                 ->from('item_stock')
-	                 ->join('items','items.stock_id = item_stock.stock_id')
-	                 ->join('item','item.item_id = items.item_id')
-	                 ->where('item.SKU',$SKU)
-	                 ->where('item_stock.size',$size)
-	                 ->where('item_stock.colour',$color);
-
-	        $query = $this->db->get();
-	        $return[] = $query->result();
-	    endforeach;
-
-	    if($query->num_rows() > 0){
-	    return $return;//$query->result();
-	    }
-	    else{
-	        return array();
-	    }
-	}
-
-	function update_test($oid){
-		// ambil data tabel order_detail
-		$this->db->select('SKU,size,color,quantity, category')
-				 ->from('order_detail')
-				 ->where('order_id',$oid);
-
-		$query = $this->db->get();
-
-		// do update !
-		foreach($query->result() as $row):
-			$SKU = $row->SKU;
-			$size = $row->size;
-			$color = $row->color;
-			$new_qty = $row->quantity;
-			$category = $row->category;
-
-			// ambil stok asli
-			$stok = $this->db->select('stock_quantity')
-							 ->from('item_stock')
-							 ->join('items','items.stock_id = item_stock.stock_id')
-							 ->join('item','item.item_id = items.item_id')
-							//->set('item_stock.stock_quantity','item_stock.stock_quantity -'.$new_qty)
-							 ->where('item_stock.colour',$color)
-							 ->where('item_stock.size',$size)
-							 ->where('item.SKU',$SKU)
-							 ->get()
-							 ->row();
-					 		//->update('item_stock JOIN items ON items.stock_id = item_stock.stock_id JOIN item ON item.item_id = items.item_id');
-			// update kategori pre-order
-			//if($new_qty > $stok->stock_quantity){
-				// error msg
-			if($category == "Pre Order"){
-				//echo 'Error?';
-				$data['stock_quantity'] = $stok->stock_quantity + $new_qty;
-				$this->db->where('item_stock.colour',$color)
-						 ->where('item_stock.size',$size)
-						 ->where('item.SKU',$SKU)
-						 ->update('item_stock JOIN items ON items.stock_id = item_stock.stock_id JOIN item ON item.item_id = items.item_id',$data);
-			}else{
-			// update kategori ready stock
-				$data['stock_quantity'] = $stok->stock_quantity - $new_qty;
-				$this->db->where('item_stock.colour',$color)
-						 ->where('item_stock.size',$size)
-						 ->where('item.SKU',$SKU)
-						 ->update('item_stock JOIN items ON items.stock_id = item_stock.stock_id JOIN item ON item.item_id = items.item_id',$data);
-			}
-		endforeach;
-		//return $this->db->last_query();
-
-	}
-
 	function order_info($email){
 		$this->db->select('*')
 				 ->from('order')
@@ -160,8 +53,9 @@ class Nekogear extends CI_Model{
 	}
 
 	function user_detail($email){
-		$this->db->select('*')
+		$this->db->select('first_name, last_name,address, name, postal_code, phone, email')
 				 ->from('users')
+				 ->join('default_cities','default_cities.id = users.city')
 				 ->where('email',$email);
 		$query = $this->db->get();
 
@@ -174,8 +68,9 @@ class Nekogear extends CI_Model{
 	}
 
 	function get_cities(){
-		$this->db->select('name')
-				 ->from('default_cities');
+		$this->db->select('id,name')
+				 ->from('default_cities')
+				 ->where('attribute','Kota');
 		$query = $this->db->get();
 
 		if($query->num_rows() > 0){
@@ -528,23 +423,4 @@ class Nekogear extends CI_Model{
 		$this->db->delete('shipping',array('order_id'=>$oid));
 	}
 
-	function payment_validate(){
-		$oid = $this->uri->segment(3);
-		$paid = $this->input->post('paid_value');
-
-		$this->db->select('*')
-		->from('order')
-		//->join('payment','payment.order_id = order.order_id')
-		->where('order.order_id',$oid)
-		->where('order.total_bill >', $paid);
-
-		$query = $this->db->get();
-
-		if($query->num_rows() > 0){
-			return $this->db->last_query();//$query->result();
-		}
-		else{
-			return array();
-		}
-	}
 }

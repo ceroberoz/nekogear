@@ -42,6 +42,69 @@ class Members_Controller extends CI_Controller{
 	}
 }
 
+class Gudang_Controller extends CI_Controller{
+	protected $the_user;
+
+	public function __construct(){
+		parent::__construct();
+
+		if ($this->ion_auth->in_group('gudang')){
+			$this->the_user = $this->ion_auth->user()->row();
+
+			$data = new stdClass();
+			$data->success = false;
+
+			$data->the_user = $this->the_user;
+			$this->load->vars($data);
+		}
+		else{
+			redirect('/');
+		}
+	}
+}
+
+class Keuangan_Controller extends CI_Controller{
+	protected $the_user;
+
+	public function __construct(){
+		parent::__construct();
+
+		if ($this->ion_auth->in_group('keuangan')){
+			$this->the_user = $this->ion_auth->user()->row();
+
+			$data = new stdClass();
+			$data->success = false;
+
+			$data->the_user = $this->the_user;
+			$this->load->vars($data);
+		}
+		else{
+			redirect('/');
+		}
+	}
+}
+
+class Desainer_Controller extends CI_Controller{
+	protected $the_user;
+
+	public function __construct(){
+		parent::__construct();
+
+		if ($this->ion_auth->in_group('desainer')){
+			$this->the_user = $this->ion_auth->user()->row();
+
+			$data = new stdClass();
+			$data->success = false;
+
+			$data->the_user = $this->the_user;
+			$this->load->vars($data);
+		}
+		else{
+			redirect('/');
+		}
+	}
+}
+
 class Common_Auth_Controller extends CI_Controller{
 	protected $the_user;
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    	<TITLE>Distro Nekogear Works | Pembayaran</TITLE>
+      <TITLE>Distro Nekogear Works | Profil Anggota</TITLE>
         <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
         <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
         <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
@@ -9,127 +9,102 @@
         <script src="<?php echo base_url();?>assets/metroui/min/metro.min.js"></script>
     </head>
     <body class="metro">
-      <div class="grid">
-		    <div class="row">          
-          <h1><a href="<?php echo base_url();?>index.php/order"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Pembayaran</h1>
-          
-          <?php foreach($details as $row):?>
-          <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              berikut adalah form pembayaran pesanan <strong># <?php echo $row->order_id;?></strong><br />
-            <?php endforeach;?>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          pembayaran dapat dilakukan dengan cara transfer ke salah satu rekening berikut:<br />
-          <?php foreach($bank_tujuan as $row):?>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          - <strong><?php echo $row->bank_name;?></strong>: <?php echo $row->bank_account;?> a/n <strong><?php echo $row->owner;?></strong><br />
-          <?php endforeach;?>
-        </small>  
-          <hr />  
-          <div class="span7">
-             <!-- empty !-->
-             <?php echo form_open('order/confirm');?>
-             <?php foreach($details as $row):?>
-             <table class="table">
-              <tr>
-                <td><strong>Order ID</strong></td>
-                <td>:</td>
-                <td><?php echo $row->order_id;?></td>
-                <input type="hidden" name="order_id" value="<?php echo $row->order_id;?>" />
-                <!-- <input type="hidden" name="SKU" value="<?php echo $row->SKU;?>" /> -->
-                <?php foreach($orders as $row):?>
-                  <input type="hidden" name="SKU" value="<?php echo $row->SKU;?>" />
-                  <input type="hidden" name="color" value="<?php echo $row->color;?>" />
-                  <input type="hidden" name="size" value="<?php echo $row->size;?>" />
-                  <input type="hidden" name="qty_i" value="<?php echo $row->quantity;?>" />
-                <?php endforeach;?>
-              </tr>
-              <tr>
-                <td><strong>Jenis Pembayaran</strong></td>
-                <td>:</td>
-                <td>Transfer</td>
-              </tr>
-              
-              <!-- <form method="post" action="<?php echo site_url("order/confirmed");?>"> -->
-              <tr>
-                <td><strong>Atas Nama</strong></td>
-                <td>:</td>
-                <td>
-                  <div class="input-control text">
-                  <input type="text" name="account_holder" value="" placeholder=""/>
-                  <button class="btn-clear"></button>
+        <div class="grid">
+                <div class="row">
+                <h1><a href="<?php echo base_url();?>"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Profil Anggota</h1>
+                <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    silahkan cek dan perbarui data diri anda.</small>
+                <hr />
+                <p><?php echo $message;?></p>
+
+                <div class="span3">
+                   <!-- empty !-->
+                    <?php echo form_open("auth/edit_user");?>
+                    <div class="input-control text">
+                        <label>Email
+                        <input type="text" id="email" name="email" value="<?php echo $user->email;?>" disabled />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Password
+                        <input type="password" id="password" name="password" placeholder="password" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Konfirmasi Password
+                        <input type="password" id="password_confirm" name="password_confirm" placeholder="password" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                </div>
+                  <div class="span3">
+                    <div class="input-control text">
+                        <label>Nama Depan
+                        <input type="text" id="first_name" name="first_name" value="<?php echo $user->first_name;?>" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Nama Belakang
+                        <input type="text" id="last_name" name="last_name" value="<?php echo $user->last_name;?>" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Alamat
+                        <input type="text" id="address" name="address" value="<?php echo $user->address;?>" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control select">
+                        <label>Kota
+                        <!-- <input type="text" id="city" name="city" /> -->
+                        <select class="city" name="city">
+                            <option value="<?php echo $user->city;?>"><?php echo $user->city;?></option>
+                            <?php foreach($kota as $city):?>
+                                <option value="<?php echo $city['id'];?>"><?php echo $city['name'];?></option>
+                            <?php endforeach;?>
+                        </select>
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>Kode POS
+                        <input type="text" id="postal_code" name="postal_code" value="<?php echo $user->postal_code;?>" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br /></div>
+                    <div class="input-control text">
+                        <label>No. Handphone
+                        <input type="text" id="phone" name="phone" value="<?php echo $user->phone;?>" />
+                        </label>
+                    </div>
+                    <div class="spacer"><br />
+                         
+                    </div>
+                    
+
+                </div>
+                <div class="span1">
+                    <!-- empty !-->
+                </div>
+                <div class="span4">
+                    <div class="notice bg-amber fg-white">
+                        <h3>Penting!</h3><hr />
+                        <p>Data yang anda berikan akan didaftarkan pada sistem Distro Nekogear Works, lanjutkan?</p>
+                        <button class="primary">Ya, buat akun saya</button> 
+                            <?php echo form_close();?>
+                            <a href="http://localhost/nekogear"><button class="danger">Tidak, batalkan</button></a>
+       
+
+                    </div>
+                </div>
                   </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>No. Rekening</strong></td>
-                <td>:</td>
-                <td>
-                  <div class="input-control text">
-                  <input type="text" name="bank_account" value="" placeholder=""/>
-                  <button class="btn-clear"></button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Bank Asal</strong></td>
-                <td>:</td>
-                <td>
-                  <div class="input-control text">
-                  <input type="text" name="bank_origin" value="" placeholder=""/>
-                  <button class="btn-clear"></button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Bank Tujuan</strong></td>
-                <td>:</td>
-                <td>
-                  <div class="input-control select">
-                  <select name="bank_destination">
-                  <?php foreach($bank_tujuan as $row):?>
-                    <option value="<?php echo $row->bank_name;?>"><?php echo $row->bank_name;?></option>
-                  <?php endforeach;?>
-                  </select>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach;?>
-              <tr>
-                <td><strong>Jumlah yang dibayar</strong></td>
-                <td>:</td>
-                <td>
-                  <div class="input-control text">
-                  <input type="text" name="paid_value" value="" placeholder=""/>
-                  <button class="btn-clear"></button>
-                  </div>
-                </td>
-              </tr>
-             </table>       
-          </div>
-          <div class="span1"></div>
-          <div class="span4">
-            <div class="notice fg-white bg-amber">
-              <h4>Penting!</h4><hr />
-              <p>Pastikan tidak ada kesalahan pada kolom input <strong>Atas Nama</strong>,
-                <strong>No. Rekening</strong>, <strong>Bank Asal</strong> dan
-               <strong>Jumlah yang dibayar</strong>.</p>
-               <?php foreach($details as $row):?>
-              <a href="<?php echo base_url();?>index.php/order/confirm/<?php echo $row->order_id;?>"> <button class="primary">Ya, konfirmasi pembayaran</button></a>
-                <!-- </form> -->
-                <?php echo form_close();?>
-               &nbsp;&nbsp;&nbsp;
-              <a href="<?php echo base_url();?>index.php/order/cancel/<?php echo $row->order_id;?>"><button class="danger">Batal</button></a>
-              <?php endforeach;?>
+            <div class="text-center" id="footer">
+                  <small>&copy; 2013 Nekogear Works - All Rights With The World</small>
             </div>
-          </div>
-        </div>
-        
-			</div>
-		<div class="text-center" id="footer">
-			<small>&copy; 2013 Nekogear Works - All Rights With The World</small>
-		</div>
     </body>
 </html>

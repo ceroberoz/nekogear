@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    	<TITLE>Distro Nekogear Works | Admin Panel</TITLE>
+    	<TITLE>Distro Nekogear Works | Gudang Panel</TITLE>
         <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
 		<?php foreach($css_files as $file): ?>
@@ -23,10 +23,9 @@
 					    </item>
 					    <item class="element-divider"></item>
 					    <item class="element"><a href="<?php echo base_url();?>">beranda</a></item>
-					    <item class="element"><a href="<?php echo site_url('admin/home/desain')?>">desain</a></item>
-					    <item class="element"><a href="<?php echo site_url('admin/home/production')?>">produksi</a></item>
-					    <item class="element"><a href="<?php echo site_url('admin/home/products')?>">produk</a></item>
-					    <item class="element"><a href="<?php echo site_url('admin/home/members')?>">member</a></item>
+					    <item class="element"><a href="<?php echo site_url('gudang/home/stok')?>">stok majemen</a></item>
+					    <item class="element"><a href="<?php echo site_url('gudang/home/daftar_produksi')?>">daftar produksi</a></item>
+					    <item class="element"><a href="<?php echo site_url('gudang/home/pengiriman')?>">pengiriman</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></item>
 				    </nav>
 			    </nav>

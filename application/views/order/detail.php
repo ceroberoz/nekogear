@@ -52,7 +52,7 @@
                         <strong>Data Pengiriman</strong> <br />
                         <?php echo $row->first_name;?>&nbsp;<?php echo $row->last_name;?><br />
                         <?php echo $row->address;?><br />
-                        <?php echo $row->city;?><br />
+                        <?php echo $row->name;?><br />
                         <?php echo $row->postal_code;?><br />
                         <?php echo $row->phone;?><br />
                         <?php echo $row->email;?>
@@ -106,7 +106,7 @@
                     <strong>Ongkos Kirim</strong><br />
                     <small>Jakarta -
                       <?php foreach($users as $row):?>
-                        <?php echo $row->city;?>
+                        <?php echo $row->name;?>
                       <?php endforeach;?>
                     </small>
                   </td>

@@ -41,13 +41,14 @@ class Auth extends CI_Controller {
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
-			$this->data['users'] = $this->ion_auth->users()->result();
-			foreach ($this->data['users'] as $k => $user)
-			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
+			//$this->data['users'] = $this->ion_auth->users()->result();
+			//foreach ($this->data['users'] as $k => $user)
+			//{
+			//	$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+			//}
 
-			$this->_render_page('auth/index', $this->data);
+			//$this->_render_page('auth/index', $this->data);
+			redirect('auth/edit_user', 'refresh');
 		}
 	}
 
@@ -524,39 +525,52 @@ class Auth extends CI_Controller {
 	}
 
 	//edit a user
-	function edit_user($id)
+	//function edit_user($id)
+	function edit_user()
 	{
 		$this->data['title'] = "Edit User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('auth', 'refresh');
-		}
+		//if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		//{
+		//	redirect('auth', 'refresh');
+		//}
 
-		$user = $this->ion_auth->user($id)->row();
+		//$user = $this->ion_auth->user($id)->row();
+		$user = $this->ion_auth->user()->row();
 		$groups=$this->ion_auth->groups()->result_array();
-		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		//$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		$currentGroups = $this->ion_auth->get_users_groups()->result();
 
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
+		//$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
+		//$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
+
+		//$this->form_validation->set_rules('email', $this->lang->line('edit_user_validation_email_label'), 'required|valid_email|is_unique[users.email]');
+		$this->form_validation->set_rules('address', $this->lang->line('edit_user_validation_address_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('city', $this->lang->line('edit_user_validation_city_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('postal_code', $this->lang->line('edit_user_validation_postal_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('password', $this->lang->line('edit_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+		$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
 			// do we have a valid request?
-			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
-			{
-				show_error($this->lang->line('error_csrf'));
-			}
+			//if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
+			//{
+			//	show_error($this->lang->line('error_csrf'));
+			//}
 
 			$data = array(
 				'first_name' => $this->input->post('first_name'),
 				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
+				//'company'    => $this->input->post('company'),
 				'phone'      => $this->input->post('phone'),
+				'address'    => $this->input->post('address'),
+				'city'       => $this->input->post('city'),
+				'postal_code'=> $this->input->post('postal_code'),
 			);
 
 			//Update the groups user belongs to
@@ -615,12 +629,12 @@ class Auth extends CI_Controller {
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('last_name', $user->last_name),
 		);
-		$this->data['company'] = array(
-			'name'  => 'company',
-			'id'    => 'company',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('company', $user->company),
-		);
+		//$this->data['company'] = array(
+		//	'name'  => 'company',
+		//	'id'    => 'company',
+		//	'type'  => 'text',
+		//	'value' => $this->form_validation->set_value('company', $user->company),
+		//);
 		$this->data['phone'] = array(
 			'name'  => 'phone',
 			'id'    => 'phone',

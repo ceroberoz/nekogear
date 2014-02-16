@@ -11,14 +11,175 @@ class Home extends Admin_Controller{
 
 	function index()
 	{
-		$this->adminpanel((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
+		$this->kekgwpeduliaja((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
 	}
 
-	function adminpanel($output=NULL){
+	function kekgwpeduliaja($output=NULL){
 		$this->load->view('cpanel/admin',$output);
 	}
 
+	// Tambah Tema
+	function tema(){
+		
+	}
+
+	// Manage Design
+	function desain(){
+		$crud = new grocery_CRUD();
+		
+		$crud->set_table('design')
+			 //->columns('theme','design','theme_date','design_date','approval_date','status')
+			 ->add_fields('theme')
+			 ->edit_fields('theme','design','status')
+			 ->field_type('design','readonly')
+			 ->set_relation('theme','design_theme','theme',array('status'=>"PENDING"))
+			 ->field_type('status','enum',array('APPROVED', 'REJECTED'))
+			// ->change_field_type('theme_date','invisible')
+			// ->change_field_type('status','invisible')
+			 ->set_field_upload('design','assets/uploads/desain')
+			 ->display_as('theme','Tema')
+			 ->display_as('email','Email Desainer')
+			 ->display_as('theme_date','Tanggal Tema')
+			 ->display_as('design_date','Tanggal Desain')
+			 ->display_as('approval_date','Tanggal Diterima')
+			 ->display_as('design','Desain')
+			 ->display_as('status','Status');
+			// ->callback_after_insert(array($this,'update_status_desain'));
+
+		$output = $crud->render();
+
+		$this->kekgwpeduliaja($output);
+	}
+
+	// Manage Production
+	function production(){
+		$crud = new grocery_CRUD();
+		
+		$crud->set_table('production')
+			 ->add_fields('design_id','email','') // 
+			 ->set_relation('design_id','design','design_id',array('status' => 'APPROVED'))
+			 ->set_relation('vendor_id','vendor','vendor_id')
+			 ->field_type('design_id','set')
+			 ->callback_after_insert(array($this,'update_status_produksi'))
+			 ->callback_add_field('email',array($this,'edit_callback'));
+		//	 ->callback_insert'production_id', array($this, 'update_status_produksi');
+
+		// Prod ID to Payment
+			 //set callback?
+		$output = $crud->render();
+
+		$this->kekgwpeduliaja($output);
+
+	}
+
+	// Manage Product
+	function products(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('item')
+			 ->set_relation_n_n('all_items','items','item_stock','item_id','stock_id','production_id','items_id');
+
+		$output = $crud->render();
+
+		$this->kekgwpeduliaja($output);
+	}
+
+	// callbacks
+
+	function update_status_produksi($update){
+		$key = uniqid(); // ganti ke caps
+		$production_id = strtoupper($key);
+
+		$update = array(
+			'production_id'	=> $production_id,
+			'status' 	=> "PENDING"
+			);
+		$this->db->insert('production',$update);
+		$this->db->insert('production_pay',$update);
+	}
+
 	// Manage Users
+	function members($operation = null){
+		//$this->load->helper('url');
+		//$this->class_name = strtolower(__CLASS__);
+		//try{
+			$crud = new grocery_CRUD();
+
+			$crud->set_theme('flexigrid');
+			$crud->set_table('users');
+			$crud->set_relation('city','default_cities','name',array('attribute' => 'Kota'));
+			$crud->set_relation_n_n('groupname', 'users_groups', 'groups', 'user_id', 'group_id', 'name');
+
+			if($operation == 'edit'){
+				//$crud->fields('username', 'first_name', 'last_name', 'password', 'email', 'identifier', 'groupname', 'created_on', 'last_login', 'company',  'active');
+				$crud->fields('first_name', 'last_name','email', 'password','address','city','postal_code','phone', 'groupname', 'created_on', 'last_login', 'active');
+				$crud->change_field_type('email','readonly');
+				$crud->change_field_type('created_on', 'readonly');
+			}else{
+				//$crud->fields('username', 'first_name', 'last_name', 'password', 'email', 'identifier', 'groupname', 'created_on', 'last_login', 'company',  'active');
+				$crud->fields('first_name', 'last_name', 'email', 'password','address','city','postal_code','phone', 'groupname', 'created_on', 'last_login', 'active');
+				$crud->change_field_type('created_on', 'hidden');
+				$crud->required_fields('email');
+			}
+
+			//$crud->required_fields('username', 'password', 'email', 'groupname', 'active', 'users_group', 'first_name', 'last_name', 'identifier');
+			$crud->required_fields('password','address','city','phone','postal_code','groupname', 'active', 'first_name', 'last_name');
+
+			$crud//->display_as('username','Username')
+             	 ->display_as('first_name','Nama Depan')
+             	 ->display_as('last_name','Nama Belakang')
+             	 ->display_as('password','Password')
+             	 ->display_as('password_confirm','Konfirmasi Password')
+             	 ->display_as('email','Email')
+             	 ->display_as('address','Alamat')
+             	 ->display_as('city','Kota')
+             	 ->display_as('postal_code','Kode POS')
+             	 ->display_as('phone','No. Handphone')
+             	 //->display_as('identifier','Identificator(Necesita sa fie unic)')
+             	 ->display_as('groupname','Group User')
+             	 ->display_as('created_on','Terdaftar Pada')
+             	 ->display_as('last_login','Aktivitas Terakhir')
+             	 //->display_as('company','Companie')
+             	 ->display_as('active','Status');
+
+			$crud->set_rules('password', 'Password', 'min_length[' . $this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length','ion_auth').']');
+			//$crud->set_rules('email', 'Email','required|valid_email');
+			//$crud->columns('username', 'first_name', 'last_name', 'email', 'identifier', 'groupname', 'created_on', 'last_login', 'social_network', 'active');
+			$crud->columns('first_name', 'last_name', 'email', 'address','city','postal_code','phone','groupname', 'created_on', 'last_login', 'active');
+			$crud->callback_column('created_on', array($this, 'datetime'));
+			$crud->callback_column('last_login', array($this, 'datetime'));
+			$crud->change_field_type('last_login', 'readonly');
+			// $crud -> change_field_type('ip_address', 'readonly');
+			$crud->change_field_type('password', 'password');
+			$crud->change_field_type('password_confirm', 'password');
+			$crud->change_field_type('ip_address', 'readonly');
+
+			$crud->callback_before_insert(array($this, 'insert_encrypt_password_callback'));
+			$crud->callback_before_update(array($this, 'edit_encrypt_password_callback'));
+			$crud->callback_edit_field('password', array($this, 'decrypt_password_callback'));
+			// $crud->callback_edit_field('ip_address', array($this, 'ip_address'));
+			//$crud->callback_edit_field('email',array($this,'edit_callback'));
+			$crud->callback_edit_field('created_on', array($this, 'datetime'));
+			$crud->callback_edit_field('last_login', array($this, 'datetime'));
+
+			$output = $crud->render();
+
+			$this->kekgwpeduliaja($output);
+
+			//$data['output'] = $crud->render();
+			//$this->gc_title = 'Administrare Useri';
+
+			//$this->layout->view($this->admin_dir.'gc_data/v_listdata', $data);
+		//}catch(Exception $e){
+		//	show_error($e->getMessage().' --- '.$e->getTraceAsString());
+		//}
+	}
+
+	function edit_callback($edit_user,$mail=''){
+		$user = $this->ion_auth->user()->row();
+		$mail = $user->email;
+		return '<input type="text" id="email" name="email" value="'.$mail.'" disabled />';
+	}
 
 	function ip_address($value, $row){
 		return @inet_ntop($value);
@@ -28,75 +189,30 @@ class Home extends Admin_Controller{
 		return @date('d M Y H:i:s', $value);
 	}
 
-	function edit_encrypt_password_callback($post_array, $primary_key = NULL){
+	function insert_encrypt_password_callback($post_array, $primary_key=null){
+		$this->load->model('ion_auth_model');
+		
+		//if($post_array['password'] == $post_array['password_confirm']){
+			$post_array['password'] = $this->ion_auth_model->hash_password($post_array['password']);
+			$post_array['created_on'] = now();
+
+			//return $post_array;
+		//}
+		return $post_array;
+	}
+
+	function edit_encrypt_password_callback($post_array, $primary_key=null){
 		$this->load->model('ion_auth_model');
 
-		if($post_array['password'] =='defaultvalue'){
+		if($post_array['password'] == 'defaultvalue'){
 			unset($post_array['password']);
-		}
-		else{
+		}else{
 			$post_array['password'] = $this->ion_auth_model->hash_password($post_array['password']);
 		}
 		return $post_array;
 	}
 
 	function decrypt_password_callback($value){
-		return "<input type='password name='password' value='defaultvalue' />";
-	}
-
-	function list_users($operation = NULL){
-		try{
-			$crud = new grocery_CRUD();
-			$crud->set_theme('flexigrid');
-			$crud->set_table('users');
-			$crud->set_relation_n_n('groups','users_groups','groups','user_id','group_id','name');
-
-			if($operation == 'edit'){
-				$crud->fields('username','first_name','last_name','password','email','groupname','created_on','last_login','company','active');
-				$crud->change_field_type('created_on','readonly');
-			}
-			else{
-				$crud->fields('username','first_name','last_name','password','email','groupname','created_on','last_login','company','active');
-				$crud->change_field_type('created_on','hidden');
-			}
-
-			$crud->required_fields('username', 'password', 'email', 'groupname', 'active', 'users_group', 'first_name', 'last_name', 'identifier');
-
-			$crud->display_as('username','Username')
-				 ->display_as('first_name','Nama Depan')
-				 ->display_as('last_nama','Nama Belakang')
-				 ->display_as('password','Password')
-				 ->display_as('email','Email')
-				// ->display_as('identifier','Pembeda')
-				 ->display_as('groupname','Tipe User')
-				 ->display_as('created_on','Tanggal Daftar')
-				 ->display_as('last_login','Aktifitas Terakhir')
-				 ->display_as('company','Company')
-				 ->display_as('active','Status ID');
-
-			$crud->set_rules('password','Password','min_length['.$this->config->item('min_password_length','ion_auth').']|max_length['.$this->config->item('max_password_length','ion_auth').']');
-			$crud->set_rules('email','Email','required|valid_email');
-			$crud->columns('username','first_name','last_name','email','groupname','created_on','last_login','active');
-			$crud->callback_column('created_on',array($this,'datetime'));
-			$crud->callback_column('last_login',array($this,'datetime'));
-			$crud->change_field_type('last_login','readonly');
-			$crud->change_field_type('password','password');
-			$crud->change_field_type('ip_address','readonly');
-
-			$crud->callback_before_insert(array($this,'insert_encrypt_password_callback'));
-			$crud->callback_before_update(array($this,'edit_encrypt_password_callback'));
-			$crud->callback_edit_field('password',array($this,'decrypt_password_callback'));
-			$crud->callback_edit_field('created_on',array($this,'datetime'));
-			$crud->callback_edit_field('last_login',array($this,'datetime'));
-
-			$output = $crud->render();
-			//$this->gc_title = 'Pengelolaan Member';
-
-			//$this->layout->view($this->admin_dir).'gc_data/v_listdata',$data);
-			$this->adminpanel($output);
-		}
-		catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
+		return "<input type='password' name='password' value='defaultvalue' />";
 	}
 }
