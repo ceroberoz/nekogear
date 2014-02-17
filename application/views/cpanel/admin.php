@@ -23,10 +23,22 @@
 					    </item>
 					    <item class="element-divider"></item>
 					    <item class="element"><a href="<?php echo base_url();?>">beranda</a></item>
-					    <item class="element"><a href="<?php echo site_url('admin/home/desain')?>">desain</a></item>
+					    <item class="element">
+					    	<a class="dropdown-toggle" href="#">desain</a>
+							<ul class="dropdown-menu" data-role="dropdown">							
+								<li><a href="<?php echo base_url();?>index.php/admin/home/tema">tema desain</a></li>
+								<li><a href="<?php echo base_url();?>index.php/admin/home/desain">hasil desain</a></li>
+							</ul>
+					    </item>
 					    <item class="element"><a href="<?php echo site_url('admin/home/production')?>">produksi</a></item>
 					    <item class="element"><a href="<?php echo site_url('admin/home/products')?>">produk</a></item>
-					    <item class="element"><a href="<?php echo site_url('admin/home/members')?>">member</a></item>
+					    <item class="element">
+					    	<a class="dropdown-toggle" href="#">member</a>
+							<ul class="dropdown-menu" data-role="dropdown">							
+								<li><a href="<?php echo base_url();?>index.php/admin/home/members">daftar member</a></li>
+								<li><a href="<?php echo base_url();?>index.php/admin/home/groups">group</a></li>
+							</ul>
+					    </item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></item>
 				    </nav>
 			    </nav>

@@ -279,6 +279,11 @@ class Nekogear extends CI_Model{
 			$those->order_id 	= $resi;
 			$those->status 		= "PENDING";
 			$this->db->insert('payment', $those);
+
+			// insert complaint
+			$how = new stdClass();
+			$how->order_id = $resi;
+			$this->db->insert('order_complaint',$how);
 		//endforeach;
 	}
 
@@ -321,6 +326,29 @@ class Nekogear extends CI_Model{
 		else{
 			return array();
 		}
+	}
+
+	function confirm_complaint(){
+		$oid = $this->input->post('order_id'); // form hidden
+		$email = $this->input->post('email');  // form hidden
+		$subject = $this->input->post('subject');
+		$message = $this->input->post('message');
+		//$attachment = $this->input->post('attachment');
+		//$complaint_date = $this->input->post(date('Y-m-d H:i:s'));
+		$date = date('Y-m-d H:i:s');
+		$status = $this->input->post('status');
+
+		$apalah = array(
+			//'order_id' => $oid,
+			'email' => $email,
+			'subject' => $subject,
+			'message' => $message,
+			//'attachment' => $attachment,
+			'complaint_date' => $date,
+			'status' => $status
+			);
+		$this->db->where('order_id',$oid);
+		$this->db->update('order_complaint',$apalah);
 	}
 
 	function confirm_payment(){

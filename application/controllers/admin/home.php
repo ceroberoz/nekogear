@@ -20,7 +20,17 @@ class Home extends Admin_Controller{
 
 	// Tambah Tema
 	function tema(){
-		
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('design_theme')
+			 ->add_fields('theme')
+			 ->edit_fields('theme')
+			 ->display_as('theme','Tema')
+			 ->display_as('theme_date','Tanggal Tema')
+			 ->callback_add_field('email',array($this,'edit_callback'));
+
+		$output = $crud->render();
+		$this->kekgwpeduliaja($output);
 	}
 
 	// Manage Design
@@ -29,7 +39,8 @@ class Home extends Admin_Controller{
 		
 		$crud->set_table('design')
 			 //->columns('theme','design','theme_date','design_date','approval_date','status')
-			 ->add_fields('theme')
+			// ->add_fields('theme')
+			 ->unset_add()
 			 ->edit_fields('theme','design','status')
 			 ->field_type('design','readonly')
 			 ->set_relation('theme','design_theme','theme',array('status'=>"PENDING"))
@@ -96,6 +107,14 @@ class Home extends Admin_Controller{
 			);
 		$this->db->insert('production',$update);
 		$this->db->insert('production_pay',$update);
+	}
+
+	function groups(){
+		$crud = new grocery_CRUD();
+		$crud->set_table('groups');
+
+		$output = $crud->render();
+		$this->kekgwpeduliaja($output);		
 	}
 
 	// Manage Users

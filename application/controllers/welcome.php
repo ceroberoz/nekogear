@@ -24,6 +24,10 @@ class Welcome extends CI_Controller {
 		$this->load->model('nekogear');
 	}
 	
+	function komplain(){
+		$this->load->view('order/complaint');
+	}
+
 	public function index()
 	{
 		//$this->load->view('welcome_message');

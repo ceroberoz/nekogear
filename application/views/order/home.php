@@ -42,16 +42,22 @@
                   <td><?php echo $order->order_id;?></td>
                   <td><?php echo $order->order_date;?></td>
                   <td>
-                    <?php if($order->status == 'PENDING'):;?>
+                  <?php if($order->status == 'PENDING'):;?>
                     <h2>BELUM BAYAR</h2>
                       <a href="<?php base_url();?>order/payment/<?php echo $order->order_id;?>"><button class="warning">bayar</button></a>
                     <?php else: ;?>
                       <h2>LUNAS</h2>
                   <?php endif;?>
                   </td>
-                  <td>
+                  <td>                  
+                    <?php if($order->status == 'TERKIRIM'):;?>
+                      <h2><?php echo $order->status;?></h2>
+                    <a href="<?php base_url();?>order/detail/<?php echo $order->order_id;?>"><button class="primary">detail pesanan</button></a>
+                    <a href="<?php base_url();?>order/komplain/<?php echo $order->order_id;?>"><button class="default">komplain</button></a>
+                    <?php else: ;?>
                     <h2><?php echo $order->status;?></h2>
                     <a href="<?php base_url();?>order/detail/<?php echo $order->order_id;?>"><button class="primary">detail pesanan</button></a>
+                  <?php endif;?>
                   </td>
                 </tr>
                 <?php //foreach($pengiriman as $kirim):?>

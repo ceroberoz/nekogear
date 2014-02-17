@@ -58,6 +58,31 @@ class Order extends CI_Controller {
 		}
 	}
 
+	function confirm_complain(){
+		if (!$this->ion_auth->logged_in()){		
+			redirect('auth/login');
+		}else{
+			$data['complaint'] = $this->nekogear->confirm_complaint();
+			echo "<script language='javascript'>alert('Komplain telah kami terima, silahkan tunggu balasan via email.');
+				 window.location='http://localhost/nekogear/index.php/order'</script>";	
+			//$this->load->view('order/complaint',$data);
+		}
+	}
+
+	function komplain(){
+		if (!$this->ion_auth->logged_in()){		
+			redirect('auth/login');
+		}else{
+			$oid = $this->uri->segment(3);
+			$user = $this->ion_auth->user()->row();
+			$email = $user->email;
+
+			$data['orders'] = $this->nekogear->order_detail($oid);
+			$data['complaints'] = $this->nekogear->user_detail($email);
+			$this->load->view('order/complaint',$data);
+		}
+	}
+
 	function confirm(){ // submit form payment
 		if (!$this->ion_auth->logged_in()){	
 		redirect('auth/login');
@@ -80,9 +105,13 @@ class Order extends CI_Controller {
 	}
 
 	function cancel(){
-		$data = $this->nekogear->confirm_delete();
-		echo "<script language='javascript'>alert('Pesanan anda telah dihapus.');
-		window.location='http://localhost/nekogear'</script>";
+		if (!$this->ion_auth->logged_in()){		
+			redirect('auth/login');
+		}else{
+			$data = $this->nekogear->confirm_delete();
+			echo "<script language='javascript'>alert('Pesanan anda telah dihapus.');
+			window.location='http://localhost/nekogear'</script>";
+		}
 	}
 }
 
