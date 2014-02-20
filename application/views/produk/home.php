@@ -54,7 +54,7 @@
 	        	<?php foreach($details as $row):?>
 	        		<div class="tile double">
 	        			<div class="tile-content image">
-							<a href="<?php base_url();?>index.php/produk/detail/<?php echo $row->item_id;?>"><img src="<?php echo base_url().$row->image;?>"></a>
+							<a href="<?php base_url();?>index.php/produk/detail/<?php echo $row->item_id;?>"><img src="<?php echo base_url();?>assets/images/items/<?php echo $row->image;?>"></a>
 						</div>
 						<div class="brand bg-dark opacity">
 							<span class="text" >

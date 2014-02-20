@@ -49,4 +49,9 @@ class Home extends Keuangan_Controller{
 		$this->kekgwpeduliaja($output);
 	}
 
+	function laporan_keuangan(){
+		// laporan beli - jual
+	}
+
+	function cetak(){}
 }

@@ -40,7 +40,7 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <b><a class="text-right" href="<?php base_url();?>order/detail/<?php echo $row->order_id;?>">detail</a></b>
+          <b><a class="text-right" href="<?php echo base_url();?>order/detail/<?php echo $row->order_id;?>">detail</a></b>
           </small>
           </div>
           <div id="spacer"><br /></div>

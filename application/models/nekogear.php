@@ -94,6 +94,19 @@ class Nekogear extends CI_Model{
 		}
 	}
 
+	function get_banks(){
+		$this->db->select('*')
+				 ->from('banks');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
 	function all_product(){
 		$this->db->select('*')
 				 ->from('item')
@@ -141,6 +154,7 @@ class Nekogear extends CI_Model{
 	function info_item($id){
 		$this->db->select('*')
 				 ->from('item')
+				 ->join('design_theme','design_theme.theme_id = item.anime_origin')
 				 ->join('category','category.category = item.category')
 				 ->where('item.item_id',$id);
 		$query = $this->db->get();

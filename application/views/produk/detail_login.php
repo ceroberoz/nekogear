@@ -52,10 +52,11 @@
 		        	<h1><?php echo $row->SKU;?></h1>
 		        	<small>
 		        		<?php echo $row->character_name;?> tees <i>from</i>
-		        		<?php echo $row->anime_origin;?> 
+		        		<?php //echo $row->anime_origin;?> 
+		        		<?php echo $row->theme;?> 
 		        	</small>
 		        	<hr />
-		        	<img src="<?php echo base_url().$row->image;?>" class="polaroid">
+		        	<img src="<?php echo base_url();?>assets/images/items/<?php echo $row->image;?>" class="polaroid">
 		        	<blockquote>
 		        		<p><?php echo $row->notes;?></p>
 		        	</blockquote>

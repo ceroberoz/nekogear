@@ -23,15 +23,16 @@ class Home extends Desainer_Controller{
 		$crud = new grocery_CRUD();
 		
 		$crud->set_table('design')
-			 ->add_fields('theme','design','submitted_date','email') // date autoupdate?
-			 ->edit_fields('theme','design','submitted_date','email')
+			 ->set_relation('theme','design_theme','theme', array('status' => 'DONE'))
+			 ->fields('theme','design','submitted_date','email') // date autoupdate?
+			 //->edit_fields('theme','design','submitted_date','email')
 			 ->set_field_upload('design','assets/uploads/desain')
 			 ->field_type('date_submitted','readonly')
-			 ->field_type('theme','readonly')
+			 //->field_type('theme','readonly')
 			 ->callback_edit_field('email',array($this,'design_callback'))
 			// ->field_type('email','readonly')
-			 ->unset_add()
-			 ->unset_delete()
+			 //->unset_add()
+			// ->unset_delete()
 			 ->display_as('theme','Tema')
 			 ->display_as('design','Desain')
 			 ->display_as('theme_date','Tanggal Tema')

@@ -18,16 +18,41 @@ class Home extends Admin_Controller{
 		$this->load->view('cpanel/admin',$output);
 	}
 
+	// Daftar komplain
+	function komplain(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('order_complaint')
+			 ->unset_add()
+			 ->unset_delete()
+			 ->field_type('order_id','readonly')
+			 ->field_type('email','readonly')
+			 ->field_type('subject','readonly')
+			 ->field_type('message','readonly')
+			 ->field_type('attachment','readonly')
+			 ->field_type('complaint_date','readonly')
+			 ->display_as('order_id','#')
+			 ->display_as('email','Email')
+			 ->display_as('subject','Subjek')
+			 ->display_as('message','Komplain')
+			 ->display_as('attachment','Lampiran')
+			 ->display_as('complaint_date','Tanggal Komplain')
+			 ->display_as('status','Status');
+		$output = $crud->render();
+		$this->kekgwpeduliaja($output);
+	}
+
 	// Tambah Tema
 	function tema(){
 		$crud = new grocery_CRUD();
 
 		$crud->set_table('design_theme')
-			 ->add_fields('theme')
-			 ->edit_fields('theme')
+			 ->add_fields('theme','email')
+			 ->edit_fields('theme','email','status')
+			//->field_type('email','readonly')
 			 ->display_as('theme','Tema')
 			 ->display_as('theme_date','Tanggal Tema')
-			 ->callback_add_field('email',array($this,'edit_callback'));
+			 ->callback_add_field('email',array($this,'mail_callbacks'));
 
 		$output = $crud->render();
 		$this->kekgwpeduliaja($output);
@@ -42,7 +67,8 @@ class Home extends Admin_Controller{
 			// ->add_fields('theme')
 			 ->unset_add()
 			 ->edit_fields('theme','design','status')
-			 ->field_type('design','readonly')
+			// ->field_type('design','readonly')
+			 ->field_type('theme','readonly')
 			 ->set_relation('theme','design_theme','theme',array('status'=>"PENDING"))
 			 ->field_type('status','enum',array('APPROVED', 'REJECTED'))
 			// ->change_field_type('theme_date','invisible')
@@ -67,12 +93,21 @@ class Home extends Admin_Controller{
 		$crud = new grocery_CRUD();
 		
 		$crud->set_table('production')
-			 ->add_fields('design_id','email','') // 
+			// ->add_fields('design_id','email','') // 
+			 ->set_relation('tees_color','colors','color')
 			 ->set_relation('design_id','design','design_id',array('status' => 'APPROVED'))
 			 ->set_relation('vendor_id','vendor','vendor_id')
-			 ->field_type('design_id','set')
+			 //->field_type('design_id','set')
+			 ->display_as('email','Email')
+			 ->display_as('vendor_id','Vendor')
+			 ->display_as('design_id','Desain')
+			 ->display_as('tees_color','Warna Tees')
+			 ->display_as('tees_material','Bahan Tees')
+			 ->display_as('total_cost','Biaya Total')
+			 ->display_as('production_form','Form Vendor')
+			 ->set_field_upload('production_form','assets/uploads/files/form_vendor')
 			 ->callback_after_insert(array($this,'update_status_produksi'))
-			 ->callback_add_field('email',array($this,'edit_callback'));
+			 ->callback_add_field('email',array($this,'mail_callbacks'));
 		//	 ->callback_insert'production_id', array($this, 'update_status_produksi');
 
 		// Prod ID to Payment
@@ -88,7 +123,9 @@ class Home extends Admin_Controller{
 		$crud = new grocery_CRUD();
 
 		$crud->set_table('item')
-			 ->set_relation_n_n('all_items','items','item_stock','item_id','stock_id','production_id','items_id');
+			 ->set_field_upload('image','assets/images/items')
+			 ->set_relation('anime_origin','design_theme','theme',array('status' => 'DONE'))
+			 ->set_relation_n_n('item_stocks','items','item_stock','item_id','stock_id','production_id','items_id');
 
 		$output = $crud->render();
 
@@ -115,6 +152,12 @@ class Home extends Admin_Controller{
 
 		$output = $crud->render();
 		$this->kekgwpeduliaja($output);		
+	}
+
+	function mail_callbacks(){
+		$user = $this->ion_auth->user()->row();
+		$mail = $user->email;
+		return '<input type="text" id="email" name="email" value="'.$mail.'" disabled />';
 	}
 
 	// Manage Users
@@ -192,12 +235,6 @@ class Home extends Admin_Controller{
 		//}catch(Exception $e){
 		//	show_error($e->getMessage().' --- '.$e->getTraceAsString());
 		//}
-	}
-
-	function edit_callback($edit_user,$mail=''){
-		$user = $this->ion_auth->user()->row();
-		$mail = $user->email;
-		return '<input type="text" id="email" name="email" value="'.$mail.'" disabled />';
 	}
 
 	function ip_address($value, $row){
