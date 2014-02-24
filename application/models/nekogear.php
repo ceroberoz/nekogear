@@ -2,6 +2,108 @@
 
 class Nekogear extends CI_Model{
 
+	function get_order_payment_info($start_date,$end_date){
+		$this->db->select('*')
+				 ->from('payment')
+				 ->where('payment_date >=',$start_date)
+				 ->where('payment_date <=',$end_date)
+				 ->where('status','LUNAS');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
+	function get_order_payment_value($start_date,$end_date){
+		$this->db//->select('*')
+				 ->select('SUM(paid_value) as totals', FALSE)
+				 ->from('payment')
+				 ->where('payment_date >=',$start_date)
+				 ->where('payment_date <=',$end_date)
+				 ->where('status','LUNAS');
+		$query = $this->db->get();
+		//$row = $query->row();
+		//$paid_order_total = $row->paid_values;
+		if($query->num_rows() > 0){
+
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
+	function get_production_payment_info($start_date,$end_date){
+		$this->db->select('*')
+				 ->from('production_pay')
+				 ->where('paid_date >=',$start_date)
+				 ->where('paid_date <=',$end_date)
+				 ->where('status','LUNAS');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0){
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
+	function get_production_payment_value($start_date,$end_date){
+		$this->db//->select('*')
+				 ->select('SUM(paid_value) as totals', FALSE)
+				 ->from('production_pay')
+				 ->where('paid_date >=',$start_date)
+				 ->where('paid_date <=',$end_date)
+				 ->where('status','LUNAS');
+		$query = $this->db->get();
+		//$row = $query->row();
+		//$paid_order_total = $row->paid_values;
+		if($query->num_rows() > 0){
+
+			return $query->result();
+		}
+		else{
+			return array();
+		}
+	}
+
+	function count_profit($start_date,$end_date){
+		// penjualan
+		$this->db//->select('*')
+				 ->select('SUM(paid_value) as totals', FALSE)
+				 ->from('payment')
+				 ->where('payment_date >=',$start_date)
+				 ->where('payment_date <=',$end_date)
+				 ->where('status','LUNAS');
+
+		$penjualan = $this->db->get();
+		$jual = $penjualan->row();
+		$p_penjualan = $jual->totals;
+
+		// produksi
+		$this->db//->select('*')
+				 ->select('SUM(paid_value) as totals', FALSE)
+				 ->from('production_pay')
+				 ->where('paid_date >=',$start_date)
+				 ->where('paid_date <=',$end_date)
+				 ->where('status','LUNAS');
+
+		$produksi = $this->db->get();
+		$beli = $produksi->row();
+		$p_produksi = $beli->totals;
+
+		// hitung
+
+		$total = $p_penjualan - $p_produksi;
+		return $total;
+
+	}
+
 	function order_info($email){
 		$this->db->select('*')
 				 ->from('order')
@@ -367,7 +469,9 @@ class Nekogear extends CI_Model{
 
 	function confirm_payment(){
 		$oid = $this->input->post('order_id');
+
 		// set vars
+		//$upload_bukti	  = $this->input->post('struk_bank');
 		$account_holder	  = $this->input->post('account_holder');
 		$bank_account 	  = $this->input->post('bank_account');
 		$bank_origin	  = $this->input->post('bank_origin');
@@ -376,18 +480,26 @@ class Nekogear extends CI_Model{
 		$payment_date 	  = date('Y-m-d H:i:s');
 		$payment_method	  = "Transfer";
 		$status			  = "LUNAS";
+		//
 
-		$this->payment_method 	= $payment_method;
-		$this->bank_account 	= $bank_account;
-		$this->account_holder	= $account_holder;
-		$this->bank_destination	= $bank_destination;
-		$this->paid_value		= $paid_value;
-		$this->payment_date 	= $payment_date;
-		$this->status 			= $status;
-		$this->bank_origin		= $bank_origin;
-		// update tabel pembayaran
+		//$this_is_madness  = "$upload_bukti.png";
+		
+		$bayar_order = array(
+			//
+			//'image_verification'=> $image_data['file_name'],
+			//
+			'payment_method' 	=> $payment_method,
+			'bank_account'	 	=> $bank_account,
+			'account_holder' 	=> $account_holder,
+			'bank_destination' 	=> $bank_destination,
+			'paid_value'	 	=> $paid_value,
+			'payment_date' 		=> $payment_date,
+			'status'			=> $status,
+			'bank_origin'		=> $bank_origin
+			);
+		
 		$this->db->where('order_id',$oid);
-		$this->db->update('payment',$this);
+		$this->db->update('payment',$bayar_order);
 
 		// update tabel order
 		$process_status = "PROSES";

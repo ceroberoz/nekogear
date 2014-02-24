@@ -18,6 +18,27 @@ class Welcome extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 
+
+	function laporan_keuangan(){
+		//$this->load->helper('dropdown_tanggal');
+		// laporan beli - jual
+		$start_date = $this->input->post('start_date');
+		$end_date	= $this->input->post('end_date');
+
+		$data['r_pemesanan'] = $this->nekogear->get_order_payment_info($start_date,$end_date);
+		$data['r_pembelian'] = $this->nekogear->get_production_payment_info($start_date,$end_date);
+
+		$data['v_pemesanan'] = $this->nekogear->get_order_payment_value($start_date,$end_date);
+		$data['v_pembelian'] = $this->nekogear->get_production_payment_value($start_date,$end_date);
+
+		$data['its_magic'] = $this->nekogear->count_profit($start_date,$end_date);
+		//$data['dropdown_year'] = buildYearDropdown('year', $data['old_profile_data']['year']);
+		//echo "<pre>";
+		//die(print_r($data, TRUE));
+
+		$this->load->view('cpanel/laporankeuangan',$data);
+	}
+
 	function __construct(){
 		parent::__construct();
 		$this->load->helper(array('url','form'));

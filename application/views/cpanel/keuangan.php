@@ -23,8 +23,9 @@
 					    </item>
 					    <item class="element-divider"></item>
 					    <item class="element"><a href="<?php echo base_url();?>">beranda</a></item>
-					    <item class="element"><a href="<?php echo site_url('keuangan/home/produksi')?>">biaya pembelian</a></item>
-					    <item class="element"><a href="<?php echo site_url('keuangan/home/pesanan')?>">biaya produksi</a></item>
+					    <item class="element"><a href="<?php echo site_url('keuangan/home/pembayaran_buy')?>">biaya pembelian</a></item>
+					    <item class="element"><a href="<?php echo site_url('keuangan/home/pembayaran_pesanan')?>">biaya produksi</a></item>
+					    <item class="element"><a href="<?php echo site_url('keuangan/home/laporan_keuangan')?>">laporan keuangan</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></item>
 				    </nav>
 			    </nav>

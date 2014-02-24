@@ -32,6 +32,7 @@
 					    </item>
 					    <item class="element"><a href="<?php echo site_url('admin/home/production')?>">produksi</a></item>
 					    <item class="element"><a href="<?php echo site_url('admin/home/products')?>">produk</a></item>
+					    <item class="element"><a href="<?php echo site_url('admin/home/retur')?>">retur</a></item>
 					    <item class="element">
 					    	<a class="dropdown-toggle" href="#">member</a>
 							<ul class="dropdown-menu" data-role="dropdown">							

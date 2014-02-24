@@ -5,8 +5,9 @@ class Home extends Keuangan_Controller{
 		parent::__construct();
 
 		$this->load->database();
-		$this->load->helper('url');
+		$this->load->helper(array('url','form'));
 		$this->load->library('grocery_CRUD');
+		$this->load->model('nekogear');
 	}
 
 	function index()
@@ -18,6 +19,7 @@ class Home extends Keuangan_Controller{
 		$this->load->view('cpanel/keuangan',$output);
 	}
 
+
 	// atur keuangan - pembelian
 
 	function pembayaran_buy(){ // where status pembelian = pending
@@ -25,7 +27,7 @@ class Home extends Keuangan_Controller{
 
 		$crud->set_table('production_pay')
 			 ->set_relation('bank_origin','our_bank_account','bank_name')
-			 ->set_relation('bank_destination','all_banks','bank_name')
+			// ->set_relation('bank_destination','banks','bank_name')
 			 ->set_field_upload('paid_upload','assets/uploads/payment_buy');
 
 		$output = $crud->render();
@@ -51,7 +53,20 @@ class Home extends Keuangan_Controller{
 
 	function laporan_keuangan(){
 		// laporan beli - jual
+		$start_date = $this->input->post('start_date');
+		$end_date	= $this->input->post('end_date');
+
+		$data['r_pemesanan'] = $this->nekogear->get_order_payment_info($start_date,$end_date);
+		$data['r_pembelian'] = $this->nekogear->get_production_payment_info($start_date,$end_date);
+
+		$data['v_pemesanan'] = $this->nekogear->get_order_payment_value($start_date,$end_date);
+		$data['v_pembelian'] = $this->nekogear->get_production_payment_value($start_date,$end_date);
+
+		$data['its_magic'] = $this->nekogear->count_profit($start_date,$end_date);
+		//echo "<pre>";
+		//die(print_r($data, TRUE));
+
+		$this->load->view('cpanel/laporankeuangan',$data);
 	}
 
-	function cetak(){}
 }

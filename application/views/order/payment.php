@@ -46,6 +46,7 @@
           <div id="spacer"><br /></div>
              <!-- empty !-->
              <?php echo form_open('order/confirm');?>
+             <?php //echo form_open_multipart('order/confirm');?>
              <?php //foreach($details as $row):?>
              <input type="hidden" name="total_bill" value="<?php echo $row->total_bill;?>" />
              <table class="table">
@@ -123,6 +124,16 @@
                   </div>
                 </td>
               </tr>
+              <!-- <tr>
+                <td><strong>Bukti Pembayaran</strong></td>
+                <td>:</td>
+                <td>
+                  <div class="input-control file">
+                  <input type="file" name="struk_bank" />
+                  <button class="btn-file"></button>
+                  </div>
+                </td>
+              </tr> -->
              </table>       
           </div>
           <div class="span1"></div>

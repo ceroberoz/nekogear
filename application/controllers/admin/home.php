@@ -18,6 +18,45 @@ class Home extends Admin_Controller{
 		$this->load->view('cpanel/admin',$output);
 	}
 
+	// cek order
+	function order(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('order')
+			 ->unset_add()
+			 ->unset_delete()
+			 ->unset_edit();
+
+		$output = $crud->render();
+		$this->kekgwpeduliaja($output);
+	}
+
+	function order_detail(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('order_detail')
+			 ->unset_add()
+			 ->unset_delete()
+			 ->unset_edit();
+
+		$output = $crud->render();
+		$this->kekgwpeduliaja($output);
+	}
+
+	// retur
+	function retur(){
+		$crud = new grocery_CRUD();
+
+		$crud->set_table('item_stock')
+			 ->unset_add()
+			 ->unset_delete()
+			 ->edit_fields('returnee_stat')
+			 ->where('returnee_stat','Y');
+
+		$output = $crud->render();
+		$this->kekgwpeduliaja($output);
+	}
+
 	// Daftar komplain
 	function komplain(){
 		$crud = new grocery_CRUD();
@@ -66,6 +105,7 @@ class Home extends Admin_Controller{
 			 //->columns('theme','design','theme_date','design_date','approval_date','status')
 			// ->add_fields('theme')
 			 ->unset_add()
+			// ->unset_delete()
 			 ->edit_fields('theme','design','status')
 			// ->field_type('design','readonly')
 			 ->field_type('theme','readonly')

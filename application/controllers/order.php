@@ -50,6 +50,7 @@ class Order extends CI_Controller {
 
 			$user = $this->ion_auth->user()->row();
 			$email = $user->email;
+
 			$data['orders'] = $this->nekogear->order_details($oid);
 			$data['details'] = $this->nekogear->order_detail($oid);
 			$data['users'] = $this->nekogear->user_detail($email);
@@ -96,6 +97,26 @@ class Order extends CI_Controller {
      			
 				
 			}else{
+				// input gambar
+				//$namafile = $this->input->post('struk_bank');
+
+				//$config = array(
+				//	'upload_path' 	=> './assets/uploads/payment_order/',
+				//	'allowed_types' => 'jpg|jpeg|gif|png',
+				//	'max_size'		=> 2048,
+				//	'file_name'		=> $namafile
+				//	);
+
+				//$this->load->library('upload', $config);
+				//$this->upload->do_upload('struk_bank');
+				//$image_data = array('
+				//	upload_data' => $this->upload->data()
+				//	);
+
+				//$img_data = $this->upload->data();
+				//$data = array('image_verification' => $this->upload->data());
+				// EOI
+
 				$data = $this->nekogear->confirm_payment();
 
 				echo "<script language='javascript'>alert('Pembayaran telah kami terima, silahkan cek menu Transaksi pada sub-menu user.');
