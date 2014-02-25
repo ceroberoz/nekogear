@@ -128,34 +128,16 @@ class Home extends Admin_Controller{
 		$this->kekgwpeduliaja($output);
 	}
 
-	// Manage Production
-	function production(){
+	// Vendors
+
+	function vendors(){
 		$crud = new grocery_CRUD();
-		
-		$crud->set_table('production')
-			// ->add_fields('design_id','email','') // 
-			 ->set_relation('tees_color','colors','color')
-			 ->set_relation('design_id','design','design_id',array('status' => 'APPROVED'))
-			 ->set_relation('vendor_id','vendor','vendor_id')
-			 //->field_type('design_id','set')
-			 ->display_as('email','Email')
-			 ->display_as('vendor_id','Vendor')
-			 ->display_as('design_id','Desain')
-			 ->display_as('tees_color','Warna Tees')
-			 ->display_as('tees_material','Bahan Tees')
-			 ->display_as('total_cost','Biaya Total')
-			 ->display_as('production_form','Form Vendor')
-			 ->set_field_upload('production_form','assets/uploads/files/form_vendor')
-			 ->callback_after_insert(array($this,'update_status_produksi'))
-			 ->callback_add_field('email',array($this,'mail_callbacks'));
-		//	 ->callback_insert'production_id', array($this, 'update_status_produksi');
 
-		// Prod ID to Payment
-			 //set callback?
+		$crud->set_table('vendor')
+		     ->set_relation('city','default_cities','name',array('attribute' => 'Kota'));
+
 		$output = $crud->render();
-
 		$this->kekgwpeduliaja($output);
-
 	}
 
 	// Manage Product
@@ -172,7 +154,63 @@ class Home extends Admin_Controller{
 		$this->kekgwpeduliaja($output);
 	}
 
+	// Manage Production
+	function production(){
+		$crud = new grocery_CRUD();
+		
+		$crud->set_table('production')
+			 ->add_fields('vendor_id','design_id','tees_color','tees_material','printing_material','XS','S','M','L','XL','note','email') // 
+			 ->edit_fields('total_cost','production_form','production_date_start','production_date_end','note','status')
+			 ->set_relation('tees_color','colors','color')
+			 ->set_relation('design_id','design','design',array('status' => 'APPROVED'))
+			 ->set_relation('vendor_id','vendor','vendor_id')
+			 //->set_field_upload('design_id','assets/uploads/desain')
+			 
+			// ->callback_add_field('production_id',array($this,'add_prod_id'))
+			// ->callback_add_field('email',array($this,'mail_callbacks'))
+			// ->callback_add_field('status',array($this,'add_status_callbacks'))
+			 //->callback_after_insert(array($this,'update_status_produksi'))
+			 
+			 //->field_type('email','invisible')
+			 ->display_as('email','Email')
+			 ->display_as('vendor_id','Vendor')
+			 ->display_as('design_id','Desain')
+			 ->display_as('tees_color','Warna Tees')
+			 ->display_as('tees_material','Bahan Tees')
+			 ->display_as('total_cost','Biaya Total')
+			 ->display_as('production_form','Form Vendor')
+			 ->set_field_upload('production_form','assets/uploads/files/form_vendor');
+
+		// Prod ID to Payment
+			 //set callback?
+		$output = $crud->render();
+
+		$this->kekgwpeduliaja($output);
+
+	}
+
 	// callbacks
+
+	function add_prod_id(){
+		$key = uniqid(); // ganti ke caps
+		$production_id = strtoupper($key);
+
+		$update = array(
+			'production_id'	=> $production_id,
+			);
+		$this->db->insert('production',$update);
+
+		return '<input type="text" id="production_id" name="production_id" value="'.$production_id.'" disabled />';
+	}
+
+	function add_status_callbacks(){
+		$status = "PENDING";
+		$update = array(
+			'status'	=> $status,
+			);
+		$this->db->insert('production',$update);
+		return '<input type="text" id="status" name="status" value="'.$status.'" disabled />';
+	}
 
 	function update_status_produksi($update){
 		$key = uniqid(); // ganti ke caps
@@ -194,9 +232,14 @@ class Home extends Admin_Controller{
 		$this->kekgwpeduliaja($output);		
 	}
 
-	function mail_callbacks(){
+	function mail_callbacks($edit_user,$mail=''){
 		$user = $this->ion_auth->user()->row();
 		$mail = $user->email;
+		$usermail = array(
+			'email' => $mail
+			);
+
+		$this->db->insert('design',$usermail);
 		return '<input type="text" id="email" name="email" value="'.$mail.'" disabled />';
 	}
 

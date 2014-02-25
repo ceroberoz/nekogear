@@ -51,9 +51,10 @@ class Order extends CI_Controller {
 			$user = $this->ion_auth->user()->row();
 			$email = $user->email;
 
-			$data['orders'] = $this->nekogear->order_details($oid);
-			$data['details'] = $this->nekogear->order_detail($oid);
-			$data['users'] = $this->nekogear->user_detail($email);
+			$data['banks']		 = $this->nekogear->get_banks();
+			$data['orders']		 = $this->nekogear->order_details($oid);
+			$data['details']	 = $this->nekogear->order_detail($oid);
+			$data['users'] 		 = $this->nekogear->user_detail($email);
 			$data['bank_tujuan'] = $this->nekogear->get_our_bank();
 			$this->load->view('order/payment',$data);
 		}
@@ -63,7 +64,19 @@ class Order extends CI_Controller {
 		if (!$this->ion_auth->logged_in()){		
 			redirect('auth/login');
 		}else{
-			$data['complaint'] = $this->nekogear->confirm_complaint();
+			$namafile = $this->input->post('attach_komplain');
+
+			$config = array(
+				'upload_path' 	=> './assets/uploads/complaint/',
+				'allowed_types' => 'jpg|jpeg|gif|png',
+				'max_size'		=> 2048,
+				'file_name'		=> $namafile
+				);
+
+			$this->load->library('upload', $config);
+			$this->upload->do_upload('attach_komplain');
+
+			$this->nekogear->confirm_complaint();
 			echo "<script language='javascript'>alert('Komplain telah kami terima, silahkan tunggu balasan via email.');
 				 window.location='http://localhost/nekogear/index.php/order'</script>";	
 			//$this->load->view('order/complaint',$data);
@@ -98,26 +111,19 @@ class Order extends CI_Controller {
 				
 			}else{
 				// input gambar
-				//$namafile = $this->input->post('struk_bank');
+				$namafile = $this->input->post('struk_bank');
 
-				//$config = array(
-				//	'upload_path' 	=> './assets/uploads/payment_order/',
-				//	'allowed_types' => 'jpg|jpeg|gif|png',
-				//	'max_size'		=> 2048,
-				//	'file_name'		=> $namafile
-				//	);
+				$config = array(
+					'upload_path' 	=> './assets/uploads/payment_order/',
+					'allowed_types' => 'jpg|jpeg|gif|png',
+					'max_size'		=> 2048,
+					'file_name'		=> $namafile
+					);
 
-				//$this->load->library('upload', $config);
-				//$this->upload->do_upload('struk_bank');
-				//$image_data = array('
-				//	upload_data' => $this->upload->data()
-				//	);
+				$this->load->library('upload', $config);
+				$this->upload->do_upload('struk_bank');
 
-				//$img_data = $this->upload->data();
-				//$data = array('image_verification' => $this->upload->data());
-				// EOI
-
-				$data = $this->nekogear->confirm_payment();
+				$this->nekogear->confirm_payment();
 
 				echo "<script language='javascript'>alert('Pembayaran telah kami terima, silahkan cek menu Transaksi pada sub-menu user.');
 				window.location='http://localhost/nekogear'</script>";

@@ -45,8 +45,8 @@
           </div>
           <div id="spacer"><br /></div>
              <!-- empty !-->
-             <?php echo form_open('order/confirm');?>
-             <?php //echo form_open_multipart('order/confirm');?>
+             <?php //echo form_open('order/confirm');?>
+             <?php echo form_open_multipart('order/confirm');?>
              <?php //foreach($details as $row):?>
              <input type="hidden" name="total_bill" value="<?php echo $row->total_bill;?>" />
              <table class="table">
@@ -94,9 +94,12 @@
                 <td><strong>Bank Asal</strong></td>
                 <td>:</td>
                 <td>
-                  <div class="input-control text">
-                  <input type="text" name="bank_origin" value="" placeholder=""/>
-                  <button class="btn-clear"></button>
+                  <div class="input-control select">
+                  <select name="bank_origin">
+                  <?php foreach($banks as $row):?>
+                    <option value="<?php echo $row->name;?>"><?php echo $row->name;?></option>
+                  <?php endforeach;?>
+                  </select>
                   </div>
                 </td>
               </tr>
@@ -124,7 +127,7 @@
                   </div>
                 </td>
               </tr>
-              <!-- <tr>
+               <tr>
                 <td><strong>Bukti Pembayaran</strong></td>
                 <td>:</td>
                 <td>
@@ -133,7 +136,7 @@
                   <button class="btn-file"></button>
                   </div>
                 </td>
-              </tr> -->
+              </tr>
              </table>       
           </div>
           <div class="span1"></div>

@@ -40,6 +40,14 @@
 								<li><a href="<?php echo base_url();?>index.php/admin/home/groups">group</a></li>
 							</ul>
 					    </item>
+					    <item class="element">
+					    	<a class="dropdown-toggle" href="#">pesanan</a>
+							<ul class="dropdown-menu" data-role="dropdown">							
+								<li><a href="<?php echo base_url();?>index.php/admin/home/order">pesanan</a></li>
+								<li><a href="<?php echo base_url();?>index.php/admin/home/order_detail">order detail</a></li>
+							</ul>
+					    </item>
+					    <item class="element"><a href="<?php echo site_url('admin/home/vendors')?>">vendor</a></item>
 					    <item class="element place-right"><a href="<?php echo base_url();?>index.php/auth/logout">logout</a></item>
 				    </nav>
 			    </nav>

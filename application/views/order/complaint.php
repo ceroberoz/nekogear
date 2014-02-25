@@ -3,7 +3,7 @@
 <head>
     <TITLE>Distro Nekogear Works | Komplain</TITLE>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/metro-bootstrap.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/metroui/css/custom.css">
+    <link rel="stylesheet" media="screen, print" href="<?php echo base_url();?>assets/metroui/css/custom.css">
     <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery-2.0.3.js"></script>
     <script src="<?php echo base_url();?>assets/metroui/js/jquery/jquery.ui.widget.min.js"></script>
     <script src="<?php echo base_url();?>assets/metroui/min/metro.min.js"></script>
@@ -38,9 +38,10 @@
                         <input type="text" name="message" value="" placeholder="Komplain"/>
                     </div>
                     <div class="spacer"><br /></div>
-                    <div class="input-control text">
-                        <label>Bukti Foto</label>
-                        <input type="file" name="attachment" value="" placeholder="input text"/>
+                    <div class="input-control file">
+                        <label>Lampiran</label>
+                        <input type="file" name="attach_komplain" />
+                        <button class="btn-file"></button>
                     </div>
                     <div class="spacer"><br /></div>
                     <?php foreach($orders as $row):?>

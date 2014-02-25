@@ -199,6 +199,7 @@ class Nekogear extends CI_Model{
 	function get_banks(){
 		$this->db->select('*')
 				 ->from('banks');
+
 		$query = $this->db->get();
 
 		if($query->num_rows() > 0){
@@ -454,12 +455,15 @@ class Nekogear extends CI_Model{
 		$date = date('Y-m-d H:i:s');
 		$status = $this->input->post('status');
 
+		$upload_data = $this->upload->data();
+		$file_name = $upload_data['file_name'];
+
 		$apalah = array(
 			//'order_id' => $oid,
 			'email' => $email,
 			'subject' => $subject,
 			'message' => $message,
-			//'attachment' => $attachment,
+			'attachment' => $file_name,
 			'complaint_date' => $date,
 			'status' => $status
 			);
@@ -471,7 +475,6 @@ class Nekogear extends CI_Model{
 		$oid = $this->input->post('order_id');
 
 		// set vars
-		//$upload_bukti	  = $this->input->post('struk_bank');
 		$account_holder	  = $this->input->post('account_holder');
 		$bank_account 	  = $this->input->post('bank_account');
 		$bank_origin	  = $this->input->post('bank_origin');
@@ -483,10 +486,12 @@ class Nekogear extends CI_Model{
 		//
 
 		//$this_is_madness  = "$upload_bukti.png";
+		$upload_data = $this->upload->data();
+		$file_name = $upload_data['file_name'];
 		
 		$bayar_order = array(
 			//
-			//'image_verification'=> $image_data['file_name'],
+			'image_verification'=> $file_name,
 			//
 			'payment_method' 	=> $payment_method,
 			'bank_account'	 	=> $bank_account,
