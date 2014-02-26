@@ -95,7 +95,7 @@
                     <div class="notice bg-amber fg-white">
                         <h3>Penting!</h3><hr />
                         <p>Data yang anda berikan akan didaftarkan pada sistem Distro Nekogear Works, lanjutkan?</p>
-                        <button class="primary">Ya, buat akun saya</button> 
+                        <button class="primary">Ya, perbarui akun saya</button> 
                             <?php echo form_close();?>
                             <a href="http://localhost/nekogear"><button class="danger">Tidak, batalkan</button></a>
        

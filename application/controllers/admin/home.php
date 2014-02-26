@@ -18,17 +18,42 @@ class Home extends Admin_Controller{
 		$this->load->view('cpanel/admin',$output);
 	}
 
-	// cek order
 	function order(){
+		$this->config->load('grocery_CRUD');
+		$this->config->set_item('grocery_crud_dialog_forms',TRUE);
+		$this->config->set_item('grocery_crud_default_per_page',10);
+
+		$output_order 	= $this->order2();
+		$output_order2	= $this->order_detail();
+
+		$js_files	 = $output_order->js_files + $output_order2->js_files;
+		$css_files 	 = $output_order->css_files + $output_order2->css_files;
+		$output 	 = "<h2>Daftar Pesanan</h2>".$output_order->output."<h2>Daftar Detail Pesanan</h2>".$output_order2->output;
+
+		$this->kekgwpeduliaja((object)array(
+				'js_files' => $js_files,
+				'css_files' => $css_files,
+				'output'	=> $output
+		));	
+	}
+
+	// cek order
+	function order2(){
 		$crud = new grocery_CRUD();
 
 		$crud->set_table('order')
 			 ->unset_add()
 			 ->unset_delete()
-			 ->unset_edit();
+			 ->unset_edit()
+			 ->set_crud_url_path(site_url(strtolower("/admin/".__CLASS__."/".__FUNCTION__)),site_url(strtolower("/admin/".__CLASS__."/order")));
 
 		$output = $crud->render();
-		$this->kekgwpeduliaja($output);
+		//$this->kekgwpeduliaja($output);
+		if($crud->getState() != 'list') {
+			$this->kekgwpeduliaja($output);
+		} else {
+			return $output;
+		}
 	}
 
 	function order_detail(){
@@ -37,10 +62,16 @@ class Home extends Admin_Controller{
 		$crud->set_table('order_detail')
 			 ->unset_add()
 			 ->unset_delete()
-			 ->unset_edit();
+			 ->unset_edit()
+			 ->set_crud_url_path(site_url(strtolower("/admin/".__CLASS__."/".__FUNCTION__)),site_url(strtolower("/admin/".__CLASS__."/order")));
 
 		$output = $crud->render();
-		$this->kekgwpeduliaja($output);
+		//$this->kekgwpeduliaja($output);
+		if($crud->getState() != 'list') {
+			$this->kekgwpeduliaja($output);
+		} else {
+			return $output;
+		}
 	}
 
 	// retur
