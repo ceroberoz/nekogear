@@ -11,7 +11,7 @@
 <body class="metro">
     <div class="grid">
         <div class="row">
-            <h1><a href="<?php echo base_url();?>index.php/order"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Detail Pesanan</h1>
+            <h1><a href="<?php echo base_url();?>index.php/order"><i class="icon-arrow-left-3" style="color:black"></i></a>&nbsp;Komplain Pesanan</h1>
 
               <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

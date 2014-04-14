@@ -82,7 +82,7 @@ class Home extends Admin_Controller{
 			 ->unset_add()
 			 ->unset_delete()
 			 ->edit_fields('returnee_stat')
-			 ->where('returnee_stat','Y');
+			 ->where('returnee_stat','PENDING');
 
 		$output = $crud->render();
 		$this->kekgwpeduliaja($output);

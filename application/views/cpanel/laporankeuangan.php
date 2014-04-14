@@ -29,19 +29,28 @@
                         <div class="span12">
                             <?php echo form_open('keuangan/home/print_keuangan');?>
                             <div class="span4">
-                                <div class="input-control text">
-                                    <label>Tanggal Awal :</label>
-                                        <input name="start_date" type="text" value="" placeholder="YYYY-MM-DD"/>
+                                <label>Tanggal Awal :</label>
+                                <div class="input-control text" data-role="datepicker"
+                                data-date="2013-01-01"
+                                data-format="yyyy-mm-dd"
+                                data-position="top|bottom"
+                                data-effect="none|slide|fade">
+                                    <input type="text" name="start_date">
+                                    <button class="btn-date"></button>
                                 </div>
                             </div>
 
                             <div class="span4">
-                                <div class="input-control text">
-                                    <label>Tanggal Akhir :</label>
-                                        <input name="end_date" type="text" value="" placeholder="YYYY-MM-DD"/>
+                                <label>Tanggal Akhir :</label>
+                                <div class="input-control text" data-role="datepicker"
+                                data-date="2013-01-01"
+                                data-format="yyyy-mm-dd"
+                                data-position="top|bottom"
+                                data-effect="none|slide|fade">
+                                    <input type="text" name="end_date">
+                                    <button class="btn-date"></button>
                                 </div>
                             </div>
-
                             <div class="span4">
                                 <div class="notice bg-amber fg-white">
                                     <a href="<?php echo base_url('index.php/keuangan/home/print_keuangan');?>"><button class="primary">Periksa Laporan Keuangan</button></a>

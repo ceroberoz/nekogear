@@ -725,7 +725,7 @@ div.pGroup {
 .flexigrid a img
 {
 	border: none;
-	max-width: 50%;
+	max-height: 140px;
 }
 .flexigrid textarea
 {

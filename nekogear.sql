@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2014 at 10:31 AM
+-- Generation Time: Apr 14, 2014 at 09:26 AM
 -- Server version: 5.6.14
 -- PHP Version: 5.5.6
 
@@ -19,6 +19,81 @@ SET time_zone = "+00:00";
 --
 -- Database: `nekogear`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `banks`
+--
+
+CREATE TABLE IF NOT EXISTS `banks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `bank_ids` varchar(4) NOT NULL,
+  `logo` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+
+--
+-- Dumping data for table `banks`
+--
+
+INSERT INTO `banks` (`id`, `name`, `bank_ids`, `logo`) VALUES
+(1, 'Bank Mandiri', '008', ''),
+(2, 'Bank BNI', '009', ''),
+(3, 'Bank BRI', '002', ''),
+(4, 'Bank Danamon', '011', ''),
+(5, 'Bank Niaga', '022', ''),
+(6, 'Bank Permata', '013', ''),
+(7, 'Bank Mega', '426', ''),
+(8, 'Bank Bukopin', '441', ''),
+(9, 'Bank Muamalat Indonesia', '147', ''),
+(10, 'Bank NISP', '028', ''),
+(11, 'Bank Mayapada', '097', ''),
+(12, 'Bank Syariah Mandiri', '451', ''),
+(13, 'Bank Syariah Mega Indonesia', '506', ''),
+(14, 'Bank Arta Niaga Kencana', '020', ''),
+(15, 'Bank Buana Indonesia', '023', ''),
+(16, 'ABN AMRO Bank', '052', ''),
+(17, 'Lippobank', '026', ''),
+(18, 'Bank Ganesha', '161', ''),
+(19, 'Bank Mayora', '553', ''),
+(20, 'Bank International Indonesia', '016', ''),
+(21, 'Bank Bumiputera', '485', ''),
+(22, 'Bank Nusantara Parahyangan', '145', ''),
+(23, 'Bank Mestika', '151', ''),
+(24, 'Bank IFI', '093', ''),
+(25, 'Bank Panin', '019', ''),
+(26, 'Bank Commonwealth', '950', ''),
+(27, 'Bank Agroniaga', '494', ''),
+(28, 'Bank HS 1906', '212', ''),
+(29, 'Bank Eksekutif', '558', ''),
+(30, 'Bank Artos Indonesia', '542', ''),
+(31, 'Bank Swadesi', '146', ''),
+(32, 'Standard Chartered Bank', '050', ''),
+(33, 'Bank BPD Lampung', '121', ''),
+(34, 'BPD DIY', '112', ''),
+(35, 'Bank Sulut', '127', ''),
+(36, 'Bank BPD Jambi', '115', ''),
+(37, 'Bank Riau', '119', ''),
+(38, 'BPD Bali', '129', ''),
+(39, 'Bank BPD Kaltim', '124', ''),
+(40, 'Bank Jatim', '114', ''),
+(41, 'Bank Nagari', '118', ''),
+(42, 'BPD Aceh', '116', ''),
+(43, 'Bank Papua', '132', ''),
+(44, 'BPD Kalsel', '122', ''),
+(45, 'Bank DKI', '111', ''),
+(46, 'Bank Ina Perdana', '513', ''),
+(47, 'Bank Sumut', '117', ''),
+(48, 'Bank Maluku', '131', ''),
+(49, 'Bank BPD Sulsel', '126', ''),
+(50, 'Bank NTT', '130', ''),
+(51, 'Bank BPD NTB', '128', ''),
+(52, 'Bank Jabar', '110', ''),
+(53, 'BPD Kalteng', '125', ''),
+(54, 'Bank BPD Sultra', '135', ''),
+(55, 'Bank Bengkulu', '133', '');
 
 -- --------------------------------------------------------
 
@@ -62,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 --
 
 INSERT INTO `ci_sessions` (`session_id`, `ip_address`, `user_agent`, `last_activity`, `user_data`) VALUES
-('df442424a03499363f0cd4af2e0de96a', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0', 1392629144, 'a:6:{s:8:"identity";s:19:"ceroberoz@gmail.com";s:8:"username";s:12:"Perdana Hadi";s:5:"email";s:19:"ceroberoz@gmail.com";s:7:"user_id";s:1:"2";s:14:"old_last_login";s:10:"1392040325";s:12:"refered_from";s:51:"http://localhost/nekogear/index.php/produk/detail/3";}');
+('fbfdf800d45312a804f0fd80849042c6', '::1', 'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:28.0) Gecko/20100101 Firefox/28.0', 1395350910, 'a:6:{s:9:"user_data";s:0:"";s:8:"identity";s:19:"gudang@nekogear.com";s:8:"username";s:7:"gu dang";s:5:"email";s:19:"gudang@nekogear.com";s:7:"user_id";s:2:"18";s:14:"old_last_login";s:10:"1394277179";}');
 
 -- --------------------------------------------------------
 
@@ -944,10 +1019,20 @@ CREATE TABLE IF NOT EXISTS `design` (
   `design` varchar(255) NOT NULL,
   `email` varchar(55) NOT NULL,
   `design_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `approval_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `approval_date` datetime NOT NULL,
   `status` enum('PENDING','SUBMITTED','APPROVED','REJECTED') NOT NULL,
   PRIMARY KEY (`design_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `design`
+--
+
+INSERT INTO `design` (`design_id`, `theme`, `design`, `email`, `design_date`, `approval_date`, `status`) VALUES
+(2, '3', '4dd5a-nisekoi.full.1637441.jpg', 'admin@admin.com', '2014-02-25 04:07:12', '2014-02-25 04:07:12', 'APPROVED'),
+(7, '3', '710cb-nisekoi.full.1637440.jpg', 'admin@admin.com', '2014-02-25 06:01:25', '0000-00-00 00:00:00', 'PENDING'),
+(8, '', '', 'admin@admin.com', '2014-03-08 18:15:46', '0000-00-00 00:00:00', 'PENDING'),
+(9, '7', '844dd-345.jpg', '', '2014-03-08 18:17:09', '0000-00-00 00:00:00', 'APPROVED');
 
 -- --------------------------------------------------------
 
@@ -962,7 +1047,18 @@ CREATE TABLE IF NOT EXISTS `design_theme` (
   `theme_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('PENDING','DONE') NOT NULL,
   PRIMARY KEY (`theme_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `design_theme`
+--
+
+INSERT INTO `design_theme` (`theme_id`, `email`, `theme`, `theme_date`, `status`) VALUES
+(3, '', 'Nisekoi', '2014-02-17 18:20:01', 'PENDING'),
+(4, '', 'Gundam', '2014-02-17 18:24:28', 'PENDING'),
+(5, '', 'Wooser', '2014-02-17 18:33:41', 'PENDING'),
+(6, '', 'Haruhi', '2014-02-17 18:48:04', 'PENDING'),
+(7, '', 'Robot', '2014-03-08 18:16:08', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -984,9 +1080,9 @@ CREATE TABLE IF NOT EXISTS `groups` (
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
 (2, 'members', 'General User'),
-(3, 'gudang', 'divisi gudang'),
-(4, 'keuangan', 'divisi keuangan'),
-(5, 'desainer', 'divisi desain');
+(3, 'gudang', 'Divisi Gudang'),
+(4, 'keuangan', 'Divisi Keuangan'),
+(5, 'desainer', 'Desainer');
 
 -- --------------------------------------------------------
 
@@ -1003,7 +1099,7 @@ CREATE TABLE IF NOT EXISTS `item` (
   `price` float NOT NULL,
   `anime_origin` varchar(55) NOT NULL,
   `character_name` varchar(55) NOT NULL,
-  `tees_material` enum('Cotton Combad 30''s','Cotton Combad 24''s','Cotton Combad 20''s') NOT NULL,
+  `tees_material` enum('Cotton Combad 30','Cotton Combad 24','Cotton Combad 20') NOT NULL,
   `printing_material` enum('Superwhite','Rubber','Foam','Glow','Gold / Silver Dust') NOT NULL,
   `printing_size` enum('A4','A3','A2','A1','Full Print') NOT NULL,
   `notes` text NOT NULL,
@@ -1016,9 +1112,9 @@ CREATE TABLE IF NOT EXISTS `item` (
 --
 
 INSERT INTO `item` (`item_id`, `SKU`, `image`, `category`, `weight`, `price`, `anime_origin`, `character_name`, `tees_material`, `printing_material`, `printing_size`, `notes`, `published`) VALUES
-(1, 'Nisekoi-01', 'assets/images/items/nisekoi-01-blue.jpg', 'Ready Stock', 0.5, 90000, 'Nisekoi', 'Kirisaki Chitoge', 'Cotton Combad 30''s', 'Superwhite', 'A2', '', 'Y'),
-(2, 'Nisekoi-02', 'assets/images/items/nisekoi-02-red.jpg', 'Ready Stock', 0.5, 90000, 'Nisekoi', 'Ichijou Raku', 'Cotton Combad 30''s', 'Rubber', 'A2', '', 'Y'),
-(3, 'Wooser-01', 'assets/images/items/wooser-01-yellow.jpg', 'Pre Order', 0.5, 90000, 'Wooser no Sono Higurashi Kakusei-hen', 'Wooser', 'Cotton Combad 30''s', 'Foam', 'A3', '', 'Y');
+(1, 'Nisekoi-01', 'nisekoi-01-blue.jpg', 'Ready Stock', 0.5, 90000, '3', 'Kirisaki Chitoge', 'Cotton Combad 30', 'Superwhite', 'A2', '', 'Y'),
+(2, 'Nisekoi-02', 'nisekoi-02-red.jpg', 'Ready Stock', 0.5, 90000, '3', 'Ichijou Raku', 'Cotton Combad 24', 'Rubber', 'A2', '', 'Y'),
+(3, 'Wooser-01', 'wooser-01-yellow.jpg', 'Pre Order', 0.5, 90000, '4', 'Wooser', 'Cotton Combad 20', 'Foam', 'A3', '<p>\r\n Produk pre-order, perkiraan selesai tanggal xxxx-xx-xx</p>\r\n', 'Y');
 
 -- --------------------------------------------------------
 
@@ -1038,16 +1134,16 @@ CREATE TABLE IF NOT EXISTS `items` (
 --
 
 INSERT INTO `items` (`items_id`, `item_id`, `stock_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 1, 6),
-(7, 1, 7),
-(8, 1, 8),
-(9, 1, 9),
-(10, 1, 10),
+(0, 1, 1),
+(1, 1, 2),
+(2, 1, 3),
+(3, 1, 4),
+(4, 1, 5),
+(5, 1, 6),
+(6, 1, 7),
+(7, 1, 8),
+(8, 1, 9),
+(9, 1, 10),
 (11, 2, 11),
 (12, 2, 12),
 (13, 2, 13),
@@ -1072,6 +1168,7 @@ CREATE TABLE IF NOT EXISTS `item_stock` (
   `stock_quantity` smallint(5) NOT NULL DEFAULT '0',
   `production_id` int(11) NOT NULL,
   `returnee` enum('Y','N') NOT NULL,
+  `returnee_stat` enum('-','PENDING','PROSES','SELESAI') NOT NULL,
   PRIMARY KEY (`stock_id`),
   UNIQUE KEY `stock_id` (`stock_id`) USING BTREE
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
@@ -1080,27 +1177,27 @@ CREATE TABLE IF NOT EXISTS `item_stock` (
 -- Dumping data for table `item_stock`
 --
 
-INSERT INTO `item_stock` (`stock_id`, `colour`, `size`, `stock_quantity`, `production_id`, `returnee`) VALUES
-(1, 'Putih', 'XS', -2, 0, 'N'),
-(2, 'Putih', 'S', -2, 0, 'N'),
-(3, 'Putih', 'M', 0, 0, 'N'),
-(4, 'Putih', 'L', 0, 0, 'N'),
-(5, 'Putih', 'XL', 1, 0, 'N'),
-(6, 'Biru', 'XS', 0, 0, 'N'),
-(7, 'Biru', 'S', 0, 0, 'N'),
-(8, 'Biru', 'M', -2, 0, 'N'),
-(9, 'Biru', 'L', -2, 0, 'N'),
-(10, 'Biru', 'XL', 0, 0, 'N'),
-(11, 'Merah', 'XS', 0, 0, 'N'),
-(12, 'Merah', 'S', 0, 0, 'N'),
-(13, 'Merah', 'M', 0, 0, 'N'),
-(14, 'Merah', 'L', 0, 0, 'N'),
-(15, 'Merah', 'XL', 0, 0, 'N'),
-(16, 'Kuning', 'XS', 59, 0, 'N'),
-(17, 'Kuning', 'S', 7, 0, 'N'),
-(18, 'Kuning', 'M', 11, 0, 'N'),
-(19, 'Kuning', 'L', 9, 0, 'N'),
-(20, 'Kuning', 'XL', 8, 0, 'N');
+INSERT INTO `item_stock` (`stock_id`, `colour`, `size`, `stock_quantity`, `production_id`, `returnee`, `returnee_stat`) VALUES
+(1, 'Putih', 'XS', 3, 8, 'Y', 'PENDING'),
+(2, 'Putih', 'S', 3, 8, 'N', '-'),
+(3, 'Putih', 'M', 2, 8, 'N', '-'),
+(4, 'Putih', 'L', 1, 8, 'N', '-'),
+(5, 'Putih', 'XL', 0, 8, 'N', '-'),
+(6, 'Biru', 'XS', 1, 8, 'N', '-'),
+(7, 'Biru', 'S', 2, 0, 'N', '-'),
+(8, 'Biru', 'M', 5, 0, 'N', '-'),
+(9, 'Biru', 'L', 4, 0, 'N', '-'),
+(10, 'Biru', 'XL', 2, 0, 'N', '-'),
+(11, 'Merah', 'XS', 3, 0, 'N', '-'),
+(12, 'Merah', 'S', 4, 0, 'N', '-'),
+(13, 'Merah', 'M', 3, 0, 'N', '-'),
+(14, 'Merah', 'L', 2, 0, 'N', '-'),
+(15, 'Merah', 'XL', 2, 0, 'N', '-'),
+(16, 'Kuning', 'XS', 7, 0, 'N', '-'),
+(17, 'Kuning', 'S', 8, 0, 'N', '-'),
+(18, 'Kuning', 'M', 1, 0, 'N', '-'),
+(19, 'Kuning', 'L', 3, 0, 'N', '-'),
+(20, 'Kuning', 'XL', 6, 0, 'N', '-');
 
 -- --------------------------------------------------------
 
@@ -1133,6 +1230,18 @@ CREATE TABLE IF NOT EXISTS `order` (
   UNIQUE KEY `order_id` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`order_id`, `email`, `total_bill`, `order_date`, `process_date`, `status`) VALUES
+('530C7BD81C7', 'ceroberoz@gmail.com', 285000, '2014-02-25 12:17:44', '2014-02-25 12:18:46', 'TERKIRIM'),
+('530CB98BD81', 'admin@admin.com', 190000, '2014-02-25 16:40:59', '2014-02-25 16:41:27', 'PROSES'),
+('531AFABBDA8', 'ceroberoz@gmail.com', 285000, '2014-03-08 12:10:51', '2014-03-08 12:12:28', 'TERKIRIM'),
+('532194A5CDA', 'ceroberoz@gmail.com', 380000, '2014-03-13 12:21:09', '2014-03-13 12:22:29', 'PROSES'),
+('532B588D3CD', 'ceroberoz@gmail.com', 285000, '2014-03-20 22:07:25', '0000-00-00 00:00:00', 'PENDING'),
+('532B588DCD2', 'ceroberoz@gmail.com', 285000, '2014-03-20 22:07:25', '0000-00-00 00:00:00', 'PENDING');
+
 -- --------------------------------------------------------
 
 --
@@ -1146,9 +1255,22 @@ CREATE TABLE IF NOT EXISTS `order_complaint` (
   `message` varchar(255) NOT NULL,
   `attachment` varchar(255) NOT NULL,
   `complaint_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('PENDING','SOLVED') NOT NULL,
+  `status` enum('PENDING','DONE','SOLVED') NOT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_complaint`
+--
+
+INSERT INTO `order_complaint` (`order_id`, `email`, `subject`, `message`, `attachment`, `complaint_date`, `status`) VALUES
+('530C7BD81C7', '', '', '', '', '2014-02-25 18:17:44', 'PENDING'),
+('530CB98BD81', '', '', '', '', '2014-02-25 22:41:00', 'PENDING'),
+('531AFABBDA8', '', '', '', '', '2014-03-08 18:10:52', 'PENDING'),
+('5321929917B', '', '', '', '', '2014-03-13 18:12:25', 'PENDING'),
+('532194A5CDA', '', '', '', '', '2014-03-13 18:21:10', 'PENDING'),
+('532B588D3CD', '', '', '', '', '2014-03-21 04:07:26', 'PENDING'),
+('532B588DCD2', '', '', '', '', '2014-03-21 04:07:27', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -1157,6 +1279,7 @@ CREATE TABLE IF NOT EXISTS `order_complaint` (
 --
 
 CREATE TABLE IF NOT EXISTS `order_detail` (
+  `detail_id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` varchar(11) NOT NULL,
   `SKU` varchar(55) NOT NULL,
   `category` varchar(55) NOT NULL,
@@ -1164,8 +1287,30 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   `size` varchar(3) NOT NULL,
   `color` varchar(55) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `order_price` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `order_price` double NOT NULL,
+  PRIMARY KEY (`detail_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `order_detail`
+--
+
+INSERT INTO `order_detail` (`detail_id`, `order_id`, `SKU`, `category`, `weight`, `size`, `color`, `quantity`, `order_price`) VALUES
+(1, '530C7BD81C7', 'Wooser-01', 'Pre Order', 1, 'XL', 'Kuning', 2, 180000),
+(2, '530C7BD81C7', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
+(3, '530CB98BD81', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 2, 180000),
+(4, '531AFABBDA8', 'Wooser-01', 'Pre Order', 0.5, 'XS', 'Kuning', 1, 90000),
+(5, '531AFABBDA8', 'Wooser-01', 'Pre Order', 0.5, 'L', 'Kuning', 1, 90000),
+(6, '531AFABBDA8', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Putih', 1, 90000),
+(9, '532194A5CDA', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
+(10, '532194A5CDA', 'Nisekoi-01', 'Ready Stock', 0.5, 'XS', 'Biru', 1, 90000),
+(11, '532194A5CDA', 'Wooser-01', 'Pre Order', 1, 'XS', 'Kuning', 2, 180000),
+(12, '532B588D3CD', 'Wooser-01', 'Pre Order', 0.5, 'XS', 'Kuning', 1, 90000),
+(13, '532B588D3CD', 'Wooser-01', 'Pre Order', 0.5, 'XL', 'Kuning', 1, 90000),
+(14, '532B588D3CD', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000),
+(15, '532B588DCD2', 'Wooser-01', 'Pre Order', 0.5, 'XS', 'Kuning', 1, 90000),
+(16, '532B588DCD2', 'Wooser-01', 'Pre Order', 0.5, 'XL', 'Kuning', 1, 90000),
+(17, '532B588DCD2', 'Nisekoi-02', 'Ready Stock', 0.5, 'XS', 'Merah', 1, 90000);
 
 -- --------------------------------------------------------
 
@@ -1187,8 +1332,8 @@ CREATE TABLE IF NOT EXISTS `our_bank_account` (
 --
 
 INSERT INTO `our_bank_account` (`our_bank_id`, `bank_name`, `bank_account`, `owner`, `bank_logo`) VALUES
-(2, 'Mandiri', '34567887654567', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-mandiri.png'),
-(3, 'BCA', '456789876556', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-bca.png'),
+(2, 'Bank Mandiri', '34567887654567', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-mandiri.png'),
+(3, 'Bank BCA', '456789876556', 'Perdana Hadi Sanjaya', 'assets/images/bank/logo-bca.png'),
 (4, '-', '', '', 'assets/images/bank/logo-null.png');
 
 -- --------------------------------------------------------
@@ -1204,13 +1349,25 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `account_holder` varchar(55) NOT NULL,
   `bank_account` varchar(55) NOT NULL,
   `bank_origin` varchar(55) NOT NULL,
-  `bank_destination` enum('-','BCA','Mandiri') NOT NULL,
+  `bank_destination` enum('-','Bank BCA','Bank Mandiri') NOT NULL,
   `paid_value` double NOT NULL,
   `image_verification` varchar(255) NOT NULL,
   `payment_date` datetime NOT NULL,
   `status` enum('PENDING','LUNAS') NOT NULL,
   PRIMARY KEY (`payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `order_id`, `payment_method`, `account_holder`, `bank_account`, `bank_origin`, `bank_destination`, `paid_value`, `image_verification`, `payment_date`, `status`) VALUES
+(1, '530C7BD81C7', 'Transfer', 'Perdana Hadi', '8000080000', 'Bank DKI', 'Bank Mandiri', 295000, 'Nov_[02].png', '2014-02-25 12:18:46', 'LUNAS'),
+(2, '530CB98BD81', 'Transfer', 'Perdana Hadi', '90009090', 'Bank Mandiri', 'Bank Mandiri', 190000, 'useless_maid.png', '2014-02-25 16:41:27', 'LUNAS'),
+(3, '531AFABBDA8', 'Transfer', 'Perdana', '0879987', 'Bank Mandiri', 'Bank Mandiri', 285000, '440.jpg', '2014-03-08 12:12:28', 'LUNAS'),
+(5, '532194A5CDA', 'Transfer', 'Perdana Hadi', '147000000000808', 'Bank Mandiri', 'Bank Mandiri', 380000, 'kill-la-kill_twIcon1_4.png', '2014-03-13 12:22:29', 'LUNAS'),
+(6, '532B588D3CD', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING'),
+(7, '532B588DCD2', '-', '', '', '', '-', 0, '', '0000-00-00 00:00:00', 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -1221,7 +1378,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
 CREATE TABLE IF NOT EXISTS `production` (
   `production_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
-  `vendor_id` int(11) NOT NULL,
+  `vendor_id` varchar(55) NOT NULL,
   `design_id` int(11) NOT NULL,
   `tees_color` varchar(255) NOT NULL,
   `tees_material` enum('Cotton Combad 30''s','Cotton Combad 24''s','Cotton Combad 20''s') NOT NULL,
@@ -1238,6 +1395,27 @@ CREATE TABLE IF NOT EXISTS `production` (
   `note` varchar(255) NOT NULL,
   `status` enum('PENDING','PROD. START','PROD. END') NOT NULL,
   PRIMARY KEY (`production_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `production`
+--
+
+INSERT INTO `production` (`production_id`, `email`, `vendor_id`, `design_id`, `tees_color`, `tees_material`, `printing_material`, `XS`, `S`, `M`, `L`, `XL`, `total_cost`, `production_form`, `production_date_start`, `production_date_end`, `note`, `status`) VALUES
+(8, 'admin@admin.com', '0', 2, '19', 'Cotton Combad 24''s', 'Foam', 2, 4, 5, 6, 7, 900000, '997bc-dfm.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 'PROD. END'),
+(9, '', 'HYV', 9, '5', '', 'Superwhite', 2, 2, 3, 5, 6, 0, '2a0cb-1173.jpg', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 'PROD. END');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `production_design`
+--
+
+CREATE TABLE IF NOT EXISTS `production_design` (
+  `prodes_id` int(11) NOT NULL AUTO_INCREMENT,
+  `production_id` int(11) NOT NULL,
+  `design_id` int(11) NOT NULL,
+  PRIMARY KEY (`prodes_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1247,8 +1425,9 @@ CREATE TABLE IF NOT EXISTS `production` (
 --
 
 CREATE TABLE IF NOT EXISTS `production_pay` (
-  `prod_pay_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prod_pay_id` int(11) NOT NULL,
   `email` varchar(55) NOT NULL,
+  `payment_type` enum('TRANSFER','CASH') NOT NULL,
   `bank_origin` int(11) NOT NULL,
   `acc_number` varchar(55) NOT NULL,
   `acc_name` varchar(55) NOT NULL,
@@ -1256,9 +1435,18 @@ CREATE TABLE IF NOT EXISTS `production_pay` (
   `bank_destination` int(11) NOT NULL,
   `acc_number_dest` varchar(55) NOT NULL,
   `paid_upload` varchar(255) NOT NULL,
+  `paid_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('DP','LUNAS') NOT NULL,
   PRIMARY KEY (`prod_pay_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `production_pay`
+--
+
+INSERT INTO `production_pay` (`prod_pay_id`, `email`, `payment_type`, `bank_origin`, `acc_number`, `acc_name`, `paid_value`, `bank_destination`, `acc_number_dest`, `paid_upload`, `paid_date`, `status`) VALUES
+(8, 'admin@admin.com', 'TRANSFER', 3, '789789', 'Nekogear Co', 900000, 9, '80808080', '', '0000-00-00 00:00:00', 'LUNAS'),
+(9, '', 'TRANSFER', 3, '8659876589765', 'Perdana', 8500000, 15, '567897667656789', '', '2014-04-01 00:00:00', 'LUNAS');
 
 -- --------------------------------------------------------
 
@@ -1275,6 +1463,18 @@ CREATE TABLE IF NOT EXISTS `shipping` (
   `status` enum('PENDING','TERKIRIM') NOT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shipping`
+--
+
+INSERT INTO `shipping` (`co_note`, `shipping_date`, `expedition`, `order_id`, `fees`, `status`) VALUES
+('100000101', '2014-02-25 12:19:48', 'JNE', '530C7BD81C7', 15000, 'TERKIRIM'),
+('', '0000-00-00 00:00:00', 'JNE', '530CB98BD81', 10000, 'PENDING'),
+('DPK0989876976976', '2014-03-08 12:14:25', 'JNE', '531AFABBDA8', 15000, 'TERKIRIM'),
+('', '0000-00-00 00:00:00', 'JNE', '532194A5CDA', 20000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '532B588D3CD', 15000, 'PENDING'),
+('', '0000-00-00 00:00:00', 'JNE', '532B588DCD2', 15000, 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -1303,15 +1503,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `postal_code` varchar(6) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `address`, `city`, `postal_code`, `phone`) VALUES
-(1, '\0\0', 'administrator', '523fe770aba8138513173ccabc4deaeaa7e76a24', '9462e8eee0', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1392571315, 1, 'Admin', 'istrator', 'Bukit Waringin 29', 169, '16321', '085780909147'),
-(2, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'Perdana Hadi', 'f4634e9898054d040fae92299bc97dfb927e5e83', NULL, 'ceroberoz@gmail.com', NULL, NULL, NULL, NULL, 1390808090, 1392626022, 1, 'Perdana', 'Hadi', 'Bukit Waringin C17/3', 152, '16321', NULL),
+(1, '\0\0', 'administrator', '523fe770aba8138513173ccabc4deaeaa7e76a24', '9462e8eee0', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1394737973, 1, 'Admin', 'istrator', 'Bukit Waringin 29', 169, '16321', '085780909147'),
+(2, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'Perdana Hadi', 'f4634e9898054d040fae92299bc97dfb927e5e83', NULL, 'ceroberoz@gmail.com', NULL, NULL, NULL, NULL, 1390808090, 1395349597, 1, 'Perdana', 'Hadi', 'Bukit Waringin C17/3', 152, '16321', NULL),
 (3, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'andre christian', '6033a1048a09a7a48e4a42b1f6768d4e76cf54eb', NULL, 'andre@gmail.com', NULL, NULL, NULL, NULL, 1390896927, 1390896956, 1, 'Andre', 'Christian', '', 0, '', '0817171717'),
 (4, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'niwa daisuke', '671e6141c60f66b891d9cf80de59c5e9f800b730', NULL, 'ceropyon@yahoo.com', NULL, NULL, NULL, NULL, 1391020634, 1391020634, 1, 'Niwa', 'Daisuke', 'Jalan Apalah 9', 0, '16322', '085780909111'),
 (5, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'Perdana Hadi', 'fc9d39cab528c557aaf9f1268b617e319ce0a3f8', NULL, 'ceroberoz@yahoo.com', NULL, NULL, NULL, NULL, 1391022858, 1391022877, 1, 'Perdana', 'Hadi', 'Dimana aja boleh', 0, '16321', '085780909147'),
@@ -1323,7 +1523,10 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`
 (12, '', '', '80ed7d556bbb5161997e57eaeac26bef750dcca6', NULL, 'resnu@mail.com', NULL, NULL, NULL, NULL, 1392270443, NULL, 1, 'Resnu', 'Wanwan', 'di sebelah rumahnya orang', 250, '67869', '75678998765'),
 (13, '', '', '26ded6db79942cc80fe984fa1ae83ccc67dee1c7', NULL, 'sanjaya@mail.com', NULL, NULL, NULL, NULL, 1392291486, NULL, 1, 'Perdana', 'Hadi', '', 0, '', NULL),
 (14, '', '', '110240e8681d621b5bad72b50b0ca97d11836e4b', NULL, 'lalala@lala.com', NULL, NULL, NULL, NULL, 1392295425, NULL, 1, 'Mikaku', 'Nina', 'entahah', 6, '567766', '7898789'),
-(15, '', '', '3b4fe777abe0f04c3366bb01b0d4344e75364d6a', NULL, 'uuu@yay.com', NULL, NULL, NULL, NULL, 1392295768, NULL, 1, 'Uuuu', 'Yay', 'cero7410', 84, '678876', '67897678');
+(15, '', '', '3b4fe777abe0f04c3366bb01b0d4344e75364d6a', NULL, 'uuu@yay.com', NULL, NULL, NULL, NULL, 1392295768, NULL, 1, 'Uuuu', 'Yay', 'cero7410', 84, '678876', '67897678'),
+(16, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'desa iner', '59faa1ab975e601a49f6475fc44543efd2e1a636', NULL, 'desainer@nekogear.com', NULL, NULL, NULL, NULL, 1393297574, 1394708875, 1, 'Desa', 'Iner', '-', 250, '16324', '00000000000001'),
+(17, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'keu angan', '7eae6f16685f48fed022e77e812125a7074f20b5', NULL, 'keuangan@nekogear.com', NULL, NULL, NULL, NULL, 1393297611, 1394709817, 1, 'Keu', 'Angan', '-', 245, '56786', '00000000000001'),
+(18, '\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 'gu dang', '31cf8fe123cfdb95255b2ffc7b5ad5ceace4e7cc', NULL, 'gudang@nekogear.com', NULL, NULL, NULL, NULL, 1393297645, 1395350514, 1, 'Gu', 'Dang', '-', 262, '56776', '00000000000001');
 
 -- --------------------------------------------------------
 
@@ -1339,7 +1542,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   UNIQUE KEY `uc_users_groups` (`user_id`,`group_id`),
   KEY `fk_users_groups_users1_idx` (`user_id`),
   KEY `fk_users_groups_groups1_idx` (`group_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `users_groups`
@@ -1363,7 +1566,38 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (13, 12, 2),
 (14, 13, 2),
 (15, 14, 2),
-(16, 15, 2);
+(16, 15, 2),
+(20, 16, 2),
+(25, 16, 5),
+(21, 17, 2),
+(24, 17, 4),
+(22, 18, 2),
+(23, 18, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendor`
+--
+
+CREATE TABLE IF NOT EXISTS `vendor` (
+  `vendor_id` varchar(55) NOT NULL,
+  `name` varchar(55) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `email` varchar(55) NOT NULL,
+  `specialized` set('Tees','Hoodie','Jacket','Merchandise') NOT NULL,
+  `reputation` enum('POOR','GOOD','TRUSTED') NOT NULL,
+  PRIMARY KEY (`vendor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `vendor`
+--
+
+INSERT INTO `vendor` (`vendor_id`, `name`, `address`, `city`, `email`, `specialized`, `reputation`) VALUES
+('CAP', 'Custom Apparel', '', '166', 'ordermakeyourtees@yahoo.com', 'Tees', 'GOOD'),
+('HYV', 'Helloyello Co', '', '211', 'vendor@vint8.com', 'Tees', 'TRUSTED');
 
 --
 -- Constraints for dumped tables

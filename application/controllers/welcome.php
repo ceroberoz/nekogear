@@ -51,12 +51,12 @@ class Welcome extends CI_Controller {
 
 	public function index()
 	{
-		//$this->load->view('welcome_message');
+		$this->load->view('welcome_message');
 		//$this->load->model('nekogear');
-		$data['dummy'] = $this->nekogear->dummy_system();
-
-		echo "<pre>";
-		die(print_r($data, TRUE));
+		//$data['dummy'] = $this->nekogear->dummy_system();
+//
+//		echo "<pre>";
+//		die(print_r($data, TRUE));
 	}
 
 	function update(){
